@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RTM Project Tracker</title>
+<style>
+:root{
+  --bg:#f4f7fb;--card:#ffffff;--line:#d9e5f2;--text:#0b1f3a;--muted:#596a80;
+  --navy:#0b2f66;--blue:#2f80ed;--sky:#eaf3ff;--green:#e4f6e9;--greenText:#0b6b3a;
+  --amber:#fff3d6;--amberText:#8a5a00;--rose:#ffe5e5;--roseText:#b42318;--violet:#efe9ff;--violetText:#53389e;
+  --shadow:0 10px 26px rgba(11,47,102,.08);--radius:18px;
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Noto Sans Thai",sans-serif;color:var(--text)}
+.app{display:grid;grid-template-columns:78px 1fr;min-height:100vh}.sidebar{background:#0b2f66;color:#fff;position:sticky;top:0;height:100vh;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:4px 0 16px rgba(11,47,102,.15)}
+.brand-spine{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;letter-spacing:.8px;font-size:13px;margin:6px 0 14px;opacity:.9}.spine-tab{width:58px;min-height:70px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;cursor:pointer;font-weight:800;font-size:11px;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}.spine-tab span:first-child{font-size:19px}.spine-tab.active{background:#fff;color:var(--navy);box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.main{min-width:0;padding:16px 18px 22px}.topbar{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:14px 16px;box-shadow:var(--shadow);position:sticky;top:12px;z-index:5;margin-bottom:16px}.topbar-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.titlebox h1{font-size:22px;margin:0 0 4px;color:var(--navy)}.titlebox p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:800;cursor:pointer;background:#eaf2ff;color:var(--navy)}.btn:hover{filter:brightness(.98)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--blue);color:#fff}.btn.ok{background:var(--green);color:var(--greenText)}.btn.danger{background:var(--rose);color:var(--roseText)}.btn.ghost{background:#fff;border:1px solid var(--line)}.dropdown{position:relative}.dropdown-menu{display:none;position:absolute;right:0;top:42px;min-width:170px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;overflow:hidden}.dropdown:hover .dropdown-menu{display:block}.dropdown-menu button{width:100%;border:0;background:#fff;text-align:left;padding:11px 13px;cursor:pointer;color:var(--text)}.dropdown-menu button:hover{background:#f3f6fb}.statusline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;font-size:12px;color:#42526e}.saved{color:var(--greenText)}.unsaved{color:var(--roseText)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-12{grid-column:span 12}.row{display:grid;grid-template-columns:1fr auto;gap:10px}
+h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0 8px;color:var(--navy)}label{font-size:12px;color:#42526e;font-weight:700;display:block;margin-bottom:6px}.hint{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.5}input,select,textarea{width:100%;border:1px solid #c8d7ea;border-radius:11px;padding:10px 12px;font-size:14px;background:#fff;color:var(--text)}textarea{min-height:78px;resize:vertical}.hidden{display:none!important}
+.metric{border-radius:18px;padding:15px;min-height:88px;border:1px solid var(--line);box-shadow:var(--shadow)}.metric b{font-size:27px;display:block;margin-bottom:3px}.metric span{font-size:12px;font-weight:800}.m-days{background:var(--sky)}.m-days b{color:#1849a9}.m-time{background:var(--violet)}.m-time b{color:var(--violetText)}.m-tasks{background:var(--green)}.m-tasks b{color:var(--greenText)}.m-status{background:var(--amber)}.m-status b{color:var(--amberText)}.bar{height:9px;border-radius:999px;background:rgba(255,255,255,.7);overflow:hidden;margin-top:8px}.bar>div{height:100%;background:var(--blue);width:0%}
+.dashboard-layout{display:grid;grid-template-columns:minmax(280px,30%) minmax(0,1fr);gap:14px;align-items:start}.canvas-mini{font-size:13px}.project-title{font-size:21px!important;line-height:1.25;margin:3px 0 6px!important;color:#062655}.canvas-box{border:1px dashed #c7d7eb;border-radius:14px;padding:12px;background:#fff;margin-top:10px}.canvas-box ul{margin:7px 0 0;padding-left:18px}.canvas-box li{margin:4px 0}.readable{font-size:13px;line-height:1.55;color:#27364a}.task-summary-card{min-height:55vh}.table-wrap{overflow:auto;border:1px solid #e6edf5;border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;background:#fff}th,td{border-bottom:1px solid #e6edf5;padding:10px;text-align:left;font-size:13px;vertical-align:top}th{background:#f1f5f9;color:var(--navy);white-space:nowrap;position:sticky;top:0;z-index:1}th.sortable{cursor:pointer;user-select:none}th.sortable:hover{background:#e7eef8}.sortMark{font-size:10px;color:#69798f;margin-left:4px}.status{font-weight:800;border-radius:999px;padding:5px 9px;display:inline-block;white-space:nowrap}.Done{background:var(--green);color:var(--greenText)}.Delay{background:var(--rose);color:var(--roseText)}.InProgress{background:var(--amber);color:var(--amberText)}.NotStarted{background:#edf2f7;color:#42526e}.labelpill{border-radius:999px;padding:5px 9px;font-weight:800;font-size:12px;background:#eef4ff;color:var(--navy);display:inline-block;white-space:nowrap}.listItem{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #eef2f6;padding:7px 0}.x{border:0;background:var(--rose);color:var(--roseText);border-radius:8px;cursor:pointer;padding:6px 9px}.mini{font-size:12px;padding:7px 9px}.muted{color:var(--muted);font-size:12px}.taskInput,.taskSelect,.taskArea{border:1px solid transparent;background:transparent;border-radius:8px;padding:7px;width:100%;font-size:13px}.taskArea{min-height:44px;resize:vertical}.taskInput:hover,.taskSelect:hover,.taskArea:hover,.taskInput:focus,.taskSelect:focus,.taskArea:focus{border-color:#c8d7ea;background:#fff;outline:none}.taskCellName{min-width:220px}.taskCellAction{min-width:190px}.taskCellComment{min-width:190px}.task-due{min-width:130px}.task-page-layout{display:grid;grid-template-columns:minmax(280px,40%) minmax(0,60%);gap:14px;align-items:start}.add-task-card{max-height:calc(100vh - 132px);overflow:auto}.tracker-card{min-height:60vh}.toolbarNote{font-size:12px;color:var(--muted);margin:6px 0 0}.noPrint{}
+@media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}}
+@media print{body{background:#fff}.sidebar,.topbar,#setup,#tasks,.noPrint{display:none!important}.app{display:block}.main{padding:0}.card,.metric{box-shadow:none}.tabpage{display:block!important}.dashboard-layout{grid-template-columns:1fr}.task-summary-card{min-height:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar noPrint">
+    <div class="brand-spine">RTM TRACKER</div>
+    <button class="spine-tab active" onclick="showTab('setup')"><span>⚙️</span><span>Setup</span></button>
+    <button class="spine-tab" onclick="showTab('dashboard')"><span>📊</span><span>Dash</span></button>
+    <button class="spine-tab" onclick="showTab('tasks')"><span>✅</span><span>Task</span></button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar noPrint">
+      <div class="topbar-row">
+        <div class="titlebox">
+          <h1>RTM Project Tracker</h1>
+          <p>1 ไฟล์ = 1 Project • Flow: Project Setup → Dashboard + Canvas → Task Add & Tracking</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" onclick="runProject()">▶ Run</button>
+          <button class="btn ok" onclick="manualSave()">💾 Save</button>
+          <button id="undoBtn" class="btn ghost" onclick="undo()">↩ Undo</button>
+          <button id="redoBtn" class="btn ghost" onclick="redo()">↪ Redo</button>
+          <div class="dropdown"><button class="btn">📤 Export</button><div class="dropdown-menu"><button onclick="exportExcel()">Excel (.xls)</button><button onclick="exportCSV()">CSV</button><button onclick="exportPDF()">PDF</button><button onclick="exportJSON()">JSON Draft</button></div></div>
+          <label class="btn ghost" style="margin:0;cursor:pointer">Import JSON<input type="file" accept="application/json" onchange="importJSON(event)" style="display:none"></label>
+          <button class="btn danger" onclick="clearDraft()">Clear</button>
+        </div>
+      </div>
+      <div class="statusline">
+        <span id="draftStatus" class="pill saved">Saved: Ready</span>
+        <span id="historyBadge" class="pill">History: 0/0</span>
+        <span class="pill">Auto Save ทุก 10 วินาที</span>
+        <span class="pill">Ctrl+Z / Ctrl+Y</span>
+      </div>
+    </header>
+
+    <section id="setup" class="tabpage">
+      <div class="card">
+        <h2>Project Setup</h2><p class="hint">กรอกครั้งเดียว แล้วกด Run เพื่อสร้าง Dashboard + Canvas</p>
+        <div class="grid">
+          <div class="col-8"><label>Project Name *</label><input id="projectName" placeholder="เช่น Improve Visit Success Route A"></div>
+          <div class="col-4"><label>Owner</label><input id="owner" placeholder="Owner name"></div>
+          <div class="col-12"><label>Project Description</label><textarea id="projectDesc" placeholder="คำอธิบายรายละเอียดสั้น ๆ ของโครงการ"></textarea></div>
+          <div class="col-12"><label>Problem / Background</label><textarea id="problem" placeholder="ปัญหาคืออะไร และทำไมต้องทำ Project นี้"></textarea></div>
+          <div class="col-6"><label>Start Date *</label><input type="date" id="startDate"></div>
+          <div class="col-6"><label>End Date *</label><input type="date" id="endDate"></div>
+          <div class="col-12"><label>Support Team</label><input id="supportTeam" placeholder="เช่น RTM, Sales Ops, Supervisor"></div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-6 card"><h2>Objectives</h2><p class="hint">เพิ่มได้หลายข้อ</p><div class="row"><input id="objectiveInput" placeholder="เช่น เพิ่ม Visit Success ใน Route High Risk"><button class="btn primary" onclick="addListItem('objectives','objectiveInput')">Add</button></div><ul id="objectivesList"></ul></div>
+        <div class="col-6 card"><h2>KPI Achievement</h2><p class="hint">Final KPI ที่ต้องวัดผลได้</p><div class="row"><input id="kpiInput" placeholder="เช่น Visit Success ≥ 90% ภายใน 2 เดือน"><button class="btn primary" onclick="addListItem('kpis','kpiInput')">Add</button></div><ul id="kpisList"></ul></div>
+      </div>
+      <div class="actions"><button class="btn primary" onclick="runProject()">▶ Run Project Dashboard</button><button class="btn ok" onclick="manualSave()">💾 Save Draft</button></div>
+    </section>
+
+    <section id="dashboard" class="tabpage hidden">
+      <div class="grid">
+        <div class="col-3 metric m-days"><b id="mTotalDays">0</b><span>Total Day</span></div>
+        <div class="col-3 metric m-time"><b id="mTimeGone">0%</b><span>Time Gone</span><div class="bar"><div id="timeBar"></div></div></div>
+        <div class="col-3 metric m-tasks"><b id="mTotalTasks">0</b><span>Total Tasks</span></div>
+        <div class="col-3 metric m-status"><b id="mTaskStatus">-</b><span>Task Status</span></div>
+      </div>
+      <div class="dashboard-layout" id="canvas-view">
+        <div class="card canvas-mini">
+          <h2>Dashboard + Project Canvas</h2>
+          <label>Project</label><h1 id="vProjectName" class="project-title">-</h1><p id="vDesc" class="readable">-</p>
+          <div class="canvas-box"><h3>Problem / Background</h3><div id="vProblem" class="readable">-</div></div>
+          <div class="canvas-box"><h3>Objectives</h3><ul id="vObjectives" class="readable"><li>-</li></ul></div>
+          <div class="canvas-box"><h3>KPI Achievement</h3><ul id="vKpis" class="readable"><li>-</li></ul></div>
+          <div class="canvas-box"><h3>Owner / Timeline</h3><div id="vTeam" class="readable">-</div><div id="vTimeline" class="readable">-</div></div>
+        </div>
+        <div class="card task-summary-card">
+          <h2>Task Tracker Summary</h2><p class="hint">สรุปงานทั้งหมดของ Project นี้ สามารถกดหัวตารางเพื่อ Sort ได้</p>
+          <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('name')">Task <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th></tr></thead><tbody id="dashTaskRows"><tr><td colspan="6">ยังไม่มี Task</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tasks" class="tabpage hidden">
+      <div class="task-page-layout">
+        <div class="card add-task-card">
+          <h2>Add Task</h2><p class="hint">เพิ่มงานใหม่ จากนั้นแก้ไขต่อได้ตรง Task Tracker</p>
+          <div class="grid">
+            <div class="col-12"><label>Task Name *</label><input id="taskName" placeholder="Task name"></div>
+            <div class="col-12"><label>Task Details</label><textarea id="taskDetail" placeholder="รายละเอียดงาน"></textarea></div>
+            <div class="col-12"><label>Action Required</label><textarea id="taskAction" placeholder="ต้องทำอะไรบ้าง"></textarea></div>
+            <div class="col-12"><label>Label</label><select id="taskLabel"><option>ด่วน+สำคัญ</option><option>ด่วน+ไม่สำคัญ</option><option>ไม่ด่วน+สำคัญ</option><option>ไม่ด่วน+ไม่สำคัญ</option></select></div>
+            <div class="col-6"><label>Owner</label><input id="taskOwner" placeholder="Owner"></div>
+            <div class="col-6"><label>Status</label><select id="taskStatus"><option value="NotStarted">Not Started</option><option value="InProgress">In Progress</option><option value="Delay">Delay</option><option value="Done">Done</option></select></div>
+            <div class="col-6"><label>Start Date</label><input type="date" id="taskStart"></div>
+            <div class="col-6"><label>Due Date</label><input type="date" id="taskDue"></div>
+            <div class="col-12"><label>Comment / Support Needed</label><textarea id="taskComment" placeholder="Comment หรือ Support ที่ต้องการ"></textarea></div>
+          </div>
+          <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="addTask()">Add Task</button><button class="btn ok" onclick="manualSave()">Save</button></div>
+        </div>
+        <div class="card tracker-card">
+          <h2>Task Tracker</h2><p class="hint">แก้ไขข้อมูลได้โดยตรงในตาราง • Timeline แสดงเฉพาะ Due Date • กดหัวตารางเพื่อ Sort</p>
+          <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('idx')"># <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('name')">Task Name & Details <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable task-due" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th><th>Comment</th><th>Delete</th></tr></thead><tbody id="taskRows"><tr><td colspan="9">ยังไม่มี Task</td></tr></tbody></table></div>
+          <p class="toolbarNote">Tip: ใช้ Ctrl+Z เพื่อ Undo หลังแก้ไขในตารางได้</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+const STORAGE_KEY='rtm_project_tracker_v6';
+const $=id=>document.getElementById(id);
+let state=blankState(),isDirty=false,isRestoring=false,historyStack=[],historyIndex=-1,MAX_HISTORY=80,sortState={key:'idx',dir:1};
+function blankState(){return{projectName:'',owner:'',projectDesc:'',problem:'',startDate:'',endDate:'',supportTeam:'',objectives:[],kpis:[],tasks:[]}}
+function collectForm(){state.projectName=$('projectName')?.value||'';state.owner=$('owner')?.value||'';state.projectDesc=$('projectDesc')?.value||'';state.problem=$('problem')?.value||'';state.startDate=$('startDate')?.value||'';state.endDate=$('endDate')?.value||'';state.supportTeam=$('supportTeam')?.value||'';return state}
+function fillForm(){['projectName','owner','projectDesc','problem','startDate','endDate','supportTeam'].forEach(id=>{if($(id))$(id).value=state[id]||''});renderList('objectives');renderList('kpis');renderTasks(false);renderDashboard();updateUndoRedoUI()}
+function showTab(id){document.querySelectorAll('.tabpage').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('.spine-tab').forEach(x=>x.classList.remove('active'));const map={setup:0,dashboard:1,tasks:2};document.querySelectorAll('.spine-tab')[map[id]].classList.add('active');renderDashboard();}
+function runProject(){collectForm();if(!state.projectName||!state.startDate||!state.endDate){alert('กรุณากรอก Project Name, Start Date และ End Date ก่อน Run');return}renderDashboard();pushHistorySnapshot(true);saveLocal(true);showTab('dashboard')}
+function markDirty(){isDirty=true;updateSaveStatus('Unsaved changes',true);scheduleHistorySnapshot()}
+function updateSaveStatus(text,dirty){const el=$('draftStatus');el.textContent=(dirty?'Unsaved: ':'Saved: ')+text;el.className='pill '+(dirty?'unsaved':'saved')}
+function saveLocal(auto=false){collectForm();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));isDirty=false;updateSaveStatus((auto?'Auto saved ':'Manual saved ')+new Date().toLocaleTimeString('th-TH'),false)}
+function manualSave(){pushHistorySnapshot(true);saveLocal(false)}
+function addListItem(type,inputId){const v=$(inputId).value.trim();if(!v)return;pushHistorySnapshot(true);state[type].push(v);$(inputId).value='';renderList(type);markDirty();renderDashboard();autoSaveSoon()}
+function removeListItem(type,i){pushHistorySnapshot(true);state[type].splice(i,1);renderList(type);markDirty();renderDashboard();autoSaveSoon()}
+function renderList(type){const ul=$(type+'List');if(!ul)return;ul.innerHTML=state[type].map((x,i)=>`<li class="listItem"><span>${escapeHtml(x)}</span><button class="x mini" onclick="removeListItem('${type}',${i})">x</button></li>`).join('')||'<li class="muted">ยังไม่มีรายการ</li>'}
+function daysBetween(a,b){if(!a||!b)return 0;const d1=new Date(a),d2=new Date(b);if(isNaN(d1)||isNaN(d2))return 0;return Math.max(0,Math.round((d2-d1)/86400000)+1)}
+function pctTimeGone(){const total=daysBetween(state.startDate,state.endDate);if(!total)return 0;const start=new Date(state.startDate),today=new Date();const gone=Math.round((today-start)/86400000)+1;return Math.max(0,Math.min(100,Math.round((gone/total)*100)))}
+function taskStatusSummary(){if(!state.tasks.length)return '-';const done=state.tasks.filter(t=>t.status==='Done').length,delay=state.tasks.filter(t=>t.status==='Delay').length,inprog=state.tasks.filter(t=>t.status==='InProgress').length;if(delay)return `${delay} Delay`;if(done===state.tasks.length)return 'Done';if(inprog)return `${inprog} In Progress`;return 'Not Started'}
+function renderDashboard(){collectForm();$('mTotalDays').textContent=daysBetween(state.startDate,state.endDate);$('mTimeGone').textContent=pctTimeGone()+'%';$('timeBar').style.width=pctTimeGone()+'%';$('mTotalTasks').textContent=state.tasks.length;$('mTaskStatus').textContent=taskStatusSummary();$('vProjectName').textContent=state.projectName||'-';$('vDesc').textContent=state.projectDesc||'-';$('vProblem').textContent=state.problem||'-';$('vTeam').innerHTML=`Owner: ${escapeHtml(state.owner||'-')}<br>Support: ${escapeHtml(state.supportTeam||'-')}`;$('vTimeline').textContent=`${state.startDate||'-'} → ${state.endDate||'-'} | Total ${daysBetween(state.startDate,state.endDate)} days`;$('vObjectives').innerHTML=state.objectives.length?state.objectives.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';$('vKpis').innerHTML=state.kpis.length?state.kpis.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';renderTaskRows('dashTaskRows',false)}
+function addTask(){const t={name:$('taskName').value.trim(),detail:$('taskDetail').value.trim(),action:$('taskAction').value.trim(),label:$('taskLabel').value,status:$('taskStatus').value,owner:$('taskOwner').value.trim(),start:$('taskStart').value,due:$('taskDue').value,comment:$('taskComment').value.trim(),_created:Date.now()};if(!t.name){alert('กรุณากรอก Task Name');return}pushHistorySnapshot(true);state.tasks.push(t);['taskName','taskDetail','taskAction','taskOwner','taskStart','taskDue','taskComment'].forEach(id=>$(id).value='');$('taskStatus').value='NotStarted';markDirty();renderTasks(false);renderDashboard();autoSaveSoon()}
+function removeTask(i){if(!confirm('ลบ Task นี้หรือไม่?'))return;pushHistorySnapshot(true);state.tasks.splice(i,1);markDirty();renderTasks(false);renderDashboard();autoSaveSoon()}
+function renderTasks(mark=true){renderTaskRows('taskRows',true);renderDashboard();if(mark)markDirty()}
+function sortedTasks(){return state.tasks.map((t,i)=>({t,i})).sort((a,b)=>{if(sortState.key==='idx')return (a.i-b.i)*sortState.dir;let va=(a.t[sortState.key]||'').toString(),vb=(b.t[sortState.key]||'').toString();if(sortState.key==='status'){const order={Delay:1,InProgress:2,NotStarted:3,Done:4};return ((order[a.t.status]||9)-(order[b.t.status]||9))*sortState.dir}if(sortState.key==='due')return ((va||'9999-12-31').localeCompare(vb||'9999-12-31'))*sortState.dir;return va.localeCompare(vb,'th')*sortState.dir})}
+function sortTasks(key){if(sortState.key===key)sortState.dir*=-1;else{sortState.key=key;sortState.dir=1}renderTaskRows('taskRows',true);renderTaskRows('dashTaskRows',false)}
+function renderTaskRows(tbodyId,editable){const body=$(tbodyId);if(!body)return;const rows=sortedTasks();if(!rows.length){body.innerHTML=`<tr><td colspan="${editable?9:6}">ยังไม่มี Task</td></tr>`;return}if(!editable){body.innerHTML=rows.map(({t})=>`<tr><td><b>${escapeHtml(t.name)}</b><br><span class="muted">${escapeHtml(t.detail)}</span></td><td>${escapeHtml(t.action)}</td><td><span class="labelpill">${escapeHtml(t.label)}</span></td><td>${escapeHtml(t.owner||'-')}</td><td><span class="status ${t.status}">${statusText(t.status)}</span></td><td>${t.due||'-'}</td></tr>`).join('');return}
+body.innerHTML=rows.map(({t,i},displayIndex)=>`<tr>
+<td>${displayIndex+1}</td>
+<td class="taskCellName"><input class="taskInput" value="${attr(t.name)}" onchange="updateTask(${i},'name',this.value)"><textarea class="taskArea" placeholder="Task Details" onchange="updateTask(${i},'detail',this.value)">${escapeHtml(t.detail)}</textarea></td>
+<td class="taskCellAction"><textarea class="taskArea" placeholder="Action Required" onchange="updateTask(${i},'action',this.value)">${escapeHtml(t.action)}</textarea></td>
+<td><select class="taskSelect" onchange="updateTask(${i},'label',this.value)">${labelOptions(t.label)}</select></td>
+<td><input class="taskInput" value="${attr(t.owner||'')}" onchange="updateTask(${i},'owner',this.value)"></td>
+<td><select class="taskSelect" onchange="updateTask(${i},'status',this.value)">${statusOptions(t.status)}</select></td>
+<td class="task-due"><input class="taskInput" type="date" value="${attr(t.due||'')}" onchange="updateTask(${i},'due',this.value)"></td>
+<td class="taskCellComment"><textarea class="taskArea" placeholder="Comment / Support" onchange="updateTask(${i},'comment',this.value)">${escapeHtml(t.comment)}</textarea></td>
+<td><button class="x mini" onclick="removeTask(${i})">Delete</button></td>
+</tr>`).join('')}
+function updateTask(i,key,value){if(!state.tasks[i])return;pushHistorySnapshot(true);state.tasks[i][key]=value;markDirty();renderTaskRows('taskRows',true);renderDashboard();autoSaveSoon();updateUndoRedoUI()}
+function labelOptions(current){return ['ด่วน+สำคัญ','ด่วน+ไม่สำคัญ','ไม่ด่วน+สำคัญ','ไม่ด่วน+ไม่สำคัญ'].map(x=>`<option ${x===current?'selected':''}>${x}</option>`).join('')}
+function statusOptions(current){return [['NotStarted','Not Started'],['InProgress','In Progress'],['Delay','Delay'],['Done','Done']].map(([v,t])=>`<option value="${v}" ${v===current?'selected':''}>${t}</option>`).join('')}
+function statusText(s){return {NotStarted:'Not Started',InProgress:'In Progress',Delay:'Delay',Done:'Done'}[s]||s}
+function exportJSON(){collectForm();download(JSON.stringify(state,null,2),'RTM_Project_Draft.json','application/json')}
+function importJSON(ev){const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{pushHistorySnapshot(true);state=Object.assign(blankState(),JSON.parse(e.target.result));fillForm();saveLocal(true);pushHistorySnapshot(true);alert('Import JSON สำเร็จ')}catch(err){alert('ไฟล์ JSON ไม่ถูกต้อง')}};reader.readAsText(file)}
+function exportCSV(){collectForm();const rows=[['Project Name','Owner','Start','End','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Due Date','Comment']];const max=Math.max(state.objectives.length,state.kpis.length,state.tasks.length,1);for(let i=0;i<max;i++){const t=state.tasks[i]||{};rows.push([state.projectName,state.owner,state.startDate,state.endDate,state.objectives[i]||'',state.kpis[i]||'',t.name||'',t.detail||'',t.action||'',t.label||'',t.owner||'',statusText(t.status)||'',t.due||'',t.comment||''])}download(rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Project_Export.csv','text/csv;charset=utf-8')}
+function exportExcel(){collectForm();let html='<html><head><meta charset="UTF-8"></head><body>';html+=`<h1>${escapeHtml(state.projectName||'RTM Project')}</h1><table border="1"><tr><th>Field</th><th>Value</th></tr>${[['Owner',state.owner],['Description',state.projectDesc],['Problem',state.problem],['Start',state.startDate],['End',state.endDate],['Support',state.supportTeam],['Total Day',daysBetween(state.startDate,state.endDate)],['Time Gone',pctTimeGone()+'%']].map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')}</table>`;html+='<h2>Objectives</h2><table border="1"><tr><th>#</th><th>Objective</th></tr>'+state.objectives.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';html+='<h2>KPI Achievement</h2><table border="1"><tr><th>#</th><th>KPI</th></tr>'+state.kpis.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';html+='<h2>Tasks</h2><table border="1"><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Due</th><th>Comment</th></tr>'+state.tasks.map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.detail)}</td><td>${escapeHtml(t.action)}</td><td>${escapeHtml(t.label)}</td><td>${escapeHtml(t.owner)}</td><td>${statusText(t.status)}</td><td>${t.due}</td><td>${escapeHtml(t.comment)}</td></tr>`).join('')+'</table></body></html>';download(html,'RTM_Project_Export.xls','application/vnd.ms-excel')}
+function exportPDF(){renderDashboard();showTab('dashboard');setTimeout(()=>window.print(),200)}
+function clearDraft(){if(confirm('ต้องการล้างข้อมูล Draft ทั้งหมดหรือไม่?')){pushHistorySnapshot(true);localStorage.removeItem(STORAGE_KEY);state=blankState();fillForm();pushHistorySnapshot(true);updateSaveStatus('Draft cleared',false)}}
+function csvCell(x){x=(x||'').toString();return '"'+x.replace(/"/g,'""')+'"'}
+function download(content,filename,type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href)}
+function escapeHtml(s){return (s||'').toString().replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+function attr(s){return escapeHtml(s).replace(/'/g,'&#39;')}
+let saveTimer;function autoSaveSoon(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveLocal(true),1500)}
+let histTimer;function scheduleHistorySnapshot(){clearTimeout(histTimer);histTimer=setTimeout(()=>pushHistorySnapshot(false),650)}
+function pushHistorySnapshot(force=false){if(isRestoring)return;collectForm();const snap=JSON.stringify(state);if(!force&&historyStack[historyIndex]===snap)return;if(historyStack[historyIndex]===snap)return;if(historyIndex<historyStack.length-1)historyStack=historyStack.slice(0,historyIndex+1);historyStack.push(snap);if(historyStack.length>MAX_HISTORY)historyStack.shift();historyIndex=historyStack.length-1;updateUndoRedoUI()}
+function undo(){if(historyIndex<=0)return;historyIndex--;restoreHistory(historyStack[historyIndex]);updateSaveStatus('Undo applied',true);isDirty=true;autoSaveSoon()}
+function redo(){if(historyIndex>=historyStack.length-1)return;historyIndex++;restoreHistory(historyStack[historyIndex]);updateSaveStatus('Redo applied',true);isDirty=true;autoSaveSoon()}
+function restoreHistory(snap){isRestoring=true;state=Object.assign(blankState(),JSON.parse(snap));fillForm();isRestoring=false;updateUndoRedoUI()}
+function updateUndoRedoUI(){const u=$('undoBtn'),r=$('redoBtn'),b=$('historyBadge');if(u)u.disabled=historyIndex<=0;if(r)r.disabled=historyIndex>=historyStack.length-1;if(b)b.textContent=`History: ${Math.max(0,historyIndex+1)}/${historyStack.length}`}
+document.addEventListener('input',e=>{if(isRestoring)return;if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){collectForm();markDirty();autoSaveSoon();renderDashboard();}});
+document.addEventListener('keydown',e=>{const key=e.key.toLowerCase();if(e.ctrlKey&&key==='z'){e.preventDefault();undo()}if(e.ctrlKey&&(key==='y'||(e.shiftKey&&key==='z'))){e.preventDefault();redo()}});
+setInterval(()=>{if(isDirty)saveLocal(true)},10000);
+window.addEventListener('beforeunload',e=>{if(isDirty){e.preventDefault();e.returnValue=''}});
+window.addEventListener('load',()=>{const saved=localStorage.getItem(STORAGE_KEY)||localStorage.getItem('rtm_project_tracker_v5')||localStorage.getItem('rtm_project_tracker_v4');if(saved){try{state=Object.assign(blankState(),JSON.parse(saved));fillForm();updateSaveStatus('Draft loaded: '+new Date().toLocaleTimeString('th-TH'),false)}catch(e){fillForm()}}else{fillForm()}pushHistorySnapshot(true)});
+</script>
+</body>
+</html>
