@@ -98,61 +98,97 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .taskCellLabel select,.taskCellStatus select{min-width:100%;width:100%}
 .task-th-wrap{white-space:normal!important;min-width:90px}
 
-/* Timeline (Gantt-style) */
+/* Timeline (Gantt-style) — 2-layer: fixed left column + horizontally scrollable area */
 .timeline-container{
-  overflow-x:auto;
-  overflow-y:auto;
   max-height:70vh;
   border:1px solid var(--line);
   border-radius:14px;
   background:#fff;
-  -webkit-overflow-scrolling:touch;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
 }
 .timeline-empty{padding:40px;text-align:center;color:var(--muted)}
-.timeline-header{
-  display:grid;
-  background:#f1f5f9;
-  border-bottom:2px solid var(--line);
-  position:sticky;
-  top:0;
-  z-index:6;
+.timeline-legend{display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fafcff;font-size:11px;color:var(--muted)}
+.timeline-legend .tl-chip{display:inline-flex;align-items:center;gap:5px}
+.timeline-legend .tl-chip-dot{width:10px;height:10px;border-radius:3px}
+
+/* The 2-layer container */
+.timeline-frozen{
+  display:flex;
+  flex:1;
+  min-height:0;       /* allow flex children to shrink */
+  overflow:hidden;
 }
-.timeline-header-label{
+
+/* LEFT FIXED COLUMN — does not scroll horizontally */
+.tl-fixed-col{
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  border-right:2px solid var(--line);
+  background:#fff;
+  box-shadow:2px 0 6px rgba(0,0,0,.05);
+  z-index:2;
+}
+.tl-fixed-header{
   padding:10px 12px;
   font-weight:800;
   font-size:12px;
   color:var(--navy);
-  border-right:1px solid var(--line);
   background:#f1f5f9;
-  position:sticky;
-  left:0;
-  z-index:7;
+  border-bottom:2px solid var(--line);
+  min-height:48px;
+  display:flex;
+  align-items:center;
 }
-.timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5}
-.timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
-.timeline-row{
-  display:grid;
+.tl-fixed-body{
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;  /* hide scrollbar on Firefox */
+}
+.tl-fixed-body::-webkit-scrollbar{display:none}  /* hide scrollbar on Chrome/Safari */
+.tl-flabel-row{
+  padding:8px 12px;
   border-bottom:1px solid #eef2f6;
   min-height:42px;
-}
-.timeline-row:hover{background:#fafcff}
-.timeline-row:hover .timeline-row-label{background:#fafcff}
-.timeline-row-label{
-  padding:8px 12px;
-  border-right:2px solid var(--line);
-  font-size:12px;
-  line-height:1.35;
-  background:#fff;
-  position:sticky;
-  left:0;
-  z-index:4;
   display:flex;
   flex-direction:column;
   justify-content:center;
+  background:#fff;
 }
-.timeline-row-label .tl-task-name{font-weight:800;color:var(--navy);font-size:13px}
-.timeline-row-label .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
-.timeline-row-track{position:relative;height:42px}
+.tl-flabel-row:hover{background:#fafcff}
+.tl-flabel-row .tl-task-name{font-weight:800;color:var(--navy);font-size:13px;line-height:1.3}
+.tl-flabel-row .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* RIGHT SCROLLABLE AREA — scrolls both horizontally and vertically */
+.tl-scroll-area{
+  flex:1;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.tl-scroll-inner{
+  position:relative;
+}
+.tl-scroll-header{
+  background:#f1f5f9;
+  border-bottom:2px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:1;
+  min-height:48px;
+}
+.timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
+.tl-scroll-body{
+  position:relative;
+}
+.tl-ftrack-row{
+  position:relative;
+  height:42px;
+  border-bottom:1px solid #eef2f6;
+}
 .timeline-bar{position:absolute;top:8px;height:26px;border-radius:6px;cursor:pointer;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 4px rgba(11,47,102,.15);transition:.15s}
 .timeline-bar:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(11,47,102,.25);z-index:5}
 .timeline-bar.NotStarted{background:#94a3b8}
@@ -161,12 +197,9 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .timeline-bar.Done{background:var(--greenText)}
 .timeline-bar.overdue{background:#7c2d12;border:2px dashed #fff;animation:tlBlink 1.5s ease-in-out infinite}
 @keyframes tlBlink{0%,100%{opacity:1}50%{opacity:.75}}
-.timeline-today-line{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:1;pointer-events:none}
-.timeline-today-marker{position:absolute;top:-6px;background:#ef4444;color:#fff;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;transform:translateX(-50%);white-space:nowrap;z-index:6}
-.timeline-no-date{position:absolute;top:8px;height:26px;width:80px;border:2px dashed #cbd5e1;border-radius:6px;color:var(--muted);font-size:11px;display:flex;align-items:center;justify-content:center}
-.timeline-legend{display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fafcff;font-size:11px;color:var(--muted);position:sticky;top:0;z-index:5}
-.timeline-legend .tl-chip{display:inline-flex;align-items:center;gap:5px}
-.timeline-legend .tl-chip-dot{width:10px;height:10px;border-radius:3px}
+.timeline-today-line{position:absolute;top:0;width:2px;background:#ef4444;z-index:1;pointer-events:none}
+.timeline-today-marker{position:sticky;top:50px;background:#ef4444;color:#fff;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;transform:translateX(-50%);white-space:nowrap;z-index:6;position:absolute;top:4px}
+.timeline-no-date{position:absolute;top:8px;left:4px;height:26px;width:80px;border:2px dashed #cbd5e1;border-radius:6px;color:var(--muted);font-size:11px;display:flex;align-items:center;justify-content:center}
 
 /* Archive Details Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(11,47,102,.55);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;z-index:9000;padding:30px 16px;overflow-y:auto}
@@ -275,7 +308,7 @@ label.checkbox-card:has(input:checked),
   .sidebar{
     position:fixed!important;
     bottom:0;left:0;right:0;top:auto;
-    z-index:900;
+    z-index:8500!important;     /* HIGH z-index to stay on top of everything */
     flex-direction:row!important;
     background:#fff;
     border-top:1px solid var(--line);
@@ -479,19 +512,20 @@ label.checkbox-card:has(input:checked),
   .kanban-card .kc-title{font-size:13px}
   .kanban-card .kc-meta{font-size:10px}
 
-  /* ===== TIMELINE — mobile: smaller label width ===== */
+  /* ===== TIMELINE — mobile: smaller label width, reserve bottom nav space ===== */
   .timeline-container{
-    max-height:65vh;
+    max-height:calc(100vh - 220px);  /* room for topbar + bottom nav + padding */
   }
-  .timeline-header-label,
-  .timeline-row-label{
-    max-width:140px;
-    min-width:140px;
+  .tl-fixed-col{
+    width:130px!important;
+    min-width:130px!important;
   }
-  .timeline-row-label .tl-task-name{font-size:12px;font-weight:800}
-  .timeline-row-label .tl-task-meta{font-size:10px}
+  .tl-fixed-header{font-size:11px;padding:8px 10px;min-height:46px}
+  .tl-flabel-row{padding:6px 10px}
+  .tl-flabel-row .tl-task-name{font-size:11px}
+  .tl-flabel-row .tl-task-meta{font-size:9px}
   .timeline-legend{font-size:10px;padding:8px;gap:6px;flex-wrap:wrap}
-  .timeline-header-cell{font-size:10px;padding:6px 2px}
+  .timeline-header-cell{font-size:10px;padding:6px 2px;min-height:46px}
   .timeline-bar{font-size:10px;padding:0 6px;height:24px;top:9px}
   .timeline-today-marker{font-size:9px;padding:2px 6px}
 
@@ -2555,7 +2589,7 @@ function renderTimeline(){
     const end=task.due?new Date(task.due):null;
     let barHtml='';
     if(start||end){
-      const s=start||end; // single-date task → show as 1-day pill
+      const s=start||end;
       const e=end||start;
       const startOffset=Math.max(0,Math.floor((s-minDate)/86400000));
       const days=Math.max(1,Math.ceil((e-s)/86400000)+1);
@@ -2573,39 +2607,73 @@ function renderTimeline(){
     }else{
       barHtml=`<div class="timeline-no-date">⚠ ไม่มีวัน</div>`;
     }
-    return `<div class="timeline-row" style="grid-template-columns:${labelWidth}px 1fr">
-      <div class="timeline-row-label">
-        <div class="tl-task-name">${escapeHtml(task.name||'(no name)')}</div>
-        <div class="tl-task-meta">📁 ${escapeHtml(project.projectName||'-').substring(0,30)} • 👤 ${escapeHtml(task.owner||'-')}</div>
+    return {
+      task,project,
+      labelRow:`<div class="tl-flabel-row"><div class="tl-task-name">${escapeHtml(task.name||'(no name)')}</div><div class="tl-task-meta">📁 ${escapeHtml(project.projectName||'-').substring(0,30)} • 👤 ${escapeHtml(task.owner||'-')}</div></div>`,
+      trackRow:`<div class="tl-ftrack-row">${barHtml}</div>`
+    };
+  });
+
+  const trackWidth=totalDays*dayWidth;
+
+  // 2-LAYER LAYOUT:
+  // - .timeline-frozen: outer container with display:flex
+  //   - .tl-fixed-col: left column (Task names) — FIXED, doesn't scroll horizontally
+  //   - .tl-scroll-area: right side (dates + bars) — scrolls horizontally
+  container.innerHTML=`
+    <div class="timeline-legend">
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#94a3b8"></span>Not Started</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--blue)"></span>In Progress</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--roseText)"></span>Delay</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--greenText)"></span>Done</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#7c2d12"></span>Overdue</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#ef4444"></span>วันนี้</span>
+    </div>
+    <div class="timeline-frozen">
+      <div class="tl-fixed-col" style="width:${labelWidth}px;min-width:${labelWidth}px">
+        <div class="tl-fixed-header">Task / Project</div>
+        <div class="tl-fixed-body">
+          ${rowsHtml.map(r=>r.labelRow).join('')}
+        </div>
       </div>
-      <div class="timeline-row-track" style="position:relative">${barHtml}</div>
-    </div>`;
-  }).join('');
+      <div class="tl-scroll-area">
+        <div class="tl-scroll-inner" style="width:${trackWidth}px">
+          <div class="tl-scroll-header" style="display:grid;grid-template-columns:repeat(${totalDays},${dayWidth}px)">
+            ${headerCells.map(c=>`<div class="timeline-header-cell${c.isMonthStart?' month-start':''}" title="${c.date.toLocaleDateString('th-TH')}">
+              ${c.isMonthStart?`<div style="font-size:10px;color:var(--blue);margin-bottom:1px">${c.date.toLocaleDateString('th-TH',{month:'short'})}</div>`:''}
+              ${c.day}
+            </div>`).join('')}
+          </div>
+          <div class="tl-scroll-body">
+            ${rowsHtml.map(r=>r.trackRow).join('')}
+            <div class="timeline-today-line" style="left:${Math.max(0,Math.floor((today-minDate)/86400000))*dayWidth}px"></div>
+            <div class="timeline-today-marker" style="left:${Math.max(0,Math.floor((today-minDate)/86400000))*dayWidth}px">📍 วันนี้</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 
-  // Render rows DIRECTLY in container — no wrapper div
-  // Today-line wrapped in absolute container that doesn't block sticky
-  container.innerHTML=headerHtml+rowsHtml;
-
-  // Today-line — append as separate absolute element AFTER rows
-  if(todayPos>labelWidth){
-    const todayDiv=document.createElement('div');
-    todayDiv.innerHTML=todayLineHtml;
-    container.appendChild(todayDiv);
-  }
-
-  // Position today-line correctly after DOM render
+  // Sync vertical scroll between fixed col and scroll area
   requestAnimationFrame(()=>{
+    const fixedBody=container.querySelector('.tl-fixed-body');
+    const scrollArea=container.querySelector('.tl-scroll-area');
+    if(!fixedBody||!scrollArea)return;
+    // Position today-line to span all rows
+    const body=container.querySelector('.tl-scroll-body');
     const line=container.querySelector('.timeline-today-line');
     const marker=container.querySelector('.timeline-today-marker');
-    if(line){
-      const rows=container.querySelectorAll('.timeline-row');
-      let rowsTotalHeight=0;
-      rows.forEach(r=>rowsTotalHeight+=r.offsetHeight);
-      const headerH=container.querySelector('.timeline-header')?.offsetHeight||0;
-      line.style.top=headerH+'px';
-      line.style.height=rowsTotalHeight+'px';
-      if(marker) marker.style.top=(headerH-6)+'px';
+    if(line && body){
+      const totalH=body.scrollHeight;
+      line.style.height=totalH+'px';
     }
+    // Sync vertical scroll: when scroll-area scrolls vertically, fixed-col follows
+    scrollArea.addEventListener('scroll',()=>{
+      fixedBody.scrollTop=scrollArea.scrollTop;
+    },{passive:true});
+    fixedBody.addEventListener('scroll',()=>{
+      scrollArea.scrollTop=fixedBody.scrollTop;
+    },{passive:true});
   });
 }
 
