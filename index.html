@@ -2893,20 +2893,95 @@ function importJSON(ev){
   reader.readAsText(file);
 }
 function exportCSV(){
-  collectForm();
-  const rows=[['Project Name','Owner','Start','End','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Due Date','Comment']];
-  const max=Math.max(state.objectives.length,state.kpis.length,state.tasks.length,1);
-  for(let i=0;i<max;i++){const t=state.tasks[i]||{};rows.push([state.projectName,state.owner,state.startDate,state.endDate,state.objectives[i]||'',state.kpis[i]||'',t.name||'',t.detail||'',t.action||'',t.label||'',t.owner||'',statusText(t.status)||'',t.due||'',t.comment||''])}
-  download(rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Project_Export.csv','text/csv;charset=utf-8');
+  // If a single project is selected → export that project only
+  // Otherwise → export ALL visible projects (per user's role/scope)
+  const visibleProjs=visibleProjects(true);  // include archived too
+  if(currentProjectId){
+    collectForm();
+    syncStateToProjects();
+  }
+  const projectsToExport = currentProjectId
+    ? [projects.find(p=>p.id===currentProjectId)].filter(Boolean)
+    : visibleProjs;
+  if(!projectsToExport.length){alert('ไม่มีข้อมูลที่ export ได้ — กรุณาสร้าง Project ก่อน');return}
+
+  const rows=[['Project Name','Owner','Region','DC','Start','End','Archived','Archive Comment','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Start Date','Due Date','Comment']];
+  projectsToExport.forEach(p=>{
+    const objectives=p.objectives||[];
+    const kpis=p.kpis||[];
+    const tasks=p.tasks||[];
+    const max=Math.max(objectives.length,kpis.length,tasks.length,1);
+    for(let i=0;i<max;i++){
+      const t=tasks[i]||{};
+      rows.push([
+        p.projectName||'',p.owner||'',getProjectRegion(p)||'',getProjectDc(p)||'',
+        p.startDate||'',p.endDate||'',
+        p.archived?'Yes':'No', p.archiveComment||'',
+        objectives[i]||'', kpis[i]||'',
+        t.name||'', t.detail||'', t.action||'', t.label||'',
+        t.owner||'', statusText(t.status)||'',
+        t.start||'', t.due||'', t.comment||''
+      ]);
+    }
+  });
+  // BOM for Excel to recognize UTF-8 (Thai characters)
+  const BOM='\uFEFF';
+  download(BOM+rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Projects_Export.csv','text/csv;charset=utf-8');
 }
+
 function exportExcel(){
-  collectForm();
-  let html='<html><head><meta charset="UTF-8"></head><body>';
-  html+=`<h1>${escapeHtml(state.projectName||'RTM Project')}</h1><table border="1"><tr><th>Field</th><th>Value</th></tr>${[['Owner',state.owner],['Description',state.projectDesc],['Problem',state.problem],['Start',state.startDate],['End',state.endDate],['Support',state.supportTeam],['Total Day',daysBetween(state.startDate,state.endDate)],['Time Gone',pctTimeGone()+'%']].map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')}</table>`;
-  html+='<h2>Objectives</h2><table border="1"><tr><th>#</th><th>Objective</th></tr>'+state.objectives.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
-  html+='<h2>KPI Achievement</h2><table border="1"><tr><th>#</th><th>KPI</th></tr>'+state.kpis.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
-  html+='<h2>Tasks</h2><table border="1"><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Due</th><th>Comment</th></tr>'+state.tasks.map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.detail)}</td><td>${escapeHtml(t.action)}</td><td>${escapeHtml(t.label)}</td><td>${escapeHtml(t.owner)}</td><td>${statusText(t.status)}</td><td>${t.due}</td><td>${escapeHtml(t.comment)}</td></tr>`).join('')+'</table></body></html>';
-  download(html,'RTM_Project_Export.xls','application/vnd.ms-excel');
+  const visibleProjs=visibleProjects(true);
+  if(currentProjectId){
+    collectForm();
+    syncStateToProjects();
+  }
+  const projectsToExport = currentProjectId
+    ? [projects.find(p=>p.id===currentProjectId)].filter(Boolean)
+    : visibleProjs;
+  if(!projectsToExport.length){alert('ไม่มีข้อมูลที่ export ได้ — กรุณาสร้าง Project ก่อน');return}
+
+  let html='<html><head><meta charset="UTF-8"><style>table{border-collapse:collapse;margin-bottom:20px}td,th{border:1px solid #ccc;padding:6px 10px;font-family:Arial,sans-serif;font-size:12px}th{background:#f1f5f9;font-weight:bold}h1{color:#0b2f66}h2{color:#1849a9;margin-top:30px}</style></head><body>';
+
+  if(projectsToExport.length===1){
+    // Single project: detailed view (original layout)
+    const p=projectsToExport[0];
+    html+=`<h1>${escapeHtml(p.projectName||'RTM Project')}</h1>`;
+    html+=`<table><tr><th>Field</th><th>Value</th></tr>`+
+      [['Owner',p.owner],['Region',getProjectRegion(p)],['DC',getProjectDc(p)],['Description',p.projectDesc],['Problem',p.problem],['Start',p.startDate],['End',p.endDate],['Support',p.supportTeam],['Archived',p.archived?'Yes':'No'],['Archive Comment',p.archiveComment]]
+        .map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')+`</table>`;
+    html+='<h2>Objectives</h2><table><tr><th>#</th><th>Objective</th></tr>'+(p.objectives||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
+    html+='<h2>KPI Achievement</h2><table><tr><th>#</th><th>KPI</th></tr>'+(p.kpis||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
+    html+='<h2>Tasks</h2><table><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Start</th><th>Due</th><th>Comment</th></tr>'+(p.tasks||[]).map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name||'')}</td><td>${escapeHtml(t.detail||'')}</td><td>${escapeHtml(t.action||'')}</td><td>${escapeHtml(t.label||'')}</td><td>${escapeHtml(t.owner||'')}</td><td>${statusText(t.status)}</td><td>${t.start||''}</td><td>${t.due||''}</td><td>${escapeHtml(t.comment||'')}</td></tr>`).join('')+'</table>';
+  }else{
+    // Multiple projects: summary table + tasks list
+    html+=`<h1>RTM Projects Export (${projectsToExport.length} projects)</h1>`;
+    html+=`<p style="color:#666;font-size:11px">Exported by: ${session.username} (${session.role}) on ${new Date().toLocaleString('th-TH')}</p>`;
+
+    // Projects summary
+    html+='<h2>Projects Summary</h2>';
+    html+='<table><tr><th>#</th><th>Project Name</th><th>Owner</th><th>Region</th><th>DC</th><th>Start</th><th>End</th><th>Tasks</th><th>Done</th><th>Delay</th><th>Status</th></tr>';
+    projectsToExport.forEach((p,i)=>{
+      const tasks=p.tasks||[];
+      const done=tasks.filter(t=>t.status==='Done').length;
+      const delay=tasks.filter(t=>t.status==='Delay').length;
+      const status=p.archived?'Archived':(delay>0?'Has Delay':(tasks.length>0&&done===tasks.length?'All Done':'Active'));
+      html+=`<tr><td>${i+1}</td><td><b>${escapeHtml(p.projectName||'')}</b></td><td>${escapeHtml(p.owner||'')}</td><td>${escapeHtml(getProjectRegion(p)||'')}</td><td>${escapeHtml(getProjectDc(p)||'')}</td><td>${p.startDate||''}</td><td>${p.endDate||''}</td><td>${tasks.length}</td><td>${done}</td><td>${delay}</td><td>${status}</td></tr>`;
+    });
+    html+='</table>';
+
+    // All Tasks combined
+    html+='<h2>All Tasks</h2>';
+    html+='<table><tr><th>Project</th><th>Task</th><th>Detail</th><th>Owner</th><th>Status</th><th>Start</th><th>Due</th><th>Comment</th></tr>';
+    projectsToExport.forEach(p=>{
+      (p.tasks||[]).forEach(t=>{
+        html+=`<tr><td>${escapeHtml(p.projectName||'')}</td><td><b>${escapeHtml(t.name||'')}</b></td><td>${escapeHtml(t.detail||'')}</td><td>${escapeHtml(t.owner||'')}</td><td>${statusText(t.status)}</td><td>${t.start||''}</td><td>${t.due||''}</td><td>${escapeHtml(t.comment||'')}</td></tr>`;
+      });
+    });
+    html+='</table>';
+  }
+
+  html+='</body></html>';
+  download(html,'RTM_Projects_Export.xls','application/vnd.ms-excel');
 }
 function exportPDF(){renderDashboard();showTab('dashboard');setTimeout(()=>window.print(),200)}
 function clearDraft(){
