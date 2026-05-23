@@ -616,6 +616,19 @@ const USERS_KEY='rtm_users_v1';
 const PROJECTS_KEY='rtm_projects_v1';
 const SESSION_KEY='rtm_session_v1';
 const FB_CONFIG_KEY='rtm_fb_config_v1';
+
+// ⭐ DEFAULT FIREBASE CONFIG — ฝังในไฟล์เพื่อให้ทุก browser ใช้ Firebase ได้ทันที
+// (ไม่ต้องตั้งค่าใหม่ในทุกเครื่อง) RTM สามารถ override ผ่านหน้า Settings ได้
+const DEFAULT_FIREBASE_CONFIG = {
+  // ✏️ แก้ตรงนี้ — paste config จาก Firebase Console ของคุณ
+  // ถ้าปล่อยว่าง app จะทำงาน Local Mode (เก็บใน browser แต่ละเครื่อง ไม่ sync)
+  "apiKey": "",
+  "authDomain": "",
+  "projectId": "",
+  "storageBucket": "",
+  "messagingSenderId": "",
+  "appId": ""
+};
 const $=id=>document.getElementById(id);
 
 /* ---------- Global state ---------- */
@@ -658,10 +671,18 @@ async function ensureSelfInCloud(){
     console.log('Ensured self user in cloud:',self.username);
   }catch(e){console.error('ensureSelfInCloud err',e)}
 }
-function doLogin(){
+async function doLogin(){
   const u=$('loginUser').value.trim();
   const p=$('loginPass').value;
-  const found=users.find(x=>x.username===u && x.password===p);
+  let found=users.find(x=>x.username===u && x.password===p);
+  // If not found locally but Firebase is configured, try refetching from cloud
+  // (handles fresh browser where cloud users haven't synced yet, or new users just added)
+  if(!found && getFirebaseConfig()){
+    setLoginLoading(true,'⏳ กำลังตรวจสอบกับ cloud...');
+    await fetchUsersFromCloud();
+    setLoginLoading(false);
+    found=users.find(x=>x.username===u && x.password===p);
+  }
   if(!found){$('loginError').classList.add('show');return}
   $('loginError').classList.remove('show');
   session={username:found.username,role:found.role,region:found.region||'',dc:found.dc||''};
@@ -2397,7 +2418,15 @@ function setCloudStatus(text,cls){
   el.className='pill cloud-status '+cls;
 }
 function getFirebaseConfig(){
-  try{return JSON.parse(localStorage.getItem(FB_CONFIG_KEY)||'null')}catch(e){return null}
+  try{
+    const stored=JSON.parse(localStorage.getItem(FB_CONFIG_KEY)||'null');
+    if(stored && stored.apiKey && stored.projectId) return stored;
+  }catch(e){}
+  // Fallback to DEFAULT (embedded in file)
+  if(DEFAULT_FIREBASE_CONFIG.apiKey && DEFAULT_FIREBASE_CONFIG.projectId){
+    return DEFAULT_FIREBASE_CONFIG;
+  }
+  return null;
 }
 function saveFirebaseConfig(){
   try{
@@ -2567,10 +2596,56 @@ function migrateLegacyIfAny(){
 /* ===================================================================== 
    BOOT
    ===================================================================== */
-window.addEventListener('load',()=>{
+async function fetchUsersFromCloud(){
+  // One-time fetch of users from Firestore (without subscribing).
+  // Used during boot to ensure login has up-to-date users before user types.
+  try{
+    const cfg=getFirebaseConfig();
+    if(!cfg) return false;
+    const {initializeApp,getApps}=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+    const {getFirestore,collection,getDocs}=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    const app=getApps().length?getApps()[0]:initializeApp(cfg);
+    const db=getFirestore(app);
+    const snap=await getDocs(collection(db,'users'));
+    const cloudUsers=[];
+    snap.forEach(d=>cloudUsers.push(d.data()));
+    if(cloudUsers.length){
+      users=cloudUsers;
+      saveUsersLocal();
+      return true;
+    }
+    return false;
+  }catch(e){
+    console.error('Pre-login user fetch failed:',e);
+    return false;
+  }
+}
+
+function setLoginLoading(loading,msg){
+  const errEl=$('loginError');
+  const btn=document.querySelector('#loginOverlay .btn');
+  if(loading){
+    if(errEl){errEl.classList.remove('show')}
+    if(btn){btn.disabled=true;btn.textContent=msg||'กำลังโหลด...'}
+  }else{
+    if(btn){btn.disabled=false;btn.textContent='เข้าสู่ระบบ'}
+  }
+}
+
+window.addEventListener('load',async ()=>{
   loadUsersLocal();
   loadProjectsLocal();
   ensureBootstrapUser();
+
+  // If Firebase configured, fetch users from cloud BEFORE showing login
+  // (prevents "user not found" when fresh browser opens but user exists in cloud)
+  const hasCloudConfig=!!getFirebaseConfig();
+  if(hasCloudConfig){
+    setLoginLoading(true,'⏳ กำลังโหลดข้อมูล users...');
+    await fetchUsersFromCloud();
+    setLoginLoading(false);
+  }
+
   // Try restore session
   try{
     const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
