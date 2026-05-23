@@ -154,6 +154,141 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .cloud-status.local{color:var(--amberText)}
 
 @media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}.user-row{grid-template-columns:1fr 1fr;font-size:12px}.user-row.header{display:none}}
+
+/* ===== MOBILE-FIRST RESPONSIVE OVERRIDES (≤768px) ===== */
+@media(max-width:768px){
+  /* Body & spacing */
+  body{font-size:14px}
+  .main{padding:8px 8px 12px}
+  .card{padding:12px;border-radius:14px;margin-bottom:10px}
+
+  /* Sidebar — compact horizontal scroll */
+  .sidebar{padding:8px 6px;gap:6px}
+  .brand-spine{display:none}  /* hide on mobile to save space */
+  .spine-tab{min-width:64px;min-height:54px;font-size:10px;padding:4px;border-radius:10px}
+  .spine-tab span:first-child{font-size:16px}
+
+  /* Topbar — collapsible + smaller buttons */
+  .topbar{padding:10px 12px;border-radius:0;margin-bottom:10px}
+  .topbar-row{flex-direction:column;align-items:stretch;gap:8px}
+  .titlebox h1{font-size:18px}
+  .titlebox p{font-size:11px}
+  .actions{gap:6px;justify-content:flex-start}
+  .actions .btn{padding:8px 10px;font-size:12px;border-radius:9px}
+  .actions .btn.ghost{display:inline-flex}
+  /* Hide less critical buttons on small screens — keep Run, Save, Export, Logout */
+  .actions #undoBtn,.actions #redoBtn{display:none}
+  .statusline{gap:5px;margin-top:8px}
+  .pill{padding:4px 8px;font-size:10px}
+
+  /* User chip — compact */
+  .user-chip{padding:4px 8px;font-size:11px}
+  .user-chip .role-tag{padding:1px 6px;font-size:9px}
+
+  /* Tables — give comfortable touch targets */
+  th,td{padding:8px 6px;font-size:12px}
+  .taskInput,.taskSelect,.taskArea{padding:8px;font-size:13px;min-height:36px}
+  .taskCellName{min-width:160px}
+  .taskCellAction{min-width:140px}
+  .taskCellComment{min-width:140px}
+  .taskCellLabel{min-width:120px}
+  .taskCellStatus{min-width:110px}
+  .task-due{min-width:120px}
+
+  /* Forms */
+  input,select,textarea{padding:10px 12px;font-size:14px;border-radius:10px}
+  label{font-size:11px;margin-bottom:4px}
+  .grid{gap:10px}
+
+  /* Headings */
+  h2{font-size:16px;margin:0 0 8px}
+  h3{font-size:13px}
+  .hint{font-size:11px}
+
+  /* Metric tiles — bigger numbers on small */
+  .metric{padding:12px;min-height:74px}
+  .metric b{font-size:22px}
+  .metric span{font-size:11px}
+
+  /* Filter bar — stack vertically */
+  .filter-bar{flex-direction:column;align-items:stretch;gap:6px;padding:8px 0}
+  .filter-bar input,.filter-bar select{max-width:100%;width:100%}
+
+  /* Project bar (Setup) */
+  .project-bar{flex-direction:column;align-items:stretch;gap:6px;padding:8px}
+  .project-bar input[type="search"],.project-bar select{max-width:100%}
+
+  /* Project list grid — single col */
+  .project-list-grid{grid-template-columns:1fr;gap:8px}
+  .project-tile{padding:12px}
+  .project-tile h3{font-size:14px;padding-right:70px}
+  .project-tile .ptile-meta{font-size:10px}
+
+  /* Buttons in tiles */
+  .btn.mini{padding:6px 8px;font-size:11px;min-height:34px}
+
+  /* Kanban — single column on phone */
+  .kanban-board{grid-template-columns:1fr;gap:8px}
+  .kanban-col{padding:8px;min-height:auto}
+  .kanban-card{padding:8px;font-size:11px}
+  .kanban-card .kc-title{font-size:12px}
+
+  /* Timeline */
+  .timeline-row-label{padding:6px 8px}
+  .timeline-row-label .tl-task-name{font-size:11px}
+  .timeline-row-label .tl-task-meta{font-size:9px}
+  .timeline-legend{font-size:10px;padding:8px;gap:6px}
+
+  /* Summary tiles (Overview) */
+  .summary-grid{grid-template-columns:1fr;gap:8px}
+  .summary-tile{padding:10px}
+  .summary-tile h4{font-size:13px}
+
+  /* Settings User row — vertical stacked card style */
+  .user-row{grid-template-columns:1fr!important;gap:6px;padding:10px;border-radius:10px;border:1px solid var(--line);margin-bottom:6px;background:#fff}
+  .user-row.header{display:none}
+  .user-row>div{display:flex;flex-direction:column;gap:2px}
+  .user-row>div::before{content:attr(data-label);font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase}
+
+  /* Modal — fullscreen on mobile */
+  .modal-overlay{padding:8px;align-items:flex-start}
+  .modal-card{padding:16px;border-radius:14px;max-width:100%;width:100%}
+  .modal-title{font-size:18px;padding-right:42px}
+  .modal-close{width:32px;height:32px;font-size:18px;top:10px;right:10px}
+  .modal-grid{grid-template-columns:1fr;gap:8px}
+  .modal-section{margin-top:10px;padding-top:10px}
+  .modal-section h4{font-size:11px}
+  .modal-tasks-mini th,.modal-tasks-mini td{padding:5px 6px;font-size:10px}
+
+  /* Login overlay — full mobile */
+  .login-card{padding:20px;width:100%;max-width:100%;margin:8px;border-radius:14px}
+  .login-card h1{font-size:20px}
+  .login-card p{font-size:12px}
+
+  /* Add Task banner */
+  #taskProjectBanner{padding:8px 10px;margin-bottom:8px}
+  #taskProjectBanner h3{font-size:14px}
+
+  /* Dropdown menu */
+  .dropdown-menu{right:auto;left:0;min-width:160px}
+
+  /* Hide overly-wide table columns? Keep horizontal scroll instead */
+  .table-wrap{border-radius:10px}
+}
+
+/* ===== TINY PHONES (≤480px) — extra compact ===== */
+@media(max-width:480px){
+  .main{padding:6px 6px 10px}
+  .card{padding:10px}
+  .titlebox h1{font-size:16px}
+  .actions .btn{padding:7px 9px;font-size:11px}
+  .actions .btn.danger,.actions label.btn{display:none}  /* hide Clear + Import on tiny */
+  .pill{font-size:9px;padding:3px 6px}
+  .spine-tab{min-width:56px;min-height:48px;font-size:9px}
+  .spine-tab span:first-child{font-size:14px}
+  h2{font-size:15px}
+  .metric b{font-size:18px}
+}
 @media print{body{background:#fff}.sidebar,.topbar,#setup,#tasks,#kanban,#archive,#settings,.noPrint{display:none!important}.app{display:block}.main{padding:0}.card,.metric{box-shadow:none}.tabpage{display:block!important}.dashboard-layout{grid-template-columns:1fr}.task-summary-card{min-height:auto}}
 </style>
 </head>
@@ -1272,9 +1407,9 @@ function renderUsersList(){
     const warning=(needsRegion||needsDc)?` <span style="background:var(--rose);color:var(--roseText);font-size:10px;padding:2px 6px;border-radius:8px;font-weight:800" title="${needsRegion?'ขาด Region ':''}${needsDc?'ขาด DC':''} - RSM จะมองไม่เห็น project ของ user คนนี้">⚠️ INCOMPLETE</span>`:'';
     return `
     <div class="user-row" ${(needsRegion||needsDc)?'style="background:#fff8f0"':''}>
-      <div><b>${escapeHtml(u.username)}</b>${warning}</div>
-      <div><input value="${attr(u.password)}" onchange="updateUser('${attr(u.username)}','password',this.value)"></div>
-      <div>
+      <div data-label="Username"><b>${escapeHtml(u.username)}</b>${warning}</div>
+      <div data-label="Password"><input value="${attr(u.password)}" onchange="updateUser('${attr(u.username)}','password',this.value)"></div>
+      <div data-label="Role">
         <select onchange="updateUser('${attr(u.username)}','role',this.value)">
           <option value="ASM" ${u.role==='ASM'?'selected':''}>ASM</option>
           <option value="RS" ${u.role==='RS'?'selected':''}>RS</option>
@@ -1282,14 +1417,14 @@ function renderUsersList(){
           <option value="RTM" ${u.role==='RTM'?'selected':''}>RTM</option>
         </select>
       </div>
-      <div>
+      <div data-label="Region">
         <select onchange="updateUser('${attr(u.username)}','region',this.value)" ${needsRegion?'style="border-color:var(--roseText);background:#fff5f5"':''}>
           <option value="">—</option>
           ${['NOR','NOE','BKKCT','SOU','THA'].map(r=>`<option ${u.region===r?'selected':''}>${r}</option>`).join('')}
         </select>
       </div>
-      <div><input value="${attr(u.dc||'')}" onchange="updateUser('${attr(u.username)}','dc',this.value)" placeholder="DC" ${needsDc?'style="border-color:var(--roseText);background:#fff5f5"':''}></div>
-      <div><button class="x mini" onclick="deleteUser('${attr(u.username)}')">Delete</button></div>
+      <div data-label="DC"><input value="${attr(u.dc||'')}" onchange="updateUser('${attr(u.username)}','dc',this.value)" placeholder="DC" ${needsDc?'style="border-color:var(--roseText);background:#fff5f5"':''}></div>
+      <div data-label="Action"><button class="x mini" onclick="deleteUser('${attr(u.username)}')">Delete</button></div>
     </div>`;
   }).join('');
 }
