@@ -2513,7 +2513,24 @@ function renderTimeline(){
     </div>`;
   }).join('');
 
-  container.innerHTML=headerHtml+`<div style="position:relative">${todayLineHtml}${rowsHtml}</div>`;
+  // Render WITHOUT wrapper div — rows + today-line are direct children of container
+  // (wrapping with position:relative would break sticky-left of row labels)
+  container.innerHTML=headerHtml+rowsHtml+todayLineHtml;
+  // Adjust today-line height to span all rows (after DOM render)
+  requestAnimationFrame(()=>{
+    const line=container.querySelector('.timeline-today-line');
+    const marker=container.querySelector('.timeline-today-marker');
+    if(line){
+      // Compute total scroll height of all rows
+      const rows=container.querySelectorAll('.timeline-row');
+      let rowsTotalHeight=0;
+      rows.forEach(r=>rowsTotalHeight+=r.offsetHeight);
+      const headerH=container.querySelector('.timeline-header')?.offsetHeight||0;
+      line.style.top=headerH+'px';
+      line.style.height=rowsTotalHeight+'px';
+      if(marker) marker.style.top=(headerH-6)+'px';
+    }
+  });
 }
 
 /* ===================================================================== 
