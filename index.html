@@ -1180,6 +1180,20 @@ function updateNewUserFieldHints(){
 function updateUser(username,field,value){
   const u=users.find(x=>x.username===username);
   if(!u)return;
+  // Extra safety for password change of self: confirm + warn empty
+  if(field==='password'){
+    if(!value || value.length<4){
+      alert('⚠️ Password ต้องมีอย่างน้อย 4 ตัวอักษร — ยกเลิกการเปลี่ยน');
+      renderUsersList(); // re-render to reset the input
+      return;
+    }
+    if(username===session.username){
+      if(!confirm('⚠️ คุณกำลังเปลี่ยน password ของตัวเอง ('+username+')\n\nPassword ใหม่: "'+value+'"\n\nกรุณาจดไว้ก่อนกด OK — ถ้าลืมจะเข้าระบบไม่ได้\n\nยืนยันเปลี่ยน?')){
+        renderUsersList();
+        return;
+      }
+    }
+  }
   u[field]=value;
   saveUsersLocal();
   pushUserToCloud(u);
@@ -1198,6 +1212,10 @@ function updateUser(username,field,value){
       renderProjectList();
       renderOverview();
     }
+  }
+  // For password change: feedback
+  if(field==='password' && username===session.username){
+    alert('✅ เปลี่ยน password สำเร็จ\nครั้งต่อไป login ใช้: '+value);
   }
 }
 
