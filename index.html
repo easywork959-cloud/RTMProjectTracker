@@ -99,16 +99,16 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .task-th-wrap{white-space:normal!important;min-width:90px}
 
 /* Timeline (Gantt-style) */
-.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;position:relative}
+.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;position:relative;-webkit-overflow-scrolling:touch}
 .timeline-empty{padding:40px;text-align:center;color:var(--muted)}
 .timeline-header{display:grid;background:#f1f5f9;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:6}
-.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;position:sticky;left:0;z-index:7;box-shadow:2px 0 6px rgba(0,0,0,.08)}
+.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;z-index:7;box-shadow:2px 0 6px rgba(0,0,0,.08);will-change:transform}
 .timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5}
 .timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
 .timeline-row{display:grid;border-bottom:1px solid #eef2f6;min-height:42px;position:relative}
 .timeline-row:hover{background:#fafcff}
 .timeline-row:hover .timeline-row-label{background:#fafcff}
-.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;position:sticky;left:0;z-index:4;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 6px rgba(0,0,0,.06)}
+.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;z-index:4;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 6px rgba(0,0,0,.06);will-change:transform}
 .timeline-row-label .tl-task-name{font-weight:800;color:var(--navy);font-size:13px}
 .timeline-row-label .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
 .timeline-row-track{position:relative;height:42px}
@@ -159,6 +159,69 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .cloud-status.local{color:var(--amberText)}
 
 @media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}.user-row{grid-template-columns:1fr 1fr;font-size:12px}.user-row.header{display:none}}
+
+/* ===== GLOBAL CHECKBOX STYLES — square, prominent, modern ===== */
+input[type="checkbox"]{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  width:24px;
+  height:24px;
+  min-width:24px;
+  min-height:24px;
+  border:2px solid var(--line);
+  border-radius:6px;
+  background:#fff;
+  cursor:pointer;
+  position:relative;
+  flex-shrink:0;
+  transition:all .15s ease;
+  vertical-align:middle;
+}
+input[type="checkbox"]:hover{border-color:var(--blue)}
+input[type="checkbox"]:checked{
+  background:var(--blue);
+  border-color:var(--blue);
+}
+input[type="checkbox"]:checked::after{
+  content:'';
+  position:absolute;
+  left:7px;top:2px;
+  width:6px;height:12px;
+  border:solid #fff;
+  border-width:0 2.5px 2.5px 0;
+  transform:rotate(45deg);
+}
+input[type="checkbox"]:focus{
+  outline:2px solid var(--blue);
+  outline-offset:2px;
+}
+
+/* Make checkbox-containing labels look like cards */
+label.checkbox-card,
+.col-12>label[style*="display:flex"]:has(input[type="checkbox"]){
+  display:flex!important;
+  align-items:center;
+  gap:10px;
+  padding:12px 14px;
+  background:#fff;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  cursor:pointer;
+  font-size:14px;
+  min-height:48px;
+  transition:all .15s ease;
+}
+label.checkbox-card:hover,
+.col-12>label[style*="display:flex"]:has(input[type="checkbox"]):hover{
+  background:var(--blueBg);
+  border-color:var(--blue);
+}
+label.checkbox-card:has(input:checked),
+.col-12>label[style*="display:flex"]:has(input[type="checkbox"]:checked){
+  background:linear-gradient(135deg,#fff8e6,#fff3d6);
+  border-color:var(--amberText);
+}
 
 /* ===== MOBILE OVERHAUL (≤768px) — bottom nav + card views + hamburger ===== */
 @media(max-width:768px){
@@ -293,29 +356,6 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .mobile-menu-backdrop{display:none;position:fixed;inset:0;background:rgba(11,47,102,.4);z-index:9400}
   .mobile-menu-backdrop.show{display:block}
 
-  /* ===== CHECKBOX — bigger, prettier ===== */
-  input[type="checkbox"]{
-    width:22px!important;
-    height:22px!important;
-    cursor:pointer;
-    accent-color:var(--blue);
-    margin:0 6px 0 0;
-    flex-shrink:0;
-  }
-  label:has(input[type="checkbox"]){
-    display:flex!important;
-    align-items:center;
-    gap:8px;
-    padding:10px 12px;
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:10px;
-    cursor:pointer;
-    font-size:14px;
-    min-height:44px;
-  }
-  label:has(input[type="checkbox"]):hover{background:var(--blueBg);border-color:var(--blue)}
-
   /* ===== FORMS — single column, big touch targets ===== */
   input,select,textarea{
     padding:11px 12px;
@@ -398,7 +438,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .kanban-card .kc-title{font-size:13px}
   .kanban-card .kc-meta{font-size:10px}
 
-  /* ===== TIMELINE — sticky labels, scroll horizontally ===== */
+  /* ===== TIMELINE — JS-based sticky labels, scroll horizontally ===== */
   .timeline-container{
     max-height:65vh;
     overflow-x:auto;
@@ -406,18 +446,16 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
     -webkit-overflow-scrolling:touch;
   }
   .timeline-header{position:sticky;top:0;z-index:3}
-  /* Make label column STICKY on horizontal scroll */
+  /* JS will handle horizontal stickiness via transform */
   .timeline-header-label,
   .timeline-row-label{
-    position:sticky;
-    left:0;
-    z-index:4;
     background:#fff;
     box-shadow:2px 0 6px rgba(0,0,0,.08);
-    max-width:160px;
-    min-width:160px;
+    max-width:140px;
+    min-width:140px;
+    z-index:5;
   }
-  .timeline-header-label{background:#f1f5f9;z-index:5}
+  .timeline-header-label{background:#f1f5f9;z-index:6}
   .timeline-row-label{padding:8px 10px}
   .timeline-row-label .tl-task-name{font-size:12px;font-weight:800}
   .timeline-row-label .tl-task-meta{font-size:10px}
@@ -2514,14 +2552,13 @@ function renderTimeline(){
   }).join('');
 
   // Render WITHOUT wrapper div — rows + today-line are direct children of container
-  // (wrapping with position:relative would break sticky-left of row labels)
   container.innerHTML=headerHtml+rowsHtml+todayLineHtml;
-  // Adjust today-line height to span all rows (after DOM render)
+
+  // === STICKY LEFT via JavaScript scroll listener (more reliable than CSS sticky on mobile) ===
   requestAnimationFrame(()=>{
     const line=container.querySelector('.timeline-today-line');
     const marker=container.querySelector('.timeline-today-marker');
     if(line){
-      // Compute total scroll height of all rows
       const rows=container.querySelectorAll('.timeline-row');
       let rowsTotalHeight=0;
       rows.forEach(r=>rowsTotalHeight+=r.offsetHeight);
@@ -2530,6 +2567,14 @@ function renderTimeline(){
       line.style.height=rowsTotalHeight+'px';
       if(marker) marker.style.top=(headerH-6)+'px';
     }
+    // Sticky labels via translateX — works on all mobile browsers
+    const labels=container.querySelectorAll('.timeline-row-label, .timeline-header-label');
+    const updateLabels=()=>{
+      const x=container.scrollLeft;
+      labels.forEach(el=>{el.style.transform=`translateX(${x}px)`});
+    };
+    container.addEventListener('scroll',updateLabels,{passive:true});
+    updateLabels(); // initial position
   });
 }
 
