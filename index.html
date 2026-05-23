@@ -14,22 +14,179 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Noto Sans Thai",sans-serif;color:var(--text)}
 .app{display:grid;grid-template-columns:78px 1fr;min-height:100vh}.sidebar{background:#0b2f66;color:#fff;position:sticky;top:0;height:100vh;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:4px 0 16px rgba(11,47,102,.15)}
 .brand-spine{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;letter-spacing:.8px;font-size:13px;margin:6px 0 14px;opacity:.9}.spine-tab{width:58px;min-height:70px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;cursor:pointer;font-weight:800;font-size:11px;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}.spine-tab span:first-child{font-size:19px}.spine-tab.active{background:#fff;color:var(--navy);box-shadow:0 8px 18px rgba(0,0,0,.18)}
-.main{min-width:0;padding:16px 18px 22px}.topbar{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:14px 16px;box-shadow:var(--shadow);position:sticky;top:12px;z-index:5;margin-bottom:16px}.topbar-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.titlebox h1{font-size:22px;margin:0 0 4px;color:var(--navy)}.titlebox p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:800;cursor:pointer;background:#eaf2ff;color:var(--navy)}.btn:hover{filter:brightness(.98)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--blue);color:#fff}.btn.ok{background:var(--green);color:var(--greenText)}.btn.danger{background:var(--rose);color:var(--roseText)}.btn.ghost{background:#fff;border:1px solid var(--line)}.dropdown{position:relative}.dropdown-menu{display:none;position:absolute;right:0;top:42px;min-width:170px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;overflow:hidden}.dropdown:hover .dropdown-menu{display:block}.dropdown-menu button{width:100%;border:0;background:#fff;text-align:left;padding:11px 13px;cursor:pointer;color:var(--text)}.dropdown-menu button:hover{background:#f3f6fb}.statusline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;font-size:12px;color:#42526e}.saved{color:var(--greenText)}.unsaved{color:var(--roseText)}
+.main{min-width:0;padding:16px 18px 22px}.topbar{background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:20px;padding:14px 16px;box-shadow:var(--shadow);position:sticky;top:12px;z-index:5;margin-bottom:16px}.topbar-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.titlebox h1{font-size:22px;margin:0 0 4px;color:var(--navy)}.titlebox p{font-size:12px;color:var(--muted);margin:0;line-height:1.45}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:0;border-radius:11px;padding:10px 13px;font-weight:800;cursor:pointer;background:#eaf2ff;color:var(--navy)}.btn:hover{filter:brightness(.98)}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.primary{background:var(--blue);color:#fff}.btn.ok{background:var(--green);color:var(--greenText)}.btn.danger{background:var(--rose);color:var(--roseText)}.btn.ghost{background:#fff;border:1px solid var(--line)}.dropdown{position:relative}.dropdown-menu{display:none;position:absolute;right:0;top:42px;min-width:170px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:14px;overflow:hidden;z-index:10}.dropdown:hover .dropdown-menu{display:block}.dropdown-menu button{width:100%;border:0;background:#fff;text-align:left;padding:11px 13px;cursor:pointer;color:var(--text)}.dropdown-menu button:hover{background:#f3f6fb}.statusline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#fff;font-size:12px;color:#42526e}.saved{color:var(--greenText)}.unsaved{color:var(--roseText)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.col-3{grid-column:span 3}.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-12{grid-column:span 12}.row{display:grid;grid-template-columns:1fr auto;gap:10px}
 h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0 8px;color:var(--navy)}label{font-size:12px;color:#42526e;font-weight:700;display:block;margin-bottom:6px}.hint{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.5}input,select,textarea{width:100%;border:1px solid #c8d7ea;border-radius:11px;padding:10px 12px;font-size:14px;background:#fff;color:var(--text)}textarea{min-height:78px;resize:vertical}.hidden{display:none!important}
 .metric{border-radius:18px;padding:15px;min-height:88px;border:1px solid var(--line);box-shadow:var(--shadow)}.metric b{font-size:27px;display:block;margin-bottom:3px}.metric span{font-size:12px;font-weight:800}.m-days{background:var(--sky)}.m-days b{color:#1849a9}.m-time{background:var(--violet)}.m-time b{color:var(--violetText)}.m-tasks{background:var(--green)}.m-tasks b{color:var(--greenText)}.m-status{background:var(--amber)}.m-status b{color:var(--amberText)}.bar{height:9px;border-radius:999px;background:rgba(255,255,255,.7);overflow:hidden;margin-top:8px}.bar>div{height:100%;background:var(--blue);width:0%}
 .dashboard-layout{display:grid;grid-template-columns:minmax(280px,30%) minmax(0,1fr);gap:14px;align-items:start}.canvas-mini{font-size:13px}.project-title{font-size:21px!important;line-height:1.25;margin:3px 0 6px!important;color:#062655}.canvas-box{border:1px dashed #c7d7eb;border-radius:14px;padding:12px;background:#fff;margin-top:10px}.canvas-box ul{margin:7px 0 0;padding-left:18px}.canvas-box li{margin:4px 0}.readable{font-size:13px;line-height:1.55;color:#27364a}.task-summary-card{min-height:55vh}.table-wrap{overflow:auto;border:1px solid #e6edf5;border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;background:#fff}th,td{border-bottom:1px solid #e6edf5;padding:10px;text-align:left;font-size:13px;vertical-align:top}th{background:#f1f5f9;color:var(--navy);white-space:nowrap;position:sticky;top:0;z-index:1}th.sortable{cursor:pointer;user-select:none}th.sortable:hover{background:#e7eef8}.sortMark{font-size:10px;color:#69798f;margin-left:4px}.status{font-weight:800;border-radius:999px;padding:5px 9px;display:inline-block;white-space:nowrap}.Done{background:var(--green);color:var(--greenText)}.Delay{background:var(--rose);color:var(--roseText)}.InProgress{background:var(--amber);color:var(--amberText)}.NotStarted{background:#edf2f7;color:#42526e}.labelpill{border-radius:999px;padding:5px 9px;font-weight:800;font-size:12px;background:#eef4ff;color:var(--navy);display:inline-block;white-space:nowrap}.listItem{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid #eef2f6;padding:7px 0}.x{border:0;background:var(--rose);color:var(--roseText);border-radius:8px;cursor:pointer;padding:6px 9px}.mini{font-size:12px;padding:7px 9px}.muted{color:var(--muted);font-size:12px}.taskInput,.taskSelect,.taskArea{border:1px solid transparent;background:transparent;border-radius:8px;padding:7px;width:100%;font-size:13px}.taskArea{min-height:44px;resize:vertical}.taskInput:hover,.taskSelect:hover,.taskArea:hover,.taskInput:focus,.taskSelect:focus,.taskArea:focus{border-color:#c8d7ea;background:#fff;outline:none}.taskCellName{min-width:220px}.taskCellAction{min-width:190px}.taskCellComment{min-width:190px}.task-due{min-width:130px}.task-page-layout{display:grid;grid-template-columns:minmax(280px,40%) minmax(0,60%);gap:14px;align-items:start}.add-task-card{max-height:calc(100vh - 132px);overflow:auto}.tracker-card{min-height:60vh}.toolbarNote{font-size:12px;color:var(--muted);margin:6px 0 0}.noPrint{}
-@media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}}
-@media print{body{background:#fff}.sidebar,.topbar,#setup,#tasks,.noPrint{display:none!important}.app{display:block}.main{padding:0}.card,.metric{box-shadow:none}.tabpage{display:block!important}.dashboard-layout{grid-template-columns:1fr}.task-summary-card{min-height:auto}}
+
+/* ===== NEW STYLES (additive only - keep original look) ===== */
+/* Login overlay */
+.login-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#0b2f66,#1849a9);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-card{background:#fff;border-radius:20px;padding:32px;width:380px;max-width:92vw;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-card h1{color:var(--navy);font-size:24px;margin:0 0 6px}
+.login-card p{color:var(--muted);font-size:13px;margin:0 0 20px}
+.login-card label{margin-top:10px}
+.login-card .btn{width:100%;margin-top:14px;padding:12px}
+.login-error{background:var(--rose);color:var(--roseText);padding:10px;border-radius:11px;font-size:13px;margin-top:10px;display:none}
+.login-error.show{display:block}
+
+/* User chip in topbar */
+.user-chip{display:inline-flex;align-items:center;gap:8px;background:#eaf2ff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:var(--navy)}
+.user-chip .role-tag{background:var(--navy);color:#fff;padding:2px 8px;border-radius:999px;font-size:10px}
+.user-chip .role-tag.RSM{background:#1849a9}
+.user-chip .role-tag.ASM{background:#2f80ed}
+.user-chip .role-tag.RS{background:#0b6b3a}
+
+/* Project list (Setup page) */
+.project-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.project-bar input[type="search"]{flex:1;min-width:200px;max-width:340px}
+.project-bar select{max-width:200px}
+.project-list-card{margin-bottom:14px}
+.project-list-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.project-tile{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff;cursor:pointer;transition:.15s;position:relative}
+.project-tile:hover{border-color:var(--blue);box-shadow:0 6px 18px rgba(47,128,237,.15);transform:translateY(-1px)}
+.project-tile.active{border-color:var(--blue);background:#eaf3ff}
+.project-tile h3{font-size:15px;margin:0 0 6px;padding-right:60px;color:var(--navy)}
+.project-tile .ptile-meta{font-size:11px;color:var(--muted);line-height:1.6}
+.project-tile .ptile-tag{display:inline-block;background:#eef4ff;color:var(--navy);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-right:4px}
+.project-tile .ptile-archive{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);cursor:pointer}
+.project-tile .ptile-archive input{width:auto;margin:0}
+.project-empty{text-align:center;padding:40px 20px;color:var(--muted)}
+
+/* Settings (Users management) */
+.user-row{display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr 1fr auto;gap:8px;padding:10px;border-bottom:1px solid #eef2f6;align-items:center}
+.user-row.header{background:#f1f5f9;font-weight:800;color:var(--navy);font-size:12px;border-radius:10px 10px 0 0}
+.user-row input,.user-row select{padding:7px 10px;font-size:13px}
+
+/* Dashboard summary cards */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:14px}
+.summary-tile{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.summary-tile h4{margin:0 0 8px;font-size:14px;color:var(--navy);display:flex;justify-content:space-between;align-items:center}
+.summary-tile h4 .summary-count{background:var(--navy);color:#fff;padding:2px 10px;border-radius:999px;font-size:11px}
+.summary-stat-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px dashed #eef2f6}
+.summary-stat-row:last-child{border-bottom:0}
+.summary-stat-row .stat-pill{padding:2px 8px;border-radius:999px;font-weight:800;font-size:11px}
+
+/* Kanban */
+.kanban-board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;min-height:60vh}
+@media(max-width:900px){.kanban-board{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.kanban-board{grid-template-columns:1fr}}
+.kanban-col{background:#f7fafd;border:1px solid var(--line);border-radius:14px;padding:10px;min-height:300px}
+.kanban-col-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:0 4px}
+.kanban-col-head h3{margin:0;font-size:13px}
+.kanban-col-head .kcount{background:#fff;border:1px solid var(--line);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:800}
+.kanban-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:8px;font-size:12px;cursor:grab;box-shadow:0 2px 6px rgba(11,47,102,.04)}
+.kanban-card:active{cursor:grabbing}
+.kanban-card .kc-title{font-weight:800;color:var(--navy);margin-bottom:4px;font-size:13px}
+.kanban-card .kc-meta{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:6px;color:var(--muted);font-size:11px;flex-wrap:wrap}
+.kanban-card .kc-project{background:#eef4ff;color:var(--navy);padding:2px 6px;border-radius:6px;font-weight:700;font-size:10px}
+.kanban-card.dragging{opacity:.4}
+.kanban-col.drag-over{background:#eaf3ff;border-color:var(--blue);border-style:dashed}
+
+/* Toolbar filter row */
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.filter-bar input,.filter-bar select{max-width:240px;padding:8px 11px;font-size:13px}
+
+/* Task Tracker columns - ensure Label/Status are wide enough not to truncate */
+.taskCellLabel{min-width:140px}
+.taskCellStatus{min-width:130px}
+.taskCellLabel select,.taskCellStatus select{min-width:100%;width:100%}
+.task-th-wrap{white-space:normal!important;min-width:90px}
+
+/* Timeline (Gantt-style) */
+.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff}
+.timeline-empty{padding:40px;text-align:center;color:var(--muted)}
+.timeline-header{display:grid;background:#f1f5f9;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:3}
+.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;position:sticky;left:0;z-index:4}
+.timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5}
+.timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
+.timeline-row{display:grid;border-bottom:1px solid #eef2f6;min-height:42px;position:relative}
+.timeline-row:hover{background:#fafcff}
+.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;position:sticky;left:0;z-index:2;display:flex;flex-direction:column;justify-content:center}
+.timeline-row-label .tl-task-name{font-weight:800;color:var(--navy);font-size:13px}
+.timeline-row-label .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
+.timeline-row-track{position:relative;height:42px}
+.timeline-bar{position:absolute;top:8px;height:26px;border-radius:6px;cursor:pointer;display:flex;align-items:center;padding:0 8px;color:#fff;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 4px rgba(11,47,102,.15);transition:.15s}
+.timeline-bar:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(11,47,102,.25);z-index:5}
+.timeline-bar.NotStarted{background:#94a3b8}
+.timeline-bar.InProgress{background:var(--blue)}
+.timeline-bar.Delay{background:var(--roseText)}
+.timeline-bar.Done{background:var(--greenText)}
+.timeline-bar.overdue{background:#7c2d12;border:2px dashed #fff;animation:tlBlink 1.5s ease-in-out infinite}
+@keyframes tlBlink{0%,100%{opacity:1}50%{opacity:.75}}
+.timeline-today-line{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;z-index:1;pointer-events:none}
+.timeline-today-marker{position:absolute;top:-6px;background:#ef4444;color:#fff;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800;transform:translateX(-50%);white-space:nowrap;z-index:6}
+.timeline-no-date{position:absolute;top:8px;height:26px;width:80px;border:2px dashed #cbd5e1;border-radius:6px;color:var(--muted);font-size:11px;display:flex;align-items:center;justify-content:center}
+.timeline-legend{display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);background:#fafcff;font-size:11px;color:var(--muted);position:sticky;top:0;z-index:5}
+.timeline-legend .tl-chip{display:inline-flex;align-items:center;gap:5px}
+.timeline-legend .tl-chip-dot{width:10px;height:10px;border-radius:3px}
+
+/* Archive Details Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(11,47,102,.55);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;z-index:9000;padding:30px 16px;overflow-y:auto}
+.modal-overlay.show{display:flex}
+.modal-card{background:#fff;border-radius:20px;width:100%;max-width:760px;padding:24px 26px;box-shadow:0 20px 60px rgba(0,0,0,.25);position:relative}
+.modal-close{position:absolute;top:14px;right:14px;background:#fff;border:1px solid var(--line);border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:20px;line-height:1;color:var(--muted)}
+.modal-close:hover{background:var(--rose);color:var(--roseText);border-color:var(--rose)}
+.modal-title{font-size:22px;color:var(--navy);margin:0 0 4px;padding-right:50px}
+.modal-subtitle{font-size:12px;color:var(--muted);margin:0 0 16px}
+.modal-section{margin-top:14px;border-top:1px solid #eef2f6;padding-top:14px}
+.modal-section:first-of-type{border-top:0;padding-top:0;margin-top:14px}
+.modal-section h4{margin:0 0 6px;font-size:13px;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;font-weight:800}
+.modal-section .modal-value{font-size:14px;color:#27364a;line-height:1.55}
+.modal-archive-comment{background:linear-gradient(135deg,#fff3d6,#fff8e6);border:1px solid var(--amberText);border-radius:12px;padding:14px;color:#5b4200;font-size:14px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.modal-archive-comment::before{content:'📝 ';font-size:18px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.modal-meta-item{background:#f7fafd;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px}
+.modal-meta-item b{display:block;color:var(--muted);font-size:11px;font-weight:700;margin-bottom:3px;text-transform:uppercase;letter-spacing:.3px}
+.modal-meta-item span{font-size:14px;color:var(--text)}
+.modal-tasks-mini{margin-top:8px}
+.modal-tasks-mini table{width:100%;border-collapse:collapse;font-size:12px}
+.modal-tasks-mini th{background:#f1f5f9;text-align:left;padding:6px 8px;color:var(--navy);font-size:11px;border-bottom:1px solid var(--line);position:static}
+.modal-tasks-mini td{padding:6px 8px;border-bottom:1px solid #eef2f6;vertical-align:top}
+.modal-tasks-summary{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+.modal-actions{margin-top:18px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+
+/* Connection status */
+.cloud-status{font-size:11px}
+.cloud-status.online{color:var(--greenText)}
+.cloud-status.offline{color:var(--roseText)}
+.cloud-status.local{color:var(--amberText)}
+
+@media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}.user-row{grid-template-columns:1fr 1fr;font-size:12px}.user-row.header{display:none}}
+@media print{body{background:#fff}.sidebar,.topbar,#setup,#tasks,#kanban,#archive,#settings,.noPrint{display:none!important}.app{display:block}.main{padding:0}.card,.metric{box-shadow:none}.tabpage{display:block!important}.dashboard-layout{grid-template-columns:1fr}.task-summary-card{min-height:auto}}
 </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY (shown until authenticated) -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-card">
+    <h1>🔐 RTM Project Tracker</h1>
+    <p>เข้าสู่ระบบเพื่อเริ่มใช้งาน (Sync ข้อมูลร่วมกับทีม)</p>
+    <label>Username</label>
+    <input id="loginUser" placeholder="username" autocomplete="username">
+    <label>Password</label>
+    <input id="loginPass" type="password" placeholder="password" autocomplete="current-password">
+    <div id="loginError" class="login-error">Username หรือ Password ไม่ถูกต้อง</div>
+    <button class="btn primary" onclick="doLogin()">เข้าสู่ระบบ</button>
+    <p style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center">
+      ครั้งแรก ใช้ <b>rtm / rtm1234</b> เพื่อสร้าง user ใน Settings
+    </p>
+  </div>
+</div>
+
 <div class="app">
   <aside class="sidebar noPrint">
     <div class="brand-spine">RTM TRACKER</div>
-    <button class="spine-tab active" onclick="showTab('setup')"><span>⚙️</span><span>Setup</span></button>
-    <button class="spine-tab" onclick="showTab('dashboard')"><span>📊</span><span>Dash</span></button>
-    <button class="spine-tab" onclick="showTab('tasks')"><span>✅</span><span>Task</span></button>
+    <button class="spine-tab active" id="tabSetup" data-tab="setup" onclick="showTab('setup')"><span>⚙️</span><span>Setup</span></button>
+    <button class="spine-tab" id="tabTasks" data-tab="tasks" onclick="showTab('tasks')"><span>✅</span><span>Task</span></button>
+    <button class="spine-tab" data-tab="overview" onclick="showTab('overview')"><span>📊</span><span>Overview</span></button>
+    <button class="spine-tab" data-tab="dashboard" onclick="showTab('dashboard')"><span>📈</span><span>Project</span></button>
+    <button class="spine-tab" data-tab="timeline" onclick="showTab('timeline')"><span>📅</span><span>Timeline</span></button>
+    <button class="spine-tab" data-tab="kanban" onclick="showTab('kanban')"><span>📋</span><span>Kanban</span></button>
+    <button class="spine-tab" data-tab="archive" onclick="showTab('archive')"><span>🗄️</span><span>Archive</span></button>
+    <button class="spine-tab" id="settingsTab" data-tab="settings" onclick="showTab('settings')" style="display:none"><span>👥</span><span>Users</span></button>
   </aside>
 
   <main class="main">
@@ -37,9 +194,13 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
       <div class="topbar-row">
         <div class="titlebox">
           <h1>RTM Project Tracker</h1>
-          <p>1 ไฟล์ = 1 Project • Flow: Project Setup → Dashboard + Canvas → Task Add & Tracking</p>
+          <p>Multi-Project + Team Collaboration • Flow: Setup → Task → Dashboard</p>
         </div>
         <div class="actions">
+          <span id="userChip" class="user-chip" style="display:none">
+            <span id="userChipName">-</span>
+            <span id="userChipRole" class="role-tag">-</span>
+          </span>
           <button class="btn primary" onclick="runProject()">▶ Run</button>
           <button class="btn ok" onclick="manualSave()">💾 Save</button>
           <button id="undoBtn" class="btn ghost" onclick="undo()">↩ Undo</button>
@@ -47,62 +208,86 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
           <div class="dropdown"><button class="btn">📤 Export</button><div class="dropdown-menu"><button onclick="exportExcel()">Excel (.xls)</button><button onclick="exportCSV()">CSV</button><button onclick="exportPDF()">PDF</button><button onclick="exportJSON()">JSON Draft</button></div></div>
           <label class="btn ghost" style="margin:0;cursor:pointer">Import JSON<input type="file" accept="application/json" onchange="importJSON(event)" style="display:none"></label>
           <button class="btn danger" onclick="clearDraft()">Clear</button>
+          <button class="btn ghost" onclick="doLogout()">🚪 Logout</button>
         </div>
       </div>
       <div class="statusline">
         <span id="draftStatus" class="pill saved">Saved: Ready</span>
+        <span id="cloudStatus" class="pill cloud-status local">☁️ Local Mode</span>
         <span id="historyBadge" class="pill">History: 0/0</span>
         <span class="pill">Auto Save ทุก 10 วินาที</span>
         <span class="pill">Ctrl+Z / Ctrl+Y</span>
       </div>
     </header>
 
+    <!-- ============== SETUP TAB ============== -->
     <section id="setup" class="tabpage">
-      <div class="card">
-        <h2>Project Setup</h2><p class="hint">กรอกครั้งเดียว แล้วกด Run เพื่อสร้าง Dashboard + Canvas</p>
+
+      <!-- Project list bar (filter + search + new) -->
+      <div class="project-bar">
+        <input type="search" id="projectSearch" placeholder="🔍 ค้นหาชื่อ Project..." oninput="renderProjectList()">
+        <select id="projectFilterDC" onchange="renderProjectList()">
+          <option value="">ทุก DC</option>
+        </select>
+        <select id="projectFilterStatus" onchange="renderProjectList()">
+          <option value="active">Active เท่านั้น</option>
+          <option value="all">ทั้งหมด (รวม Archive)</option>
+        </select>
+        <button class="btn primary" onclick="newProject()">+ New Project</button>
+        <span style="flex:1"></span>
+        <span class="muted" id="projectCountLabel">0 projects</span>
+      </div>
+
+      <!-- Project list -->
+      <div class="card project-list-card">
+        <h2>📁 My Projects</h2>
+        <p class="hint">เลือก project เพื่อแก้ไข หรือกด <b>+ New Project</b> เพื่อสร้างใหม่ • ติ๊ก Archive เพื่อย้ายไปเก็บ</p>
+        <div id="projectListGrid" class="project-list-grid">
+          <div class="project-empty">ยังไม่มี Project — กด "+ New Project" เพื่อเริ่ม</div>
+        </div>
+      </div>
+
+      <!-- Project edit form (original layout preserved) -->
+      <div id="projectEditWrapper" class="hidden">
+        <div class="card">
+          <h2>Project Setup</h2><p class="hint">กรอกครั้งเดียว แล้วกด Run เพื่อสร้าง Dashboard + Canvas</p>
+          <div class="grid">
+            <div class="col-8"><label>Project Name *</label><input id="projectName" placeholder="เช่น Improve Visit Success Route A"></div>
+            <div class="col-4"><label>Owner</label><input id="owner" placeholder="Owner name"></div>
+            <div class="col-6"><label>DC (Distribution Center) *</label><input id="dcName" placeholder="เช่น DC-Bangkok-01"></div>
+            <div class="col-6"><label>Region / ภาค *</label><select id="regionName"><option value="">— เลือกภาค —</option><option value="NOR">NOR (เหนือ)</option><option value="NOE">NOE (อีสาน)</option><option value="BKKCT">BKKCT (กรุงเทพ+กลาง)</option><option value="SOU">SOU (ใต้)</option><option value="THA">THA (ทั่วประเทศ)</option></select></div>
+            <div class="col-12"><label>Project Description</label><textarea id="projectDesc" placeholder="คำอธิบายรายละเอียดสั้น ๆ ของโครงการ"></textarea></div>
+            <div class="col-12"><label>Problem / Background</label><textarea id="problem" placeholder="ปัญหาคืออะไร และทำไมต้องทำ Project นี้"></textarea></div>
+            <div class="col-6"><label>Start Date *</label><input type="date" id="startDate"></div>
+            <div class="col-6"><label>End Date *</label><input type="date" id="endDate"></div>
+            <div class="col-12"><label>Support Team</label><input id="supportTeam" placeholder="เช่น RTM, Sales Ops, Supervisor"></div>
+            <div class="col-12"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="archivedFlag" style="width:auto" onchange="toggleArchiveCurrent()"> <span>📦 Archive project นี้ (ย้ายไปเก็บ ไม่แสดงในรายการหลัก)</span></label></div>
+            <div class="col-12 hidden" id="archiveCommentWrap">
+              <label>📝 Archive Comment <span class="muted" style="font-weight:400">(เหตุผล/สรุปก่อนเก็บ — เช่น "จบ Project ประเมินแล้วได้ 10/10" หรือ "ไม่ทำต่อเพราะ...")</span></label>
+              <textarea id="archiveComment" placeholder="ใส่ข้อความบอกรายละเอียดของ Project นี้ก่อน Archive..." onchange="updateArchiveComment(this.value)" style="min-height:60px"></textarea>
+            </div>
+          </div>
+        </div>
         <div class="grid">
-          <div class="col-8"><label>Project Name *</label><input id="projectName" placeholder="เช่น Improve Visit Success Route A"></div>
-          <div class="col-4"><label>Owner</label><input id="owner" placeholder="Owner name"></div>
-          <div class="col-12"><label>Project Description</label><textarea id="projectDesc" placeholder="คำอธิบายรายละเอียดสั้น ๆ ของโครงการ"></textarea></div>
-          <div class="col-12"><label>Problem / Background</label><textarea id="problem" placeholder="ปัญหาคืออะไร และทำไมต้องทำ Project นี้"></textarea></div>
-          <div class="col-6"><label>Start Date *</label><input type="date" id="startDate"></div>
-          <div class="col-6"><label>End Date *</label><input type="date" id="endDate"></div>
-          <div class="col-12"><label>Support Team</label><input id="supportTeam" placeholder="เช่น RTM, Sales Ops, Supervisor"></div>
+          <div class="col-6 card"><h2>Objectives</h2><p class="hint">เพิ่มได้หลายข้อ</p><div class="row"><input id="objectiveInput" placeholder="เช่น เพิ่ม Visit Success ใน Route High Risk"><button class="btn primary" onclick="addListItem('objectives','objectiveInput')">Add</button></div><ul id="objectivesList"></ul></div>
+          <div class="col-6 card"><h2>KPI Achievement</h2><p class="hint">Final KPI ที่ต้องวัดผลได้</p><div class="row"><input id="kpiInput" placeholder="เช่น Visit Success ≥ 90% ภายใน 2 เดือน"><button class="btn primary" onclick="addListItem('kpis','kpiInput')">Add</button></div><ul id="kpisList"></ul></div>
         </div>
-      </div>
-      <div class="grid">
-        <div class="col-6 card"><h2>Objectives</h2><p class="hint">เพิ่มได้หลายข้อ</p><div class="row"><input id="objectiveInput" placeholder="เช่น เพิ่ม Visit Success ใน Route High Risk"><button class="btn primary" onclick="addListItem('objectives','objectiveInput')">Add</button></div><ul id="objectivesList"></ul></div>
-        <div class="col-6 card"><h2>KPI Achievement</h2><p class="hint">Final KPI ที่ต้องวัดผลได้</p><div class="row"><input id="kpiInput" placeholder="เช่น Visit Success ≥ 90% ภายใน 2 เดือน"><button class="btn primary" onclick="addListItem('kpis','kpiInput')">Add</button></div><ul id="kpisList"></ul></div>
-      </div>
-      <div class="actions"><button class="btn primary" onclick="runProject()">▶ Run Project Dashboard</button><button class="btn ok" onclick="manualSave()">💾 Save Draft</button></div>
-    </section>
-
-    <section id="dashboard" class="tabpage hidden">
-      <div class="grid">
-        <div class="col-3 metric m-days"><b id="mTotalDays">0</b><span>Total Day</span></div>
-        <div class="col-3 metric m-time"><b id="mTimeGone">0%</b><span>Time Gone</span><div class="bar"><div id="timeBar"></div></div></div>
-        <div class="col-3 metric m-tasks"><b id="mTotalTasks">0</b><span>Total Tasks</span></div>
-        <div class="col-3 metric m-status"><b id="mTaskStatus">-</b><span>Task Status</span></div>
-      </div>
-      <div class="dashboard-layout" id="canvas-view">
-        <div class="card canvas-mini">
-          <h2>Dashboard + Project Canvas</h2>
-          <label>Project</label><h1 id="vProjectName" class="project-title">-</h1><p id="vDesc" class="readable">-</p>
-          <div class="canvas-box"><h3>Problem / Background</h3><div id="vProblem" class="readable">-</div></div>
-          <div class="canvas-box"><h3>Objectives</h3><ul id="vObjectives" class="readable"><li>-</li></ul></div>
-          <div class="canvas-box"><h3>KPI Achievement</h3><ul id="vKpis" class="readable"><li>-</li></ul></div>
-          <div class="canvas-box"><h3>Owner / Timeline</h3><div id="vTeam" class="readable">-</div><div id="vTimeline" class="readable">-</div></div>
-        </div>
-        <div class="card task-summary-card">
-          <h2>Task Tracker Summary</h2><p class="hint">สรุปงานทั้งหมดของ Project นี้ สามารถกดหัวตารางเพื่อ Sort ได้</p>
-          <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('name')">Task <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th></tr></thead><tbody id="dashTaskRows"><tr><td colspan="6">ยังไม่มี Task</td></tr></tbody></table></div>
-        </div>
+        <div class="actions"><button class="btn primary" onclick="runProject()">▶ Run Project Dashboard</button><button class="btn ok" onclick="manualSave()">💾 Save Draft</button><button class="btn danger" onclick="deleteCurrentProject()">🗑 Delete Project</button></div>
       </div>
     </section>
 
+    <!-- ============== TASKS TAB (order #2 per requirement) ============== -->
     <section id="tasks" class="tabpage hidden">
-      <div class="task-page-layout">
+      <div id="tasksNoProject" class="card hidden" style="text-align:center;padding:30px"><p class="muted">กรุณาเลือกหรือสร้าง Project ก่อน</p><button class="btn primary" onclick="showTab('setup')">ไปที่ Setup</button></div>
+      <div id="tasksContent" class="task-page-layout">
         <div class="card add-task-card">
+          <div id="taskProjectBanner" style="background:linear-gradient(135deg,var(--sky),#f0f7ff);border:1px solid var(--blue);border-radius:12px;padding:10px 14px;margin-bottom:12px">
+            <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:2px">กำลังเพิ่ม Task ให้ Project:</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+              <h3 id="taskProjectBannerName" style="margin:0;font-size:16px;color:var(--navy)">-</h3>
+              <span id="taskProjectBannerMeta" class="muted" style="font-size:11px">-</span>
+            </div>
+          </div>
           <h2>Add Task</h2><p class="hint">เพิ่มงานใหม่ จากนั้นแก้ไขต่อได้ตรง Task Tracker</p>
           <div class="grid">
             <div class="col-12"><label>Task Name *</label><input id="taskName" placeholder="Task name"></div>
@@ -118,77 +303,2208 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
           <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="addTask()">Add Task</button><button class="btn ok" onclick="manualSave()">Save</button></div>
         </div>
         <div class="card tracker-card">
-          <h2>Task Tracker</h2><p class="hint">แก้ไขข้อมูลได้โดยตรงในตาราง • Timeline แสดงเฉพาะ Due Date • กดหัวตารางเพื่อ Sort</p>
-          <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('idx')"># <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('name')">Task Name & Details <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable task-due" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th><th>Comment</th><th>Delete</th></tr></thead><tbody id="taskRows"><tr><td colspan="9">ยังไม่มี Task</td></tr></tbody></table></div>
+          <h2>Task Tracker — <span id="trackerProjectName" style="color:var(--blue);font-weight:800">-</span></h2><p class="hint">แก้ไขข้อมูลได้โดยตรงในตาราง • Timeline แสดงเฉพาะ Due Date • กดหัวตารางเพื่อ Sort</p>
+          <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('idx')"># <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('name')">Task Name &amp; Details <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable task-due" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th><th>Comment</th><th>Delete</th></tr></thead><tbody id="taskRows"><tr><td colspan="9">ยังไม่มี Task</td></tr></tbody></table></div>
           <p class="toolbarNote">Tip: ใช้ Ctrl+Z เพื่อ Undo หลังแก้ไขในตารางได้</p>
         </div>
       </div>
     </section>
+
+    <!-- ============== OVERVIEW TAB (ภาพรวมทั้งหมดตามสิทธิ์) ============== -->
+    <section id="overview" class="tabpage hidden">
+      <div class="card">
+        <h2>📊 Overview — ภาพรวมทุก Project ตามสิทธิ์</h2>
+        <p class="hint">RTM เห็นทั้งหมด • RSM เห็นเฉพาะภาคตัวเอง • ASM เห็นเฉพาะ DC ตัวเอง • คลิกการ์ดเพื่อเปิด Project Dashboard</p>
+
+        <!-- Big stat tiles (rollup) -->
+        <div class="grid" style="margin-bottom:14px">
+          <div class="col-3 metric m-days"><b id="ovTotalProjects">0</b><span>Total Projects</span></div>
+          <div class="col-3 metric m-time"><b id="ovActiveProjects">0</b><span>Active Projects</span></div>
+          <div class="col-3 metric m-tasks"><b id="ovTotalTasks">0</b><span>Total Tasks</span></div>
+          <div class="col-3 metric m-status"><b id="ovDelayTasks">0</b><span>Delay Tasks</span></div>
+        </div>
+
+        <!-- By Owner (ASM perspective: who holds how many projects/tasks) -->
+        <h3 style="margin-top:14px;font-size:15px">👤 สรุปตาม Owner — ใครถือ Project / Task อยู่เท่าไหร่</h3>
+        <p class="hint">ดูได้ว่า ASM แต่ละคนถือ Project กี่ Project และจำนวน Task แยกตาม Status</p>
+        <div id="teamSummaryGrid" class="summary-grid"></div>
+      </div>
+
+      <!-- By Region / DC roll-up table -->
+      <div class="card">
+        <h3 style="font-size:15px">🗺️ สรุปตาม Region &amp; DC</h3>
+        <p class="hint">RSM ใช้ดู DC ทั้งหมดในภาค • RTM ใช้ดูทุกภาค</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Region</th><th>DC</th><th>Projects</th>
+                <th>Tasks</th><th>Not Started</th><th>In Progress</th>
+                <th>Delay</th><th>Done</th><th>Progress</th>
+              </tr>
+            </thead>
+            <tbody id="regionDcTable"><tr><td colspan="9">ยังไม่มีข้อมูล</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- All projects list with their status -->
+      <div class="card">
+        <h3 style="font-size:15px">📁 รายการ Project ทั้งหมด (Active)</h3>
+        <p class="hint">คลิก Open เพื่อดู Project Dashboard เต็มรูปแบบ • ใช้ filter ด้านล่างเพื่อค้นหา</p>
+        <div class="filter-bar">
+          <input type="search" id="overviewSearch" placeholder="🔍 ค้นหาชื่อ Project..." oninput="renderOverviewProjectsTableFiltered()">
+          <select id="overviewFilterRegion" onchange="renderOverviewProjectsTableFiltered()">
+            <option value="">🗺️ ทุก Region</option>
+            <option value="NOR">NOR</option><option value="NOE">NOE</option>
+            <option value="BKKCT">BKKCT</option><option value="SOU">SOU</option>
+            <option value="THA">THA</option>
+          </select>
+          <select id="overviewFilterDC" onchange="renderOverviewProjectsTableFiltered()">
+            <option value="">📍 ทุก DC</option>
+          </select>
+          <select id="overviewFilterOwner" onchange="renderOverviewProjectsTableFiltered()">
+            <option value="">👤 ทุก Owner</option>
+          </select>
+          <select id="overviewFilterStatus" onchange="renderOverviewProjectsTableFiltered()">
+            <option value="">⚡ ทุก Status</option>
+            <option value="Delay">มี Delay</option>
+            <option value="InProgress">มี In Progress</option>
+            <option value="Done">เสร็จทั้งหมด</option>
+            <option value="NotStarted">ยังไม่เริ่ม</option>
+          </select>
+          <span style="flex:1"></span>
+          <span class="muted" id="overviewProjectsCount">0 projects</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Project Name</th><th>Owner</th><th>DC</th><th>Region</th>
+                <th>Timeline</th><th>Tasks</th><th>Status Summary</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="overviewProjectsTable"><tr><td colspan="8">ยังไม่มี Project</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PROJECT DASHBOARD TAB (รูปแบบเดิม per-project) ============== -->
+    <section id="dashboard" class="tabpage hidden">
+      <div id="dashNoProject" class="card hidden" style="text-align:center;padding:30px">
+        <p class="muted">ยังไม่ได้เลือก Project — กรุณาเลือกหรือสร้างก่อน</p>
+        <button class="btn primary" onclick="showTab('setup')">ไปที่ Setup</button>
+        <button class="btn ghost" onclick="showTab('overview')">ดู Overview แทน</button>
+      </div>
+      <div id="dashCurrentProjectWrap">
+        <div class="grid">
+          <div class="col-3 metric m-days"><b id="mTotalDays">0</b><span>Total Day</span></div>
+          <div class="col-3 metric m-time"><b id="mTimeGone">0%</b><span>Time Gone</span><div class="bar"><div id="timeBar"></div></div></div>
+          <div class="col-3 metric m-tasks"><b id="mTotalTasks">0</b><span>Total Tasks</span></div>
+          <div class="col-3 metric m-status"><b id="mTaskStatus">-</b><span>Task Status</span></div>
+        </div>
+        <div class="dashboard-layout" id="canvas-view">
+          <div class="card canvas-mini">
+            <h2>Dashboard + Project Canvas</h2>
+            <label>Project</label><h1 id="vProjectName" class="project-title">-</h1><p id="vDesc" class="readable">-</p>
+            <div class="canvas-box"><h3>Problem / Background</h3><div id="vProblem" class="readable">-</div></div>
+            <div class="canvas-box"><h3>Objectives</h3><ul id="vObjectives" class="readable"><li>-</li></ul></div>
+            <div class="canvas-box"><h3>KPI Achievement</h3><ul id="vKpis" class="readable"><li>-</li></ul></div>
+            <div class="canvas-box"><h3>Owner / Timeline</h3><div id="vTeam" class="readable">-</div><div id="vTimeline" class="readable">-</div></div>
+          </div>
+          <div class="card task-summary-card">
+            <h2>Task Tracker Summary</h2><p class="hint">สรุปงานทั้งหมดของ Project นี้ สามารถกดหัวตารางเพื่อ Sort ได้</p>
+            <div class="table-wrap"><table><thead><tr><th class="sortable" onclick="sortTasks('name')">Task <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('action')">Action <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('label')">Label <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('owner')">Owner <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('status')">Status <span class="sortMark">↕</span></th><th class="sortable" onclick="sortTasks('due')">Due Date <span class="sortMark">↕</span></th></tr></thead><tbody id="dashTaskRows"><tr><td colspan="6">ยังไม่มี Task</td></tr></tbody></table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== KANBAN TAB ============== -->
+    <section id="kanban" class="tabpage hidden">
+      <div class="card">
+        <h2>📋 Kanban Board</h2>
+        <p class="hint">แสดง Tasks จากทุก Project ที่เห็นได้ตามสิทธิ์ • ลากการ์ดข้ามคอลัมน์เพื่อเปลี่ยน Status • Filter ด้วย Owner หรือ Project</p>
+        <div class="filter-bar">
+          <select id="kanbanFilterUser" onchange="renderKanban()">
+            <option value="">👤 ทุก Owner</option>
+          </select>
+          <select id="kanbanFilterProject" onchange="renderKanban()">
+            <option value="">📁 ทุก Project</option>
+          </select>
+          <input type="search" id="kanbanSearch" placeholder="🔍 ค้นหา Task..." oninput="renderKanban()">
+          <span style="flex:1"></span>
+          <span class="muted" id="kanbanCountLabel">0 tasks</span>
+        </div>
+        <div class="kanban-board" id="kanbanBoard"></div>
+      </div>
+    </section>
+
+    <!-- ============== TIMELINE TAB ============== -->
+    <section id="timeline" class="tabpage hidden">
+      <div class="card">
+        <h2>📅 Timeline — กำหนดการของงาน</h2>
+        <p class="hint">แสดง Task แต่ละตัวเป็น bar ตามวันเริ่ม (Start) ถึงวันครบกำหนด (Due) • วันที่ในวงกลมแดง = วันนี้ • คลิก bar เพื่อเปิด Project</p>
+        <div class="filter-bar">
+          <select id="timelineFilterProject" onchange="renderTimeline()">
+            <option value="">📁 ทุก Project</option>
+          </select>
+          <select id="timelineFilterOwner" onchange="renderTimeline()">
+            <option value="">👤 ทุก Owner</option>
+          </select>
+          <select id="timelineFilterStatus" onchange="renderTimeline()">
+            <option value="">⚡ ทุก Status</option>
+            <option value="NotStarted">Not Started</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Delay">Delay</option>
+            <option value="Done">Done</option>
+          </select>
+          <select id="timelineRange" onchange="renderTimeline()">
+            <option value="auto">📐 Auto-fit</option>
+            <option value="month">1 เดือน</option>
+            <option value="3month">3 เดือน</option>
+            <option value="6month">6 เดือน</option>
+            <option value="year">1 ปี</option>
+          </select>
+          <span style="flex:1"></span>
+          <span class="muted" id="timelineCountLabel">0 tasks</span>
+        </div>
+        <div id="timelineContainer" class="timeline-container"></div>
+      </div>
+    </section>
+
+    <!-- ============== ARCHIVE TAB ============== -->
+    <section id="archive" class="tabpage hidden">
+      <div class="card">
+        <h2>🗄️ Archive</h2>
+        <p class="hint">Project ที่ถูก archive จะอยู่ที่นี่ • กด Unarchive เพื่อนำกลับ • Filter ตามสิทธิ์ของคุณ</p>
+        <div class="filter-bar">
+          <input type="search" id="archiveSearch" placeholder="🔍 ค้นหาชื่อ Project..." oninput="renderArchive()">
+          <span style="flex:1"></span>
+          <span class="muted" id="archiveCountLabel">0 archived</span>
+        </div>
+        <div id="archiveListGrid" class="project-list-grid">
+          <div class="project-empty">ยังไม่มี Project ที่ archive</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SETTINGS TAB (RTM only) ============== -->
+    <section id="settings" class="tabpage hidden">
+      <div class="card">
+        <h2>👥 User Management (RTM only)</h2>
+        <p class="hint">เพิ่ม/ลบ/แก้ users และกำหนดสิทธิ์ • <b>RTM</b> เห็นทุก project • <b>RSM</b> เห็นเฉพาะภาคที่ดูแล • <b>ASM</b> เห็นเฉพาะ DC ตัวเอง • <b>RS</b> (Route Supervisor) อยู่ใต้ ASM เห็นระดับ DC</p>
+
+        <h3 style="margin-top:14px">เพิ่ม User ใหม่</h3>
+        <p class="hint" style="font-size:11px;background:#eaf3ff;padding:8px 10px;border-radius:8px;color:var(--navy)">
+          💡 <b>RTM</b>: ไม่ต้องกรอก Region / DC • <b>RSM</b>: กรอก Region อย่างเดียว (เห็นทุก DC ในภาคนั้น) • <b>ASM / RS</b>: กรอกทั้ง Region + DC
+        </p>
+        <div class="user-row" style="grid-template-columns:1fr 1fr 1fr 1fr 1fr auto;background:#f7fafd;border-radius:10px;border:1px solid var(--line)">
+          <div><label>Username</label><input id="newUserName" placeholder="เช่น somchai"></div>
+          <div><label>Password</label><input id="newUserPass" type="text" placeholder="password"></div>
+          <div><label>Role</label><select id="newUserRole" onchange="updateNewUserFieldHints()"><option value="ASM">ASM</option><option value="RS">RS (Route Supervisor)</option><option value="RSM">RSM</option><option value="RTM">RTM</option></select></div>
+          <div><label id="newUserRegionLabel">Region *</label><select id="newUserRegion"><option value="">—</option><option value="NOR">NOR</option><option value="NOE">NOE</option><option value="BKKCT">BKKCT</option><option value="SOU">SOU</option><option value="THA">THA</option></select></div>
+          <div><label id="newUserDCLabel">DC *</label><input id="newUserDC" placeholder="DC ที่ดูแล"></div>
+          <div style="align-self:end"><button class="btn primary" onclick="addUser()">+ Add</button></div>
+        </div>
+
+        <h3 style="margin-top:18px">รายชื่อ Users</h3>
+        <div class="user-row header">
+          <div>Username</div><div>Password</div><div>Role</div><div>Region</div><div>DC</div><div>Action</div>
+        </div>
+        <div id="usersList"></div>
+      </div>
+
+      <div class="card">
+        <h2>🔧 Repair Data Integrity</h2>
+        <p class="hint">ตรวจ &amp; แก้ข้อมูลที่ไม่สมบูรณ์ (project ขาด region/dc, user ขาด region/dc) — รันเมื่อ RSM ไม่เห็น project บางตัวที่ควรเห็น</p>
+        <div id="repairReport" style="background:#f7fafd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;line-height:1.7;margin-bottom:12px;color:#27364a">กดปุ่ม "🔍 ตรวจสอบ" เพื่อสแกนข้อมูล</div>
+        <div class="actions">
+          <button class="btn ghost" onclick="scanDataIntegrity()">🔍 ตรวจสอบข้อมูล</button>
+          <button class="btn primary" onclick="repairAllData()">🔧 ซ่อมข้อมูลทั้งหมด</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🧪 Mock Data (สำหรับทดสอบระบบ)</h2>
+        <p class="hint">โหลดชุดข้อมูลทดสอบ: <b>12 users</b> (RSM/ASM/RS ครบทุกภาค), <b>15 projects</b> (active/archived ครบทุกสถานะ), task พร้อม timeline ครบ • <b>เหมาะกับการทดสอบ — อย่ารันบน production data!</b></p>
+        <div id="mockDataReport" style="background:#f7fafd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;line-height:1.7;margin-bottom:12px;color:#27364a;display:none"></div>
+        <div class="actions">
+          <button class="btn primary" onclick="loadMockData()">🧪 โหลด Mock Data</button>
+          <button class="btn ghost" onclick="downloadMockJson()">📥 ดาวน์โหลด JSON (สำหรับ import)</button>
+          <button class="btn danger" onclick="clearAllData()">🗑 ล้างข้อมูลทั้งหมด (Users + Projects)</button>
+        </div>
+        <details style="margin-top:10px">
+          <summary style="cursor:pointer;font-weight:800;color:var(--navy);font-size:13px">📖 Test Accounts (login info)</summary>
+          <div style="margin-top:8px;padding:10px;background:#fff8e6;border-radius:8px;font-size:12px;font-family:monospace;line-height:1.8">
+            <div><b>RTM:</b> rtm / rtm1234</div>
+            <div><b>RSM NOR:</b> rsm_nor / pass123</div>
+            <div><b>RSM NOE:</b> rsm_noe / pass123</div>
+            <div><b>RSM BKKCT:</b> rsm_bkk / pass123</div>
+            <div><b>RSM SOU:</b> rsm_sou / pass123</div>
+            <div><b>ASM NOR-1:</b> asm_nor1 / pass123 (DC-NOR-01)</div>
+            <div><b>ASM NOR-2:</b> asm_nor2 / pass123 (DC-NOR-02)</div>
+            <div><b>ASM NOE-1:</b> asm_noe1 / pass123 (DC-NOE-01)</div>
+            <div><b>ASM BKK-1:</b> asm_bkk1 / pass123 (DC-BKK-01)</div>
+            <div><b>ASM SOU-1:</b> asm_sou1 / pass123 (DC-SOU-01)</div>
+            <div><b>ASM SOU-2:</b> asm_sou2 / pass123 (DC-SOU-02)</div>
+            <div><b>RS NOR-1A:</b> rs_nor1a / pass123 (DC-NOR-01)</div>
+            <div><b>RS NOR-1B:</b> rs_nor1b / pass123 (DC-NOR-01)</div>
+            <div><b>RS NOE-1:</b> rs_noe1 / pass123 (DC-NOE-01)</div>
+            <div><b>RS BKK-1:</b> rs_bkk1 / pass123 (DC-BKK-01)</div>
+            <div><b>RS SOU-1:</b> rs_sou1 / pass123 (DC-SOU-01)</div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2>☁️ Cloud Sync (Firebase)</h2>
+        <p class="hint">เชื่อมต่อ Firebase เพื่อ collaborate กับทีม (ฟรี ไม่จำกัด user) • หากไม่ตั้งค่า ระบบจะใช้ localStorage ในเครื่องเท่านั้น</p>
+        <div class="grid">
+          <div class="col-12"><label>Firebase Config (JSON)</label><textarea id="firebaseConfigInput" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}' style="min-height:120px;font-family:monospace;font-size:12px"></textarea></div>
+        </div>
+        <div class="actions" style="margin-top:10px">
+          <button class="btn primary" onclick="saveFirebaseConfig()">💾 บันทึก &amp; เชื่อมต่อ</button>
+          <button class="btn ghost" onclick="testFirebaseConnection()">🔌 ทดสอบเชื่อมต่อ</button>
+          <button class="btn danger" onclick="disconnectFirebase()">❌ ตัดการเชื่อมต่อ (กลับสู่ Local)</button>
+        </div>
+        <details style="margin-top:14px">
+          <summary style="cursor:pointer;font-weight:800;color:var(--navy)">📖 วิธีตั้งค่า Firebase (ฟรี)</summary>
+          <ol style="font-size:13px;line-height:1.7;color:#27364a;margin-top:8px">
+            <li>เข้า <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> → ล็อกอินด้วย Google</li>
+            <li>กด <b>Add project</b> → ตั้งชื่อ → ปิด Analytics ก็ได้ → Create</li>
+            <li>ในหน้า project ดูที่ <b>Project Overview</b> → กดไอคอน <b>&lt;/&gt;</b> (Web app)</li>
+            <li>ตั้งชื่อ app → Register → <b>copy เฉพาะส่วน firebaseConfig</b> (รูปแบบ JSON)</li>
+            <li>เมนูซ้าย → <b>Build → Firestore Database</b> → Create database → <b>Start in test mode</b> → เลือก region (asia-southeast1)</li>
+            <li>กลับมาวาง config ในช่องด้านบน → กด <b>บันทึก &amp; เชื่อมต่อ</b></li>
+            <li>(แนะนำ) ตั้ง Firestore Security Rules ตามที่ระบบ generate ให้ — กดปุ่ม &quot;Copy Security Rules&quot;</li>
+          </ol>
+          <button class="btn ghost mini" onclick="copySecurityRules()" style="margin-top:8px">📋 Copy Security Rules</button>
+        </details>
+      </div>
+    </section>
+
   </main>
 </div>
+
+<!-- Archive Details Modal -->
+<div id="archiveDetailsModal" class="modal-overlay" onclick="if(event.target===this)closeArchiveDetails()">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeArchiveDetails()" aria-label="Close">×</button>
+    <h2 class="modal-title" id="adTitle">-</h2>
+    <p class="modal-subtitle" id="adSubtitle">-</p>
+    <div id="adContent"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" onclick="closeArchiveDetails()">Close</button>
+      <button class="btn primary" id="adUnarchiveBtn" onclick="unarchiveFromModal()">↩ Unarchive</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const STORAGE_KEY='rtm_project_tracker_v6';
+/* =====================================================================
+   RTM PROJECT TRACKER v7 - Multi-Project + RBAC + Firebase + Kanban
+   - Preserves original UI structure & state model
+   - Wraps original "state" as currentProject in a project collection
+   ===================================================================== */
+
+/* ---------- Constants ---------- */
+const STORAGE_KEY='rtm_project_tracker_v7';
+const LEGACY_KEYS=['rtm_project_tracker_v6','rtm_project_tracker_v5','rtm_project_tracker_v4'];
+const USERS_KEY='rtm_users_v1';
+const PROJECTS_KEY='rtm_projects_v1';
+const SESSION_KEY='rtm_session_v1';
+const FB_CONFIG_KEY='rtm_fb_config_v1';
 const $=id=>document.getElementById(id);
-let state=blankState(),isDirty=false,isRestoring=false,historyStack=[],historyIndex=-1,MAX_HISTORY=80,sortState={key:'idx',dir:1};
-function blankState(){return{projectName:'',owner:'',projectDesc:'',problem:'',startDate:'',endDate:'',supportTeam:'',objectives:[],kpis:[],tasks:[]}}
-function collectForm(){state.projectName=$('projectName')?.value||'';state.owner=$('owner')?.value||'';state.projectDesc=$('projectDesc')?.value||'';state.problem=$('problem')?.value||'';state.startDate=$('startDate')?.value||'';state.endDate=$('endDate')?.value||'';state.supportTeam=$('supportTeam')?.value||'';return state}
-function fillForm(){['projectName','owner','projectDesc','problem','startDate','endDate','supportTeam'].forEach(id=>{if($(id))$(id).value=state[id]||''});renderList('objectives');renderList('kpis');renderTasks(false);renderDashboard();updateUndoRedoUI()}
-function showTab(id){document.querySelectorAll('.tabpage').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('.spine-tab').forEach(x=>x.classList.remove('active'));const map={setup:0,dashboard:1,tasks:2};document.querySelectorAll('.spine-tab')[map[id]].classList.add('active');renderDashboard();}
-function runProject(){collectForm();if(!state.projectName||!state.startDate||!state.endDate){alert('กรุณากรอก Project Name, Start Date และ End Date ก่อน Run');return}renderDashboard();pushHistorySnapshot(true);saveLocal(true);showTab('dashboard')}
-function markDirty(){isDirty=true;updateSaveStatus('Unsaved changes',true);scheduleHistorySnapshot()}
-function updateSaveStatus(text,dirty){const el=$('draftStatus');el.textContent=(dirty?'Unsaved: ':'Saved: ')+text;el.className='pill '+(dirty?'unsaved':'saved')}
-function saveLocal(auto=false){collectForm();localStorage.setItem(STORAGE_KEY,JSON.stringify(state));isDirty=false;updateSaveStatus((auto?'Auto saved ':'Manual saved ')+new Date().toLocaleTimeString('th-TH'),false)}
+
+/* ---------- Global state ---------- */
+let state=blankState();                   // current project being edited (original shape)
+let projects=[];                          // [{id, ...projectFields, tasks, archived, createdBy, dc, region, _updatedAt}]
+let users=[];                             // [{username, password, role, region, dc}]
+let session=null;                         // {username, role, region, dc}
+let currentProjectId=null;
+let isDirty=false,isRestoring=false;
+let historyStack=[],historyIndex=-1,MAX_HISTORY=80;
+let sortState={key:'idx',dir:1};
+let firebaseEnabled=false;
+let fbApp=null,fbDb=null;
+let unsubProjects=null,unsubUsers=null;
+let cloudReady=false;
+
+/* ---------- Blank states ---------- */
+function blankState(){return{projectName:'',owner:'',projectDesc:'',problem:'',startDate:'',endDate:'',supportTeam:'',dc:'',region:'',archived:false,archiveComment:'',objectives:[],kpis:[],tasks:[]}}
+function blankUser(){return{username:'',password:'',role:'ASM',region:'',dc:''}}
+
+/* ===================================================================== 
+   AUTH & SESSION
+   ===================================================================== */
+function ensureBootstrapUser(){
+  // First-time bootstrap: create default RTM if no users exist
+  if(users.length===0){
+    users.push({username:'rtm',password:'rtm1234',role:'RTM',region:'',dc:''});
+    saveUsersLocal();
+  }
+}
+function doLogin(){
+  const u=$('loginUser').value.trim();
+  const p=$('loginPass').value;
+  const found=users.find(x=>x.username===u && x.password===p);
+  if(!found){$('loginError').classList.add('show');return}
+  $('loginError').classList.remove('show');
+  session={username:found.username,role:found.role,region:found.region||'',dc:found.dc||''};
+  localStorage.setItem(SESSION_KEY,JSON.stringify(session));
+  $('loginOverlay').style.display='none';
+  postLoginInit();
+}
+function doLogout(){
+  if(!confirm('ออกจากระบบ?'))return;
+  localStorage.removeItem(SESSION_KEY);
+  session=null;
+  if(unsubProjects){unsubProjects();unsubProjects=null}
+  if(unsubUsers){unsubUsers();unsubUsers=null}
+  location.reload();
+}
+function postLoginInit(){
+  // Show user chip
+  $('userChip').style.display='inline-flex';
+  $('userChipName').textContent=session.username;
+  const roleEl=$('userChipRole');
+  roleEl.textContent=session.role+(session.region?' • '+session.region:'')+(session.dc?' • '+session.dc:'');
+  roleEl.className='role-tag '+session.role;
+  // Show Settings tab only for RTM
+  $('settingsTab').style.display=session.role==='RTM'?'flex':'none';
+  // Hide Setup + Task tabs for RSM/RTM (they don't create/edit projects directly — they oversee)
+  const hideSetupTask=(session.role==='RSM'||session.role==='RTM');
+  $('tabSetup').style.display=hideSetupTask?'none':'flex';
+  $('tabTasks').style.display=hideSetupTask?'none':'flex';
+  // Init Firebase if config exists
+  initFirebaseIfConfigured();
+  // Migrate legacy single-project state into projects collection
+  migrateLegacyIfAny();
+  // Backfill region/dc on legacy projects from user profile
+  backfillProjectMetadata();
+  // Initial render
+  renderUsersList();
+  renderProjectList();
+  renderDCFilter();
+  // Default tab: Overview for RSM/RTM, Setup for ASM/RS
+  showTab(hideSetupTask?'overview':'setup');
+  pushHistorySnapshot(true);
+}
+
+function backfillProjectMetadata(){
+  // For projects with missing region/dc, fill from owner's user profile.
+  // If owner has DC but no region, infer region from DC→Region map (other users in same DC).
+  // This fixes the "RSM doesn't see ASM/RS project" bug for legacy data.
+  const dcRegionMap=getDcRegionMap();
+  let changed=0;
+  projects.forEach(p=>{
+    if(!p.region || !p.dc){
+      const u=getUserByName(p.owner||p.createdBy||'');
+      if(u){
+        if(!p.region && u.region){p.region=u.region;changed++}
+        if(!p.dc && u.dc){p.dc=u.dc;changed++}
+      }
+      // After step above, if still missing region but has DC → infer from map
+      if(!p.region && p.dc && dcRegionMap[p.dc]){
+        p.region=dcRegionMap[p.dc];changed++;
+      }
+    }
+  });
+  if(changed>0){
+    saveProjectsLocal();
+    projects.forEach(p=>{if(p.region && p.dc) pushProjectToCloud(p)});
+    console.log('Backfilled metadata on',changed,'fields');
+  }
+}
+
+/* ===================================================================== 
+   ROLE-BASED VISIBILITY
+   Hierarchy:  RTM > RSM > ASM > RS
+     - RTM: เห็นทุก project
+     - RSM: เห็น project ที่อยู่ในภาค (region) ที่ตัวเองดูแล
+       → match ถ้า project.region == RSM.region
+       → หรือถ้า owner ของ project (ASM/RS) มี region เดียวกับ RSM
+     - ASM: เห็นทุก project ใน DC ของตัวเอง (รวม project ของ RS ใน DC เดียวกัน)
+       → match ถ้า getProjectDc(p) == ASM.dc
+     - RS:  เห็นเฉพาะ project ที่ตัวเอง create เท่านั้น (ของ ASM หรือ RS อื่นในทีมเดียวกัน mongkut มองไม่เห็น)
+       → match ถ้า p.createdBy == RS.username หรือ p.owner == RS.username
+   ===================================================================== */
+function getUserByName(username){return users.find(u=>u.username===username)}
+
+// Build a DC→Region lookup map from ALL users who have both fields set.
+// This lets us resolve region from DC even when a user's profile is incomplete.
+function getDcRegionMap(){
+  const m={};
+  users.forEach(u=>{ if(u.dc && u.region && !m[u.dc]) m[u.dc]=u.region });
+  return m;
+}
+
+function getProjectRegion(p){
+  // 1. project.region (direct)
+  if(p.region) return p.region;
+  // 2. owner user's region
+  const u=getUserByName(p.owner||p.createdBy||'');
+  if(u && u.region) return u.region;
+  // 3. infer from DC if project has DC (or via owner's DC) and another user maps DC→Region
+  const dc=p.dc || (u && u.dc) || '';
+  if(dc){
+    const m=getDcRegionMap();
+    if(m[dc]) return m[dc];
+  }
+  return '';
+}
+function getProjectDc(p){
+  if(p.dc) return p.dc;
+  const u=getUserByName(p.owner||p.createdBy||'');
+  return u?(u.dc||''):'';
+}
+function canSeeProject(p){
+  if(!session) return false;
+  if(session.role==='RTM') return true;
+  if(session.role==='RSM') return getProjectRegion(p)===session.region;
+  if(session.role==='ASM') return getProjectDc(p)===session.dc;
+  if(session.role==='RS') return (p.createdBy===session.username) || (p.owner===session.username);
+  return false;
+}
+function canEditProject(p){
+  // Same rule as see (RSM/ASM/RS can edit within their scope; RTM all)
+  return canSeeProject(p);
+}
+function visibleProjects(includeArchived=false){
+  return projects.filter(p=>canSeeProject(p) && (includeArchived || !p.archived));
+}
+function archivedProjects(){
+  return projects.filter(p=>canSeeProject(p) && p.archived);
+}
+
+/* ===================================================================== 
+   PROJECT LIST MANAGEMENT
+   ===================================================================== */
+function newProject(){
+  const id='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+  // Get user profile to ensure region/dc are stamped correctly
+  const me=getUserByName(session.username)||{};
+  const myRegion=session.region||me.region||'';
+  const myDc=session.dc||me.dc||'';
+  const np=Object.assign(blankState(),{
+    id,
+    projectName:'New Project',
+    owner:session.username,
+    createdBy:session.username,
+    dc:myDc,
+    region:myRegion,
+    _updatedAt:Date.now()
+  });
+  projects.push(np);
+  currentProjectId=id;
+  loadProjectIntoState(id);
+  saveProjectsLocal();
+  pushProjectToCloud(np);
+  $('projectEditWrapper').classList.remove('hidden');
+  renderProjectList();
+  fillForm();
+}
+
+function loadProjectIntoState(id){
+  const p=projects.find(x=>x.id===id);
+  if(!p)return;
+  currentProjectId=id;
+  // Deep copy into state (preserve original shape)
+  state={
+    projectName:p.projectName||'',owner:p.owner||'',projectDesc:p.projectDesc||'',
+    problem:p.problem||'',startDate:p.startDate||'',endDate:p.endDate||'',
+    supportTeam:p.supportTeam||'',dc:p.dc||'',region:p.region||'',
+    archived:!!p.archived,
+    archiveComment:p.archiveComment||'',
+    objectives:Array.isArray(p.objectives)?[...p.objectives]:[],
+    kpis:Array.isArray(p.kpis)?[...p.kpis]:[],
+    tasks:Array.isArray(p.tasks)?JSON.parse(JSON.stringify(p.tasks)):[]
+  };
+  fillForm();
+  $('projectEditWrapper').classList.remove('hidden');
+  renderProjectList();
+}
+
+function selectProject(id){
+  if(currentProjectId===id){
+    // Toggle: clicking same -> just scroll to form
+    document.getElementById('projectEditWrapper').scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+  if(isDirty && currentProjectId){
+    if(!confirm('Project ปัจจุบันยังไม่ได้ save - เปลี่ยน project จะเสียข้อมูล. ดำเนินการต่อ?'))return;
+  }
+  loadProjectIntoState(id);
+}
+
+function syncStateToProjects(){
+  if(!currentProjectId)return;
+  const idx=projects.findIndex(p=>p.id===currentProjectId);
+  if(idx<0)return;
+  // Auto-fill region/dc from user profile if missing (so RSM can see it)
+  const me=getUserByName(session.username)||{};
+  const region=state.region||session.region||me.region||projects[idx].region||'';
+  const dc=state.dc||session.dc||me.dc||projects[idx].dc||'';
+  const merged=Object.assign({},projects[idx],{
+    projectName:state.projectName,owner:state.owner,projectDesc:state.projectDesc,
+    problem:state.problem,startDate:state.startDate,endDate:state.endDate,
+    supportTeam:state.supportTeam,dc,region,
+    archived:!!state.archived,
+    archiveComment:state.archiveComment||'',
+    objectives:[...state.objectives],kpis:[...state.kpis],
+    tasks:JSON.parse(JSON.stringify(state.tasks)),
+    _updatedAt:Date.now()
+  });
+  projects[idx]=merged;
+}
+
+function deleteCurrentProject(){
+  if(!currentProjectId){alert('ไม่ได้เลือก project');return}
+  const p=projects.find(x=>x.id===currentProjectId);
+  if(!p)return;
+  if(!canEditProject(p)){alert('คุณไม่มีสิทธิ์ลบ project นี้');return}
+  if(!confirm('ลบ Project "'+p.projectName+'" ถาวร?'))return;
+  deleteProjectFromCloud(p.id);
+  projects=projects.filter(x=>x.id!==currentProjectId);
+  saveProjectsLocal();
+  currentProjectId=null;
+  state=blankState();
+  $('projectEditWrapper').classList.add('hidden');
+  renderProjectList();
+  renderDashboard();
+}
+
+function toggleArchiveCurrent(){
+  if(!currentProjectId)return;
+  state.archived=$('archivedFlag').checked;
+  // Toggle comment area visibility
+  const wrap=$('archiveCommentWrap');
+  if(wrap) wrap.classList.toggle('hidden',!state.archived);
+  syncStateToProjects();
+  saveProjectsLocal();
+  pushProjectToCloud(projects.find(p=>p.id===currentProjectId));
+  renderProjectList();
+}
+function updateArchiveComment(value){
+  if(!currentProjectId)return;
+  state.archiveComment=value;
+  syncStateToProjects();
+  saveProjectsLocal();
+  pushProjectToCloud(projects.find(p=>p.id===currentProjectId));
+  markDirty();
+  autoSaveSoon();
+}
+
+function renderProjectList(){
+  const grid=$('projectListGrid');
+  if(!grid)return;
+  const q=($('projectSearch')?.value||'').toLowerCase().trim();
+  const dcFilter=$('projectFilterDC')?.value||'';
+  const statusFilter=$('projectFilterStatus')?.value||'active';
+  const includeArchived=statusFilter==='all';
+
+  let list=visibleProjects(includeArchived);
+  if(q) list=list.filter(p=>(p.projectName||'').toLowerCase().includes(q));
+  if(dcFilter) list=list.filter(p=>getProjectDc(p)===dcFilter);
+  // Sort by updatedAt desc
+  list.sort((a,b)=>(b._updatedAt||0)-(a._updatedAt||0));
+
+  $('projectCountLabel').textContent=list.length+' projects';
+
+  if(!list.length){
+    grid.innerHTML='<div class="project-empty">ไม่พบ Project ที่ตรงตามเงื่อนไข — กด "+ New Project" เพื่อสร้างใหม่</div>';
+    return;
+  }
+  grid.innerHTML=list.map(p=>{
+    const taskCount=(p.tasks||[]).length;
+    const doneCount=(p.tasks||[]).filter(t=>t.status==='Done').length;
+    const delayCount=(p.tasks||[]).filter(t=>t.status==='Delay').length;
+    const active=currentProjectId===p.id?'active':'';
+    return `
+      <div class="project-tile ${active}" onclick="selectProject('${p.id}')">
+        <label class="ptile-archive" onclick="event.stopPropagation()">
+          <input type="checkbox" ${p.archived?'checked':''} onchange="toggleArchiveById('${p.id}',this.checked)"> Archive
+        </label>
+        <h3>${escapeHtml(p.projectName||'(Untitled)')}</h3>
+        <div style="margin-bottom:6px">
+          ${getProjectDc(p)?`<span class="ptile-tag">📍 ${escapeHtml(getProjectDc(p))}</span>`:''}
+          ${getProjectRegion(p)?`<span class="ptile-tag">🗺️ ${escapeHtml(getProjectRegion(p))}</span>`:''}
+        </div>
+        <div class="ptile-meta">
+          <div>Owner: ${escapeHtml(p.owner||'-')}</div>
+          <div>Timeline: ${p.startDate||'-'} → ${p.endDate||'-'}</div>
+          <div>Tasks: ${taskCount} (Done ${doneCount} ${delayCount?'• ⚠ Delay '+delayCount:''})</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleArchiveById(id,checked){
+  const p=projects.find(x=>x.id===id);
+  if(!p)return;
+  if(!canEditProject(p)){alert('คุณไม่มีสิทธิ์แก้ไข project นี้');renderProjectList();return}
+  // When archiving, prompt for a comment (defaults to existing)
+  if(checked){
+    const cmt=prompt('📝 ใส่ Archive Comment สำหรับ "'+(p.projectName||'(Untitled)')+'"\n(เช่น "จบ Project ประเมินแล้วได้ 10/10" หรือ "ไม่ทำต่อเพราะ..."):',p.archiveComment||'');
+    if(cmt===null){renderProjectList();return} // user cancelled
+    p.archiveComment=cmt;
+    if(currentProjectId===id) state.archiveComment=cmt;
+  }
+  p.archived=checked;
+  p._updatedAt=Date.now();
+  if(currentProjectId===id){
+    state.archived=checked;
+    if($('archivedFlag'))$('archivedFlag').checked=checked;
+    if($('archiveComment'))$('archiveComment').value=p.archiveComment||'';
+    if($('archiveCommentWrap'))$('archiveCommentWrap').classList.toggle('hidden',!checked);
+  }
+  saveProjectsLocal();
+  pushProjectToCloud(p);
+  renderProjectList();
+  renderArchive();
+}
+
+/* ===================================================================== 
+   ARCHIVE DETAILS MODAL
+   ===================================================================== */
+let archiveModalProjectId=null;
+function showArchiveDetails(id){
+  const p=projects.find(x=>x.id===id);
+  if(!p){alert('Project not found');return}
+  if(!canSeeProject(p)){alert('คุณไม่มีสิทธิ์ดู project นี้');return}
+  archiveModalProjectId=id;
+  $('adTitle').textContent=p.projectName||'(Untitled)';
+  const dc=getProjectDc(p)||'-';
+  const region=getProjectRegion(p)||'-';
+  $('adSubtitle').innerHTML=`📍 ${escapeHtml(dc)} • 🗺️ ${escapeHtml(region)} • 👤 ${escapeHtml(p.owner||'-')} • Created by ${escapeHtml(p.createdBy||'-')}`;
+
+  // Tasks summary by status
+  const tasks=p.tasks||[];
+  const cnt={NotStarted:0,InProgress:0,Delay:0,Done:0};
+  tasks.forEach(t=>{const s=t.status||'NotStarted';if(cnt[s]!==undefined)cnt[s]++});
+
+  const html=[];
+
+  // Archive Comment (highlighted)
+  if(p.archiveComment){
+    html.push(`<div class="modal-section">
+      <h4>Archive Comment</h4>
+      <div class="modal-archive-comment">${escapeHtml(p.archiveComment)}</div>
+    </div>`);
+  }else{
+    html.push(`<div class="modal-section">
+      <h4>Archive Comment</h4>
+      <div class="muted" style="font-style:italic">(ไม่มี comment — Project นี้ถูก archive โดยไม่ได้ใส่หมายเหตุ)</div>
+    </div>`);
+  }
+
+  // Project meta
+  html.push(`<div class="modal-section">
+    <h4>Project Info</h4>
+    <div class="modal-grid">
+      <div class="modal-meta-item"><b>Description</b><span>${escapeHtml(p.projectDesc||'-')}</span></div>
+      <div class="modal-meta-item"><b>Problem / Background</b><span>${escapeHtml(p.problem||'-')}</span></div>
+      <div class="modal-meta-item"><b>Timeline</b><span>${p.startDate||'-'} → ${p.endDate||'-'} (${daysBetween(p.startDate,p.endDate)} วัน)</span></div>
+      <div class="modal-meta-item"><b>Support Team</b><span>${escapeHtml(p.supportTeam||'-')}</span></div>
+    </div>
+  </div>`);
+
+  // Objectives & KPIs
+  if((p.objectives||[]).length){
+    html.push(`<div class="modal-section">
+      <h4>Objectives</h4>
+      <ul style="margin:0;padding-left:20px;font-size:13px;color:#27364a;line-height:1.6">
+        ${p.objectives.map(o=>`<li>${escapeHtml(o)}</li>`).join('')}
+      </ul>
+    </div>`);
+  }
+  if((p.kpis||[]).length){
+    html.push(`<div class="modal-section">
+      <h4>KPI Achievement</h4>
+      <ul style="margin:0;padding-left:20px;font-size:13px;color:#27364a;line-height:1.6">
+        ${p.kpis.map(k=>`<li>${escapeHtml(k)}</li>`).join('')}
+      </ul>
+    </div>`);
+  }
+
+  // Tasks summary
+  html.push(`<div class="modal-section">
+    <h4>Tasks Summary (${tasks.length})</h4>
+    <div class="modal-tasks-summary">
+      <span class="status NotStarted">Not Started: ${cnt.NotStarted}</span>
+      <span class="status InProgress">In Progress: ${cnt.InProgress}</span>
+      <span class="status Delay">Delay: ${cnt.Delay}</span>
+      <span class="status Done">Done: ${cnt.Done}</span>
+    </div>
+  </div>`);
+
+  // Tasks table (compact)
+  if(tasks.length){
+    html.push(`<div class="modal-section">
+      <h4>Task List</h4>
+      <div class="table-wrap modal-tasks-mini">
+        <table>
+          <thead><tr><th>#</th><th>Task</th><th>Owner</th><th>Status</th><th>Due</th></tr></thead>
+          <tbody>
+            ${tasks.map((t,i)=>`<tr>
+              <td>${i+1}</td>
+              <td><b>${escapeHtml(t.name||'-')}</b>${t.detail?`<br><span class="muted">${escapeHtml(t.detail.substring(0,80))}${t.detail.length>80?'...':''}</span>`:''}</td>
+              <td>${escapeHtml(t.owner||'-')}</td>
+              <td><span class="status ${t.status||'NotStarted'}">${statusText(t.status)}</span></td>
+              <td>${t.due||'-'}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`);
+  }
+
+  $('adContent').innerHTML=html.join('');
+  // Show/hide unarchive button based on edit permission
+  $('adUnarchiveBtn').style.display=canEditProject(p)?'inline-block':'none';
+  $('archiveDetailsModal').classList.add('show');
+}
+
+function closeArchiveDetails(){
+  $('archiveDetailsModal').classList.remove('show');
+  archiveModalProjectId=null;
+}
+
+function unarchiveFromModal(){
+  if(!archiveModalProjectId)return;
+  const id=archiveModalProjectId;
+  closeArchiveDetails();
+  toggleArchiveById(id,false);
+}
+
+function renderArchive(){
+  const grid=$('archiveListGrid');
+  if(!grid)return;
+  const q=($('archiveSearch')?.value||'').toLowerCase().trim();
+  let list=archivedProjects();
+  if(q) list=list.filter(p=>(p.projectName||'').toLowerCase().includes(q));
+  list.sort((a,b)=>(b._updatedAt||0)-(a._updatedAt||0));
+  $('archiveCountLabel').textContent=list.length+' archived';
+  if(!list.length){
+    grid.innerHTML='<div class="project-empty">ยังไม่มี Project ที่ archive</div>';
+    return;
+  }
+  grid.innerHTML=list.map(p=>`
+    <div class="project-tile">
+      <h3>${escapeHtml(p.projectName||'(Untitled)')}</h3>
+      <div style="margin-bottom:6px">
+        ${getProjectDc(p)?`<span class="ptile-tag">📍 ${escapeHtml(getProjectDc(p))}</span>`:''}
+        ${getProjectRegion(p)?`<span class="ptile-tag">🗺️ ${escapeHtml(getProjectRegion(p))}</span>`:''}
+      </div>
+      <div class="ptile-meta">
+        <div>Owner: ${escapeHtml(p.owner||'-')}</div>
+        <div>Tasks: ${(p.tasks||[]).length}</div>
+        ${p.archiveComment?`<div style="margin-top:6px;padding:6px 8px;background:#fff3d6;border-left:3px solid var(--amberText);border-radius:6px;font-size:11px;color:#5b4200"><b>📝</b> ${escapeHtml((p.archiveComment).substring(0,80))}${p.archiveComment.length>80?'...':''}</div>`:''}
+      </div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn mini primary" onclick="showArchiveDetails('${p.id}')">👁 View Details</button>
+        <button class="btn ghost mini" onclick="toggleArchiveById('${p.id}',false)">↩ Unarchive</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderDCFilter(){
+  const sel=$('projectFilterDC');
+  if(!sel)return;
+  const dcs=[...new Set(visibleProjects(true).map(p=>getProjectDc(p)).filter(Boolean))].sort();
+  const cur=sel.value;
+  sel.innerHTML='<option value="">ทุก DC</option>'+dcs.map(d=>`<option ${d===cur?'selected':''}>${escapeHtml(d)}</option>`).join('');
+}
+
+/* ===================================================================== 
+   USERS MANAGEMENT (Settings page - RTM only)
+   ===================================================================== */
+function saveUsersLocal(){localStorage.setItem(USERS_KEY,JSON.stringify(users))}
+function loadUsersLocal(){try{users=JSON.parse(localStorage.getItem(USERS_KEY)||'[]')}catch(e){users=[]}}
+
+function addUser(){
+  if(session.role!=='RTM'){alert('เฉพาะ RTM เท่านั้น');return}
+  const role=$('newUserRole').value;
+  // For RSM: ignore DC input (region only)
+  // For RTM: ignore both region and DC
+  const u={
+    username:$('newUserName').value.trim(),
+    password:$('newUserPass').value.trim(),
+    role:role,
+    region:(role==='RTM')?'':$('newUserRegion').value,
+    dc:(role==='RTM'||role==='RSM')?'':$('newUserDC').value.trim()
+  };
+  if(!u.username||!u.password){alert('กรอก username และ password');return}
+  if(users.some(x=>x.username===u.username)){alert('username นี้มีอยู่แล้ว');return}
+  if(u.role==='RSM' && !u.region){alert('RSM ต้องระบุ Region (เห็นทุก DC ในภาคนั้น)');return}
+  if(u.role==='ASM' && (!u.dc || !u.region)){alert('ASM ต้องระบุทั้ง Region และ DC');return}
+  if(u.role==='RS' && (!u.dc || !u.region)){alert('RS ต้องระบุทั้ง Region และ DC');return}
+  users.push(u);
+  saveUsersLocal();
+  pushUserToCloud(u);
+  ['newUserName','newUserPass','newUserDC'].forEach(id=>$(id).value='');
+  $('newUserRegion').value='';
+  renderUsersList();
+}
+
+function updateNewUserFieldHints(){
+  const role=$('newUserRole')?.value;
+  const regionEl=$('newUserRegion'), dcEl=$('newUserDC');
+  const regionLabel=$('newUserRegionLabel'), dcLabel=$('newUserDCLabel');
+  if(!regionEl||!dcEl)return;
+  if(role==='RTM'){
+    regionEl.disabled=true; dcEl.disabled=true;
+    regionEl.style.background='#f3f4f6'; dcEl.style.background='#f3f4f6';
+    regionEl.value=''; dcEl.value='';
+    if(regionLabel) regionLabel.textContent='Region (ไม่ต้องกรอก)';
+    if(dcLabel) dcLabel.textContent='DC (ไม่ต้องกรอก)';
+  }else if(role==='RSM'){
+    regionEl.disabled=false; dcEl.disabled=true;
+    regionEl.style.background='#fff'; dcEl.style.background='#f3f4f6';
+    dcEl.value='';
+    dcEl.placeholder='ไม่ต้องกรอก (RSM เห็นทุก DC ใน region)';
+    if(regionLabel) regionLabel.textContent='Region *';
+    if(dcLabel) dcLabel.textContent='DC (RSM ไม่ใช้)';
+  }else{
+    // ASM, RS
+    regionEl.disabled=false; dcEl.disabled=false;
+    regionEl.style.background='#fff'; dcEl.style.background='#fff';
+    dcEl.placeholder='DC ที่ดูแล';
+    if(regionLabel) regionLabel.textContent='Region *';
+    if(dcLabel) dcLabel.textContent='DC *';
+  }
+}
+
+function updateUser(username,field,value){
+  const u=users.find(x=>x.username===username);
+  if(!u)return;
+  u[field]=value;
+  saveUsersLocal();
+  pushUserToCloud(u);
+  // If region/dc changed, backfill projects owned by this user
+  if(field==='region'||field==='dc'){
+    let touched=0;
+    projects.forEach(p=>{
+      if((p.owner===username || p.createdBy===username)){
+        if(u.region && !p.region){p.region=u.region;touched++}
+        if(u.dc && !p.dc){p.dc=u.dc;touched++}
+      }
+    });
+    if(touched){
+      saveProjectsLocal();
+      projects.forEach(p=>{if(p.owner===username||p.createdBy===username) pushProjectToCloud(p)});
+      renderProjectList();
+      renderOverview();
+    }
+  }
+}
+
+function deleteUser(username){
+  if(session.role!=='RTM'){alert('เฉพาะ RTM เท่านั้น');return}
+  if(username===session.username){alert('ห้ามลบตัวเอง');return}
+  if(!confirm('ลบ user "'+username+'"?'))return;
+  users=users.filter(x=>x.username!==username);
+  saveUsersLocal();
+  deleteUserFromCloud(username);
+  renderUsersList();
+}
+
+function renderUsersList(){
+  const wrap=$('usersList');
+  if(!wrap)return;
+  if(!users.length){wrap.innerHTML='<div class="muted" style="padding:14px">ยังไม่มี user</div>';return}
+  wrap.innerHTML=users.map(u=>{
+    const needsRegion=(u.role==='RSM'||u.role==='ASM'||u.role==='RS') && !u.region;
+    const needsDc=(u.role==='ASM'||u.role==='RS') && !u.dc;
+    const warning=(needsRegion||needsDc)?` <span style="background:var(--rose);color:var(--roseText);font-size:10px;padding:2px 6px;border-radius:8px;font-weight:800" title="${needsRegion?'ขาด Region ':''}${needsDc?'ขาด DC':''} - RSM จะมองไม่เห็น project ของ user คนนี้">⚠️ INCOMPLETE</span>`:'';
+    return `
+    <div class="user-row" ${(needsRegion||needsDc)?'style="background:#fff8f0"':''}>
+      <div><b>${escapeHtml(u.username)}</b>${warning}</div>
+      <div><input value="${attr(u.password)}" onchange="updateUser('${attr(u.username)}','password',this.value)"></div>
+      <div>
+        <select onchange="updateUser('${attr(u.username)}','role',this.value)">
+          <option value="ASM" ${u.role==='ASM'?'selected':''}>ASM</option>
+          <option value="RS" ${u.role==='RS'?'selected':''}>RS</option>
+          <option value="RSM" ${u.role==='RSM'?'selected':''}>RSM</option>
+          <option value="RTM" ${u.role==='RTM'?'selected':''}>RTM</option>
+        </select>
+      </div>
+      <div>
+        <select onchange="updateUser('${attr(u.username)}','region',this.value)" ${needsRegion?'style="border-color:var(--roseText);background:#fff5f5"':''}>
+          <option value="">—</option>
+          ${['NOR','NOE','BKKCT','SOU','THA'].map(r=>`<option ${u.region===r?'selected':''}>${r}</option>`).join('')}
+        </select>
+      </div>
+      <div><input value="${attr(u.dc||'')}" onchange="updateUser('${attr(u.username)}','dc',this.value)" placeholder="DC" ${needsDc?'style="border-color:var(--roseText);background:#fff5f5"':''}></div>
+      <div><button class="x mini" onclick="deleteUser('${attr(u.username)}')">Delete</button></div>
+    </div>`;
+  }).join('');
+}
+
+/* ===================================================================== 
+   DATA INTEGRITY: scan & repair
+   ===================================================================== */
+function scanDataIntegrity(){
+  const issues=[];
+  // Users missing region/dc
+  users.forEach(u=>{
+    const needsRegion=(u.role==='RSM'||u.role==='ASM'||u.role==='RS') && !u.region;
+    const needsDc=(u.role==='ASM'||u.role==='RS') && !u.dc;
+    if(needsRegion||needsDc){
+      issues.push({type:'user',item:u,msg:`User <b>${escapeHtml(u.username)}</b> (${u.role}) ขาด${needsRegion?' Region':''}${needsDc?' DC':''}`});
+    }
+  });
+  // Projects missing region/dc but owner has it
+  const dcRegionMap=getDcRegionMap();
+  projects.forEach(p=>{
+    if(!p.region || !p.dc){
+      const u=getUserByName(p.owner||p.createdBy||'');
+      const canFix=(u && ((!p.region && u.region) || (!p.dc && u.dc))) || (!p.region && p.dc && dcRegionMap[p.dc]);
+      if(canFix){
+        issues.push({type:'project',item:p,msg:`Project <b>${escapeHtml(p.projectName||'(Untitled)')}</b> ขาด${!p.region?' Region':''}${!p.dc?' DC':''} (ซ่อมได้)`});
+      }else{
+        issues.push({type:'project_unfixable',item:p,msg:`Project <b>${escapeHtml(p.projectName||'(Untitled)')}</b> ขาด${!p.region?' Region':''}${!p.dc?' DC':''} - owner "${escapeHtml(p.owner||'-')}" ก็ไม่มีข้อมูล`});
+      }
+    }
+  });
+  const rep=$('repairReport');
+  if(!issues.length){
+    rep.innerHTML='<b style="color:var(--greenText)">✅ ข้อมูลครบถ้วน — ไม่มีปัญหา</b><br><span class="muted">RSM ควรเห็น project ของ ASM/RS ในภาคได้ทั้งหมด</span>';
+    return;
+  }
+  rep.innerHTML=`<b style="color:var(--roseText)">⚠️ พบ ${issues.length} รายการที่ต้องแก้</b><br>`
+    +issues.slice(0,30).map(i=>`<div style="padding:4px 0">• ${i.msg}</div>`).join('')
+    +(issues.length>30?`<div class="muted">... และอีก ${issues.length-30} รายการ</div>`:'')
+    +'<div style="margin-top:10px;padding:8px;background:#fff3d6;border-radius:8px;color:#5b4200"><b>💡 วิธีแก้:</b> กดปุ่ม <b>🔧 ซ่อมข้อมูลทั้งหมด</b> เพื่อให้ระบบ fill ข้อมูล project จาก user profile อัตโนมัติ • Users ที่ขาดข้อมูล ให้แก้ในตาราง Users ข้างบน</div>';
+}
+
+function repairAllData(){
+  if(!confirm('ระบบจะ:\n1. Backfill region/dc ของ project จาก user profile\n2. Infer region จาก DC mapping\n3. Save & sync ไป cloud\n\nดำเนินการต่อ?'))return;
+  backfillProjectMetadata();
+  renderProjectList();
+  renderOverview();
+  renderArchive();
+  scanDataIntegrity();
+  alert('✅ ซ่อมข้อมูลเสร็จ — ดูผลที่ช่องด้านบน • ถ้ายังมี user ที่ขาด region/dc ให้แก้ในตาราง Users');
+}
+
+/* ===================================================================== 
+   MOCK DATA (for testing the system)
+   ===================================================================== */
+function getMockData(){
+  // Compute relative dates (today ± days) for realistic timeline
+  const today=new Date();
+  const dateOffset=(d)=>{const x=new Date(today);x.setDate(today.getDate()+d);return x.toISOString().slice(0,10)};
+  const T=dateOffset; // shorthand
+
+  const mockUsers=[
+    {username:'rtm',password:'rtm1234',role:'RTM',region:'',dc:''},
+    // RSM (one per region)
+    {username:'rsm_nor',password:'pass123',role:'RSM',region:'NOR',dc:''},
+    {username:'rsm_noe',password:'pass123',role:'RSM',region:'NOE',dc:''},
+    {username:'rsm_bkk',password:'pass123',role:'RSM',region:'BKKCT',dc:''},
+    {username:'rsm_sou',password:'pass123',role:'RSM',region:'SOU',dc:''},
+    // ASM (one per DC)
+    {username:'asm_nor1',password:'pass123',role:'ASM',region:'NOR',dc:'DC-NOR-01'},
+    {username:'asm_nor2',password:'pass123',role:'ASM',region:'NOR',dc:'DC-NOR-02'},
+    {username:'asm_noe1',password:'pass123',role:'ASM',region:'NOE',dc:'DC-NOE-01'},
+    {username:'asm_bkk1',password:'pass123',role:'ASM',region:'BKKCT',dc:'DC-BKK-01'},
+    {username:'asm_sou1',password:'pass123',role:'ASM',region:'SOU',dc:'DC-SOU-01'},
+    {username:'asm_sou2',password:'pass123',role:'ASM',region:'SOU',dc:'DC-SOU-02'},
+    // RS (under ASM, same DC)
+    {username:'rs_nor1a',password:'pass123',role:'RS',region:'NOR',dc:'DC-NOR-01'},
+    {username:'rs_nor1b',password:'pass123',role:'RS',region:'NOR',dc:'DC-NOR-01'},
+    {username:'rs_noe1',password:'pass123',role:'RS',region:'NOE',dc:'DC-NOE-01'},
+    {username:'rs_bkk1',password:'pass123',role:'RS',region:'BKKCT',dc:'DC-BKK-01'},
+    {username:'rs_sou1',password:'pass123',role:'RS',region:'SOU',dc:'DC-SOU-01'},
+  ];
+
+  const mkProject=(id,name,owner,region,dc,desc,problem,startOffset,endOffset,objectives,kpis,tasks,extra={})=>({
+    id,projectName:name,owner,createdBy:owner,region,dc,
+    projectDesc:desc,problem,
+    startDate:T(startOffset),endDate:T(endOffset),
+    supportTeam:'Sales Ops, '+region+' Team',
+    archived:false,archiveComment:'',
+    objectives,kpis,tasks,
+    _updatedAt:Date.now()-Math.floor(Math.random()*86400000*7),
+    ...extra
+  });
+
+  const mkTask=(name,detail,action,label,owner,status,startOffset,dueOffset,comment='')=>({
+    name,detail,action,label,owner,status,
+    start:startOffset!==null?T(startOffset):'',
+    due:dueOffset!==null?T(dueOffset):'',
+    comment,_created:Date.now()-Math.floor(Math.random()*86400000*30)
+  });
+
+  const mockProjects=[
+    // ===== NOR region (5 projects) =====
+    mkProject('mock_p1','เพิ่ม Visit Success Route A','asm_nor1','NOR','DC-NOR-01',
+      'ปรับปรุง route สำหรับลูกค้า High Risk ในเขต DC-NOR-01',
+      'Visit Success Rate ลดลงจาก 85% เป็น 72% ในไตรมาสที่ผ่านมา',
+      -20,30,
+      ['เพิ่ม Visit Success ≥ 90%','ลด Lost Customer ลง 30%'],
+      ['Visit Success ≥ 90% ภายใน 2 เดือน','Customer Retention 95%'],
+      [
+        mkTask('สำรวจ route ปัจจุบัน','รวมข้อมูล route 30 วันย้อนหลัง','ดาวน์โหลด report จากระบบ','ด่วน+สำคัญ','asm_nor1','Done',-20,-15,'ทำเสร็จแล้ว'),
+        mkTask('สัมภาษณ์ Sales Rep','สัมภาษณ์ 5 คน','จัดประชุม 1:1','ด่วน+สำคัญ','asm_nor1','Done',-15,-10),
+        mkTask('ออกแบบ route ใหม่','แก้ตามผลสำรวจ','ใช้ map tool','ไม่ด่วน+สำคัญ','asm_nor1','InProgress',-10,5),
+        mkTask('Pilot กับ Rep 2 คน','ทดสอบ 1 สัปดาห์','ติดตามผลรายวัน','ด่วน+สำคัญ','asm_nor1','NotStarted',5,15),
+        mkTask('สรุปผล Pilot','เขียน report','ทำ presentation','ด่วน+ไม่สำคัญ','asm_nor1','NotStarted',15,25),
+      ]),
+    mkProject('mock_p2','ลด Order Cancellation','rs_nor1a','NOR','DC-NOR-01',
+      'หาสาเหตุของการยกเลิก order และแก้ไข',
+      'Order cancellation rate 12% สูงกว่าเป้า 5%',
+      -15,45,
+      ['ลด cancellation ลง 50%'],
+      ['Order cancel rate < 5%'],
+      [
+        mkTask('Analyze เหตุผล cancel','รวบรวมข้อมูล 60 วัน','export data','ด่วน+สำคัญ','rs_nor1a','Done',-15,-8),
+        mkTask('สำรวจ feedback ลูกค้า','โทรสัมภาษณ์ 20 ราย','call list ลูกค้า','ด่วน+สำคัญ','rs_nor1a','Delay',-8,-2,'รออนุญาตจาก ASM'),
+        mkTask('Workshop แก้ปัญหา','workshop ทีม','จัด session','ไม่ด่วน+สำคัญ','rs_nor1a','NotStarted',5,12),
+      ]),
+    mkProject('mock_p3','New Customer Acquisition','rs_nor1b','NOR','DC-NOR-01',
+      'เพิ่มลูกค้าใหม่ในพื้นที่ใหม่',
+      'ลูกค้าใหม่/เดือนต่ำกว่าเป้า 40%',
+      -8,52,
+      ['+50 ลูกค้าใหม่/เดือน'],
+      ['New customer ≥ 50/month'],
+      [
+        mkTask('สำรวจพื้นที่','สำรวจ 3 zones','ลงพื้นที่','ด่วน+สำคัญ','rs_nor1b','InProgress',-5,7),
+        mkTask('เตรียม sales kit','สื่อโฆษณา + sample','ออกแบบ + พิมพ์','ด่วน+ไม่สำคัญ','rs_nor1b','InProgress',0,10),
+      ]),
+    mkProject('mock_p4','ปรับปรุง Stock Accuracy','asm_nor2','NOR','DC-NOR-02',
+      'ลด stock variance ใน warehouse',
+      'Stock variance 8% (เป้า < 2%)',
+      -25,15,
+      ['Stock accuracy ≥ 98%'],
+      ['Variance < 2% ภายใน 1 เดือน'],
+      [
+        mkTask('Cycle count plan','วางแผน count','ทำ schedule','ด่วน+สำคัญ','asm_nor2','Done',-25,-20),
+        mkTask('Train staff','สอน 8 คน','จัด workshop','ด่วน+สำคัญ','asm_nor2','Done',-18,-13),
+        mkTask('Run cycle count #1','ทำจริง','count + reconcile','ด่วน+สำคัญ','asm_nor2','Done',-12,-7),
+        mkTask('Run cycle count #2','รอบ 2','count + reconcile','ด่วน+สำคัญ','asm_nor2','InProgress',-5,3),
+        mkTask('Final reconcile','สรุปผล','รวม variance report','ด่วน+ไม่สำคัญ','asm_nor2','NotStarted',5,12),
+      ]),
+    // Archived NOR project (with positive comment)
+    mkProject('mock_p5','Improve Cold Chain (Closed)','asm_nor2','NOR','DC-NOR-02',
+      'ปรับปรุงระบบ cold chain สำหรับสินค้าแช่เย็น',
+      'Temperature deviation ในรถขนส่ง 15%',
+      -90,-10,
+      ['Temperature ภายในเกณฑ์ 99%'],
+      ['ลด deviation < 2%'],
+      [
+        mkTask('Audit รถขนส่ง','ตรวจ 12 คัน','inspect','ด่วน+สำคัญ','asm_nor2','Done',-90,-80),
+        mkTask('ซ่อมระบบ refrigeration','3 คัน','outsource ซ่อม','ด่วน+สำคัญ','asm_nor2','Done',-75,-60),
+        mkTask('Install temp logger','ติดตั้ง 12 คัน','install','ไม่ด่วน+สำคัญ','asm_nor2','Done',-55,-40),
+        mkTask('Final audit','ตรวจซ้ำ','re-inspect','ด่วน+ไม่สำคัญ','asm_nor2','Done',-30,-15),
+      ],
+      {archived:true,archiveComment:'จบ Project ประเมินแล้วได้ 10/10 — Temperature deviation ลดเหลือ 1.2% ตามเป้า ขอบคุณทีมที่ร่วมมือดีมาก'}
+    ),
+
+    // ===== NOE region (3 projects) =====
+    mkProject('mock_p6','Reduce Delivery Lead Time','asm_noe1','NOE','DC-NOE-01',
+      'ลดเวลาขนส่งจาก order ถึงลูกค้า',
+      'Lead time เฉลี่ย 3.5 วัน (เป้า 2 วัน)',
+      -10,40,
+      ['ลด lead time ลง 40%'],
+      ['Lead time ≤ 2 วัน'],
+      [
+        mkTask('Map process ปัจจุบัน','ระบุ bottleneck','process mapping','ด่วน+สำคัญ','asm_noe1','InProgress',-5,5),
+        mkTask('Reorganize warehouse','จัด layout ใหม่','design + execute','ไม่ด่วน+สำคัญ','asm_noe1','NotStarted',7,20),
+      ]),
+    mkProject('mock_p7','Train new Sales Rep','rs_noe1','NOE','DC-NOE-01',
+      'อบรม Sales Rep ใหม่ 5 คน',
+      'Onboarding ช้า ใช้เวลา 60 วัน',
+      -30,5,
+      ['Onboard ภายใน 30 วัน'],
+      ['New Rep ปฏิบัติงานได้ใน 30 วัน'],
+      [
+        mkTask('สร้าง training material','คู่มือ + slide','เขียน + design','ด่วน+สำคัญ','rs_noe1','Done',-30,-22),
+        mkTask('Classroom training','3 วัน','สอน','ด่วน+สำคัญ','rs_noe1','Done',-20,-17),
+        mkTask('Field training','7 วัน','สอนภาคสนาม','ด่วน+สำคัญ','rs_noe1','Done',-15,-8),
+        mkTask('Final assessment','ประเมินผล','test + review','ไม่ด่วน+สำคัญ','rs_noe1','InProgress',-5,3),
+      ]),
+    // Delayed project (with overdue task)
+    mkProject('mock_p8','Sales Promotion Q2','asm_noe1','NOE','DC-NOE-01',
+      'จัด promotion ใหญ่สำหรับไตรมาส 2',
+      'Q2 sales target ยังห่างเป้า 25%',
+      -45,-5,
+      ['Q2 sales +30%'],
+      ['Revenue Q2 ≥ target'],
+      [
+        mkTask('วางแผน promotion','plan + budget','approve plan','ด่วน+สำคัญ','asm_noe1','Done',-45,-38),
+        mkTask('เตรียม material','ออกแบบ + พิมพ์','design','ด่วน+สำคัญ','asm_noe1','Delay',-35,-25,'รออนุมัติ budget เพิ่ม'),
+        mkTask('Roll out','launch','execute','ด่วน+สำคัญ','asm_noe1','Delay',-20,-10,'งบเพิ่งอนุมัติเมื่อสัปดาห์ที่แล้ว'),
+        mkTask('สรุปผล','รายงาน','present','ไม่ด่วน+ไม่สำคัญ','asm_noe1','NotStarted',-10,-3),
+      ]),
+
+    // ===== BKKCT region (3 projects) =====
+    mkProject('mock_p9','E-commerce Integration','asm_bkk1','BKKCT','DC-BKK-01',
+      'เชื่อมต่อกับ marketplace (Shopee, Lazada)',
+      'ยอดขาย online ต่ำกว่าคู่แข่ง 50%',
+      -15,75,
+      ['Online sales +200%','Active SKU ≥ 500'],
+      ['Online revenue ≥ 30M/month'],
+      [
+        mkTask('Setup Shopee account','สมัคร + verify','contact Shopee','ด่วน+สำคัญ','asm_bkk1','Done',-15,-10),
+        mkTask('Upload product 200 SKU','รายการสินค้า','upload + photo','ด่วน+สำคัญ','asm_bkk1','InProgress',-8,7),
+        mkTask('Setup Lazada','สมัคร + verify','contact Lazada','ด่วน+ไม่สำคัญ','asm_bkk1','NotStarted',10,17),
+      ]),
+    mkProject('mock_p10','CRM Implementation','rs_bkk1','BKKCT','DC-BKK-01',
+      'ใช้ CRM ใหม่กับทีม Sales',
+      'ข้อมูลลูกค้ากระจัดกระจาย ติดตาม lead ยาก',
+      -5,60,
+      ['Adoption 100%','Lead conversion +25%'],
+      ['Active CRM users ≥ 90%'],
+      [
+        mkTask('Vendor selection','เลือก CRM','RFP + demo','ด่วน+สำคัญ','rs_bkk1','InProgress',-5,5),
+        mkTask('Training','train ทีม 15 คน','workshop','ไม่ด่วน+สำคัญ','rs_bkk1','NotStarted',10,17),
+        mkTask('Pilot','รัน pilot 1 เดือน','ใช้จริง','ไม่ด่วน+สำคัญ','rs_bkk1','NotStarted',20,50),
+      ]),
+    // Archived BKK project (with negative comment)
+    mkProject('mock_p11','Cancelled Loyalty Program','asm_bkk1','BKKCT','DC-BKK-01',
+      'โปรแกรมสะสมแต้มสำหรับลูกค้า VIP',
+      'ลูกค้า top 100 ออกไปคู่แข่ง 30%',
+      -120,-30,
+      ['+50% retention top 100'],
+      ['Retention ≥ 95%'],
+      [
+        mkTask('Concept design','ออกแบบโปรแกรม','design','ด่วน+สำคัญ','asm_bkk1','Done',-120,-110),
+        mkTask('System dev','พัฒนาระบบ','outsource','ด่วน+สำคัญ','asm_bkk1','Done',-100,-70),
+        mkTask('Beta test','ทดสอบ 50 VIP','rollout','ไม่ด่วน+สำคัญ','asm_bkk1','Done',-60,-45),
+      ],
+      {archived:true,archiveComment:'ไม่ทำต่อเพราะ ROI ไม่ผ่าน — Beta test แสดงว่า retention เพิ่มแค่ 8% (เป้า 50%) ต้นทุนสูงเกินไป จะใช้แนวอื่น'}
+    ),
+
+    // ===== SOU region (3 projects) =====
+    mkProject('mock_p12','Increase Visit Frequency','asm_sou1','SOU','DC-SOU-01',
+      'เพิ่มความถี่ในการเยี่ยมลูกค้า',
+      'ลูกค้าทักทายว่าเจอ Sales น้อย',
+      -7,53,
+      ['Visit frequency +30%'],
+      ['Avg visits/customer/month ≥ 4'],
+      [
+        mkTask('Route optimization','ปรับ route','use mapping tool','ด่วน+สำคัญ','asm_sou1','InProgress',-2,8),
+        mkTask('Add Sales Rep','รับเพิ่ม 2 คน','HR + training','ไม่ด่วน+สำคัญ','asm_sou1','NotStarted',10,40),
+      ]),
+    mkProject('mock_p13','Reduce Return Rate','rs_sou1','SOU','DC-SOU-01',
+      'ลดอัตราการคืนสินค้า',
+      'Return rate 7% (เป้า 3%)',
+      -12,38,
+      ['Return rate < 3%'],
+      ['Customer satisfaction ≥ 90%'],
+      [
+        mkTask('Root cause analysis','วิเคราะห์สาเหตุ','data analysis','ด่วน+สำคัญ','rs_sou1','Done',-12,-5),
+        mkTask('Quality check process','ปรับ QA','redesign QA','ด่วน+สำคัญ','rs_sou1','Delay',-3,5,'รออะไหล่เครื่องตรวจ'),
+        mkTask('Train QA team','อบรม 5 คน','training session','ไม่ด่วน+สำคัญ','rs_sou1','NotStarted',10,17),
+      ]),
+    mkProject('mock_p14','Distributor Partnership','asm_sou2','SOU','DC-SOU-02',
+      'หา distributor ใหม่ในเขตห่างไกล',
+      'พื้นที่ห่างไกลไม่มี service',
+      -3,87,
+      ['+3 distributor ใหม่'],
+      ['Coverage ≥ 95%'],
+      [
+        mkTask('สำรวจตลาด','3 จังหวัด','field survey','ด่วน+สำคัญ','asm_sou2','InProgress',-3,12),
+        mkTask('Negotiate contract','เจรจา 5 ราย','meeting','ไม่ด่วน+สำคัญ','asm_sou2','NotStarted',15,45),
+      ]),
+
+    // Project with future start (test timeline)
+    mkProject('mock_p15','Future Initiative Q4','rs_sou1','SOU','DC-SOU-01',
+      'โครงการ Q4 ยังไม่เริ่ม',
+      'เตรียมแผน Q4',
+      30,90,
+      ['Plan ready by Q4 start'],
+      ['Plan approved'],
+      [
+        mkTask('Planning workshop','workshop','ทำ workshop','ไม่ด่วน+สำคัญ','rs_sou1','NotStarted',30,37),
+        mkTask('Budget approval','ขออนุมัติ','submit budget','ไม่ด่วน+สำคัญ','rs_sou1','NotStarted',40,50),
+      ]),
+  ];
+
+  return {users:mockUsers,projects:mockProjects};
+}
+
+function loadMockData(){
+  if(session.role!=='RTM'){alert('เฉพาะ RTM เท่านั้น');return}
+  if(!confirm('โหลด Mock Data จะ:\n\n1. เพิ่ม 16 users (RTM/RSM/ASM/RS ครบทุกภาค)\n2. เพิ่ม 15 projects (active + archived พร้อม tasks)\n3. รวมกับข้อมูลที่มีอยู่ (ไม่ลบของเดิม)\n\nดำเนินการต่อ?'))return;
+  const mock=getMockData();
+  let usersAdded=0,projectsAdded=0,usersSkipped=0,projectsSkipped=0;
+  mock.users.forEach(u=>{
+    if(users.some(x=>x.username===u.username)){usersSkipped++;return}
+    users.push(u);usersAdded++;
+    pushUserToCloud(u);
+  });
+  mock.projects.forEach(p=>{
+    if(projects.some(x=>x.id===p.id)){projectsSkipped++;return}
+    projects.push(p);projectsAdded++;
+    pushProjectToCloud(p);
+  });
+  saveUsersLocal();saveProjectsLocal();
+  renderUsersList();renderProjectList();renderOverview();renderArchive();renderKanban();
+  const rep=$('mockDataReport');
+  rep.style.display='block';
+  rep.innerHTML=`<b style="color:var(--greenText)">✅ โหลด Mock Data สำเร็จ</b><br>
+    • เพิ่ม Users: ${usersAdded} คน ${usersSkipped?` (ข้าม ${usersSkipped} - มีอยู่แล้ว)`:''}<br>
+    • เพิ่ม Projects: ${projectsAdded} projects ${projectsSkipped?` (ข้าม ${projectsSkipped} - มีอยู่แล้ว)`:''}<br>
+    <div style="margin-top:8px;padding:8px;background:#fff8e6;border-radius:8px;color:#5b4200">
+      <b>💡 ลองดู:</b> Logout แล้ว login ด้วย <code>rsm_nor / pass123</code> → จะเห็น 5 projects ในภาค NOR (จาก ASM 2 คน + RS 2 คน)
+    </div>`;
+}
+
+function downloadMockJson(){
+  const mock=getMockData();
+  const blob=new Blob([JSON.stringify(mock,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='RTM_Mock_Data.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function clearAllData(){
+  if(session.role!=='RTM'){alert('เฉพาะ RTM เท่านั้น');return}
+  if(!confirm('⚠️ จะลบ Users และ Projects ทั้งหมด (ยกเว้น user ตัวเอง)\n\nคำเตือน: ข้อมูลจะถูกลบจาก local และ cloud ถาวร — ไม่สามารถกู้คืนได้\n\nยืนยัน?'))return;
+  if(!confirm('ยืนยันอีกครั้ง: ลบทุก project และ user ที่ไม่ใช่ตัวเอง?'))return;
+  // Delete all projects from cloud
+  projects.forEach(p=>deleteProjectFromCloud(p.id));
+  projects=[];
+  saveProjectsLocal();
+  // Delete all users except self
+  const others=users.filter(u=>u.username!==session.username);
+  others.forEach(u=>deleteUserFromCloud(u.username));
+  users=users.filter(u=>u.username===session.username);
+  saveUsersLocal();
+  currentProjectId=null;
+  state=blankState();
+  renderUsersList();renderProjectList();renderOverview();renderArchive();renderKanban();
+  alert('✅ ลบข้อมูลเสร็จ');
+}
+
+
+/* ===================================================================== 
+   OVERVIEW (ภาพรวมทุก Project ตามสิทธิ์) - separate from per-project dashboard
+   ===================================================================== */
+function renderOverview(){
+  const projs=visibleProjects(true); // include archived for headline counts? -> use active only for stats
+  const active=projs.filter(p=>!p.archived);
+
+  // Big tiles
+  if($('ovTotalProjects')) $('ovTotalProjects').textContent=projs.length;
+  if($('ovActiveProjects')) $('ovActiveProjects').textContent=active.length;
+  let totalTasks=0,delayTasks=0;
+  active.forEach(p=>(p.tasks||[]).forEach(t=>{totalTasks++;if(t.status==='Delay')delayTasks++}));
+  if($('ovTotalTasks')) $('ovTotalTasks').textContent=totalTasks;
+  if($('ovDelayTasks')) $('ovDelayTasks').textContent=delayTasks;
+
+  // By Owner grid (reuse Team Summary)
+  renderTeamSummary();
+
+  // By Region/DC table
+  renderRegionDcTable(active);
+
+  // All projects table
+  renderOverviewProjectsTable(active);
+}
+
+function renderRegionDcTable(active){
+  const tbody=$('regionDcTable');
+  if(!tbody)return;
+  // Group by (region, dc)
+  const groups={};
+  active.forEach(p=>{
+    const r=getProjectRegion(p)||'-';
+    const d=getProjectDc(p)||'-';
+    const key=r+'||'+d;
+    if(!groups[key]) groups[key]={region:r,dc:d,projects:0,tasks:0,NotStarted:0,InProgress:0,Delay:0,Done:0};
+    groups[key].projects++;
+    (p.tasks||[]).forEach(t=>{
+      groups[key].tasks++;
+      const s=t.status||'NotStarted';
+      if(groups[key][s]!==undefined) groups[key][s]++;
+    });
+  });
+  const rows=Object.values(groups).sort((a,b)=>(a.region+a.dc).localeCompare(b.region+b.dc));
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="9">ยังไม่มีข้อมูล</td></tr>';return}
+  tbody.innerHTML=rows.map(g=>{
+    const total=g.tasks||1;
+    const donePct=Math.round((g.Done/total)*100);
+    return `<tr>
+      <td><b>${escapeHtml(g.region)}</b></td>
+      <td>${escapeHtml(g.dc)}</td>
+      <td>${g.projects}</td>
+      <td><b>${g.tasks}</b></td>
+      <td><span class="status NotStarted">${g.NotStarted}</span></td>
+      <td><span class="status InProgress">${g.InProgress}</span></td>
+      <td><span class="status Delay">${g.Delay}</span></td>
+      <td><span class="status Done">${g.Done}</span></td>
+      <td>
+        <div class="bar" style="background:#eef2f6;width:90px"><div style="width:${donePct}%;background:var(--blue)"></div></div>
+        <span class="muted" style="font-size:11px">${donePct}% done</span>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function renderOverviewProjectsTable(active){
+  // Populate DC and Owner filter dropdowns from currently-visible active projects
+  populateOverviewFilters(active);
+  renderOverviewProjectsTableFiltered();
+}
+
+function populateOverviewFilters(active){
+  const dcSel=$('overviewFilterDC');
+  if(dcSel){
+    const dcs=[...new Set(active.map(p=>getProjectDc(p)).filter(Boolean))].sort();
+    const cur=dcSel.value;
+    dcSel.innerHTML='<option value="">📍 ทุก DC</option>'+dcs.map(d=>`<option ${d===cur?'selected':''}>${escapeHtml(d)}</option>`).join('');
+  }
+  const ownSel=$('overviewFilterOwner');
+  if(ownSel){
+    const owners=[...new Set(active.map(p=>p.owner).filter(Boolean))].sort();
+    const cur=ownSel.value;
+    ownSel.innerHTML='<option value="">👤 ทุก Owner</option>'+owners.map(o=>`<option ${o===cur?'selected':''}>${escapeHtml(o)}</option>`).join('');
+  }
+}
+
+function renderOverviewProjectsTableFiltered(){
+  const tbody=$('overviewProjectsTable');
+  if(!tbody)return;
+  let list=visibleProjects(false);
+
+  // Apply filters
+  const q=($('overviewSearch')?.value||'').toLowerCase().trim();
+  const fRegion=$('overviewFilterRegion')?.value||'';
+  const fDc=$('overviewFilterDC')?.value||'';
+  const fOwner=$('overviewFilterOwner')?.value||'';
+  const fStatus=$('overviewFilterStatus')?.value||'';
+
+  if(q) list=list.filter(p=>(p.projectName||'').toLowerCase().includes(q));
+  if(fRegion) list=list.filter(p=>getProjectRegion(p)===fRegion);
+  if(fDc) list=list.filter(p=>getProjectDc(p)===fDc);
+  if(fOwner) list=list.filter(p=>(p.owner||'')===fOwner);
+  if(fStatus){
+    list=list.filter(p=>{
+      const tasks=p.tasks||[];
+      if(!tasks.length) return fStatus==='NotStarted';
+      const delay=tasks.filter(t=>t.status==='Delay').length;
+      const done=tasks.filter(t=>t.status==='Done').length;
+      const inprog=tasks.filter(t=>t.status==='InProgress').length;
+      if(fStatus==='Delay') return delay>0;
+      if(fStatus==='Done') return done===tasks.length;
+      if(fStatus==='InProgress') return inprog>0 && delay===0;
+      if(fStatus==='NotStarted') return done===0 && inprog===0 && delay===0;
+      return true;
+    });
+  }
+
+  const countEl=$('overviewProjectsCount');
+  if(countEl) countEl.textContent=list.length+' projects';
+
+  if(!list.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:20px" class="muted">ไม่พบ project ตามเงื่อนไข</td></tr>';return}
+
+  const sorted=[...list].sort((a,b)=>(b._updatedAt||0)-(a._updatedAt||0));
+  tbody.innerHTML=sorted.map(p=>{
+    const tasks=p.tasks||[];
+    const done=tasks.filter(t=>t.status==='Done').length;
+    const delay=tasks.filter(t=>t.status==='Delay').length;
+    const inprog=tasks.filter(t=>t.status==='InProgress').length;
+    const notstart=tasks.filter(t=>t.status==='NotStarted'||!t.status).length;
+    let summary='-';
+    if(tasks.length){
+      if(delay) summary=`<span class="status Delay">${delay} Delay</span>`;
+      else if(done===tasks.length) summary='<span class="status Done">All Done</span>';
+      else if(inprog) summary=`<span class="status InProgress">${inprog} In Progress</span>`;
+      else summary=`<span class="status NotStarted">${notstart} Not Started</span>`;
+    }
+    return `<tr>
+      <td><b>${escapeHtml(p.projectName||'(Untitled)')}</b></td>
+      <td>${escapeHtml(p.owner||'-')}</td>
+      <td>${escapeHtml(getProjectDc(p)||'-')}</td>
+      <td>${escapeHtml(getProjectRegion(p)||'-')}</td>
+      <td class="muted" style="font-size:12px">${p.startDate||'-'} → ${p.endDate||'-'}</td>
+      <td>${tasks.length}</td>
+      <td>${summary}</td>
+      <td><button class="btn mini" onclick="openProjectDashboard('${p.id}')">📈 Open</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function openProjectDashboard(id){
+  loadProjectIntoState(id);
+  showTab('dashboard');
+}
+
+/* ===================================================================== 
+   DASHBOARD - TEAM SUMMARY (item #4)
+   ===================================================================== */
+function renderTeamSummary(){
+  const grid=$('teamSummaryGrid');
+  if(!grid)return;
+  const projs=visibleProjects(false);
+  if(!projs.length){
+    grid.innerHTML='<div class="muted" style="padding:14px;grid-column:1/-1">ยังไม่มี Project ที่เห็นได้</div>';
+    return;
+  }
+  // Group by owner (ASM-like grouping)
+  const groups={};
+  projs.forEach(p=>{
+    const k=p.owner||'(no owner)';
+    if(!groups[k]) groups[k]={projects:0,tasks:0,NotStarted:0,InProgress:0,Delay:0,Done:0,dcs:new Set()};
+    groups[k].projects++;
+    if(getProjectDc(p)) groups[k].dcs.add(getProjectDc(p));
+    (p.tasks||[]).forEach(t=>{
+      groups[k].tasks++;
+      const s=t.status||'NotStarted';
+      if(groups[k][s]!==undefined) groups[k][s]++;
+    });
+  });
+  const sorted=Object.entries(groups).sort((a,b)=>b[1].tasks-a[1].tasks);
+  grid.innerHTML=sorted.map(([owner,g])=>`
+    <div class="summary-tile">
+      <h4>👤 ${escapeHtml(owner)} <span class="summary-count">${g.projects} project</span></h4>
+      <div class="muted" style="font-size:11px;margin-bottom:6px">DCs: ${[...g.dcs].map(escapeHtml).join(', ')||'-'}</div>
+      <div class="summary-stat-row"><span>Total Tasks</span><b>${g.tasks}</b></div>
+      <div class="summary-stat-row"><span>Not Started</span><span class="stat-pill NotStarted">${g.NotStarted}</span></div>
+      <div class="summary-stat-row"><span>In Progress</span><span class="stat-pill InProgress">${g.InProgress}</span></div>
+      <div class="summary-stat-row"><span>Delay</span><span class="stat-pill Delay">${g.Delay}</span></div>
+      <div class="summary-stat-row"><span>Done</span><span class="stat-pill Done">${g.Done}</span></div>
+    </div>
+  `).join('');
+}
+
+/* ===================================================================== 
+   KANBAN (item #8)
+   ===================================================================== */
+function renderKanbanFilters(){
+  const projs=visibleProjects(false);
+  const owners=[...new Set(projs.flatMap(p=>(p.tasks||[]).map(t=>t.owner)).filter(Boolean))].sort();
+  const userSel=$('kanbanFilterUser');
+  if(userSel){
+    const cur=userSel.value;
+    userSel.innerHTML='<option value="">👤 ทุก Owner</option>'+owners.map(o=>`<option ${o===cur?'selected':''}>${escapeHtml(o)}</option>`).join('');
+  }
+  const projSel=$('kanbanFilterProject');
+  if(projSel){
+    const cur=projSel.value;
+    projSel.innerHTML='<option value="">📁 ทุก Project</option>'+projs.map(p=>`<option value="${p.id}" ${p.id===cur?'selected':''}>${escapeHtml(p.projectName||'(Untitled)')}</option>`).join('');
+  }
+}
+
+function renderKanban(){
+  renderKanbanFilters();
+  const board=$('kanbanBoard');
+  if(!board)return;
+  const userF=$('kanbanFilterUser').value;
+  const projF=$('kanbanFilterProject').value;
+  const q=($('kanbanSearch').value||'').toLowerCase().trim();
+
+  const projs=visibleProjects(false);
+  const cols={NotStarted:[],InProgress:[],Delay:[],Done:[]};
+  let totalCount=0;
+  projs.forEach(p=>{
+    if(projF && p.id!==projF)return;
+    (p.tasks||[]).forEach((t,idx)=>{
+      if(userF && (t.owner||'')!==userF) return;
+      if(q && !((t.name||'').toLowerCase().includes(q) || (t.action||'').toLowerCase().includes(q) || (t.detail||'').toLowerCase().includes(q))) return;
+      const status=cols[t.status]!==undefined?t.status:'NotStarted';
+      cols[status].push({projectId:p.id,projectName:p.projectName,taskIdx:idx,task:t});
+      totalCount++;
+    });
+  });
+  $('kanbanCountLabel').textContent=totalCount+' tasks';
+
+  const colMeta=[
+    {key:'NotStarted',title:'⏸ Not Started'},
+    {key:'InProgress',title:'⏳ In Progress'},
+    {key:'Delay',title:'⚠️ Delay'},
+    {key:'Done',title:'✅ Done'}
+  ];
+  board.innerHTML=colMeta.map(col=>`
+    <div class="kanban-col" data-status="${col.key}" ondragover="kanbanDragOver(event)" ondragleave="kanbanDragLeave(event)" ondrop="kanbanDrop(event,'${col.key}')">
+      <div class="kanban-col-head">
+        <h3>${col.title}</h3>
+        <span class="kcount">${cols[col.key].length}</span>
+      </div>
+      ${cols[col.key].map(item=>`
+        <div class="kanban-card" draggable="true" 
+             ondragstart="kanbanDragStart(event,'${item.projectId}',${item.taskIdx})"
+             ondragend="kanbanDragEnd(event)">
+          <div class="kc-title">${escapeHtml(item.task.name||'(no name)')}</div>
+          <div class="muted" style="font-size:11px">${escapeHtml((item.task.detail||'').substring(0,80))}${(item.task.detail||'').length>80?'...':''}</div>
+          <div class="kc-meta">
+            <span class="kc-project">📁 ${escapeHtml(item.projectName||'')}</span>
+            <span>👤 ${escapeHtml(item.task.owner||'-')}</span>
+            <span>📅 ${item.task.due||'-'}</span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+let kanbanDragData=null;
+function kanbanDragStart(e,projectId,taskIdx){
+  kanbanDragData={projectId,taskIdx};
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed='move';
+}
+function kanbanDragEnd(e){
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.kanban-col').forEach(c=>c.classList.remove('drag-over'));
+}
+function kanbanDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function kanbanDragLeave(e){e.currentTarget.classList.remove('drag-over')}
+function kanbanDrop(e,newStatus){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if(!kanbanDragData)return;
+  const {projectId,taskIdx}=kanbanDragData;
+  const p=projects.find(x=>x.id===projectId);
+  if(!p||!p.tasks[taskIdx])return;
+  if(!canEditProject(p)){alert('คุณไม่มีสิทธิ์แก้ไข project นี้');return}
+  p.tasks[taskIdx].status=newStatus;
+  p._updatedAt=Date.now();
+  // Sync to current state if same project
+  if(currentProjectId===projectId){
+    state.tasks[taskIdx].status=newStatus;
+    renderTasks(false);
+    renderDashboard();
+  }
+  saveProjectsLocal();
+  pushProjectToCloud(p);
+  renderKanban();
+  renderOverview();
+  kanbanDragData=null;
+}
+
+/* ===================================================================== 
+   TIMELINE (Gantt-style) - shows tasks with start/due dates as bars
+   ===================================================================== */
+function renderTimelineFilters(){
+  const projs=visibleProjects(false);
+  const owners=[...new Set(projs.flatMap(p=>(p.tasks||[]).map(t=>t.owner)).filter(Boolean))].sort();
+  const projSel=$('timelineFilterProject');
+  if(projSel){
+    const cur=projSel.value;
+    projSel.innerHTML='<option value="">📁 ทุก Project</option>'+projs.map(p=>`<option value="${p.id}" ${p.id===cur?'selected':''}>${escapeHtml(p.projectName||'(Untitled)')}</option>`).join('');
+  }
+  const ownSel=$('timelineFilterOwner');
+  if(ownSel){
+    const cur=ownSel.value;
+    ownSel.innerHTML='<option value="">👤 ทุก Owner</option>'+owners.map(o=>`<option ${o===cur?'selected':''}>${escapeHtml(o)}</option>`).join('');
+  }
+}
+
+function renderTimeline(){
+  renderTimelineFilters();
+  const container=$('timelineContainer');
+  if(!container)return;
+  const projF=$('timelineFilterProject').value;
+  const ownF=$('timelineFilterOwner').value;
+  const statusF=$('timelineFilterStatus').value;
+  const rangeMode=$('timelineRange').value||'auto';
+
+  // Gather tasks visible to current user
+  const projs=visibleProjects(false);
+  const items=[];
+  projs.forEach(p=>{
+    if(projF && p.id!==projF) return;
+    (p.tasks||[]).forEach((t,idx)=>{
+      if(ownF && (t.owner||'')!==ownF) return;
+      if(statusF && (t.status||'NotStarted')!==statusF) return;
+      items.push({project:p,task:t,taskIdx:idx});
+    });
+  });
+
+  $('timelineCountLabel').textContent=items.length+' tasks';
+
+  if(!items.length){
+    container.innerHTML='<div class="timeline-empty">ยังไม่มี task ที่ตรงตามเงื่อนไข — ลองล้าง filter หรือเพิ่ม task ใน Project</div>';
+    return;
+  }
+
+  // Determine date range
+  const today=new Date();today.setHours(0,0,0,0);
+  let minDate=null,maxDate=null;
+  const datedTasks=items.filter(i=>i.task.start||i.task.due);
+  datedTasks.forEach(i=>{
+    const s=i.task.start?new Date(i.task.start):null;
+    const e=i.task.due?new Date(i.task.due):null;
+    [s,e].forEach(d=>{if(d && !isNaN(d)){if(!minDate||d<minDate)minDate=d;if(!maxDate||d>maxDate)maxDate=d}});
+  });
+  if(!minDate||!maxDate){
+    minDate=new Date(today);minDate.setDate(today.getDate()-15);
+    maxDate=new Date(today);maxDate.setDate(today.getDate()+45);
+  }
+  // Always include today in visible range
+  if(today<minDate) minDate=new Date(today);
+  if(today>maxDate){maxDate=new Date(today);maxDate.setDate(today.getDate()+7)}
+  // Add padding
+  minDate.setDate(minDate.getDate()-3);
+  maxDate.setDate(maxDate.getDate()+3);
+
+  // Override based on range mode
+  if(rangeMode!=='auto'){
+    minDate=new Date(today);minDate.setDate(today.getDate()-7);
+    maxDate=new Date(today);
+    if(rangeMode==='month') maxDate.setDate(today.getDate()+30);
+    else if(rangeMode==='3month') maxDate.setMonth(today.getMonth()+3);
+    else if(rangeMode==='6month') maxDate.setMonth(today.getMonth()+6);
+    else if(rangeMode==='year') maxDate.setFullYear(today.getFullYear()+1);
+  }
+
+  const totalDays=Math.ceil((maxDate-minDate)/86400000)+1;
+  const dayWidth=Math.max(22,Math.min(60,Math.floor(900/totalDays))); // 22-60px per day
+  const labelWidth=240;
+
+  // Build header dates
+  const headerCells=[];
+  const monthLabel={};
+  for(let i=0;i<totalDays;i++){
+    const d=new Date(minDate);d.setDate(minDate.getDate()+i);
+    const isMonthStart=d.getDate()===1||i===0;
+    const monthKey=d.getFullYear()+'-'+d.getMonth();
+    if(!monthLabel[monthKey]) monthLabel[monthKey]={start:i,name:d.toLocaleDateString('th-TH',{month:'short',year:'2-digit'})};
+    headerCells.push({day:d.getDate(),isMonthStart,date:d});
+  }
+
+  // Render header
+  const gridTemplate=`${labelWidth}px repeat(${totalDays},${dayWidth}px)`;
+  const headerHtml=`
+    <div class="timeline-legend">
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#94a3b8"></span>Not Started</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--blue)"></span>In Progress</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--roseText)"></span>Delay</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:var(--greenText)"></span>Done</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#7c2d12"></span>Overdue (เกิน Due ยังไม่ Done)</span>
+      <span class="tl-chip"><span class="tl-chip-dot" style="background:#ef4444"></span>วันนี้</span>
+    </div>
+    <div class="timeline-header" style="grid-template-columns:${gridTemplate}">
+      <div class="timeline-header-label">Task / Project</div>
+      ${headerCells.map(c=>`<div class="timeline-header-cell${c.isMonthStart?' month-start':''}" title="${c.date.toLocaleDateString('th-TH')}">
+        ${c.isMonthStart?`<div style="font-size:10px;color:var(--blue);margin-bottom:1px">${c.date.toLocaleDateString('th-TH',{month:'short'})}</div>`:''}
+        ${c.day}
+      </div>`).join('')}
+    </div>
+  `;
+
+  // Today position
+  const todayPos=labelWidth+Math.max(0,Math.floor((today-minDate)/86400000))*dayWidth;
+  const todayLineHtml=`
+    <div class="timeline-today-line" style="left:${todayPos}px"></div>
+    <div class="timeline-today-marker" style="left:${todayPos}px;top:6px">📍 วันนี้</div>
+  `;
+
+  // Sort items: by project, then by start/due date
+  items.sort((a,b)=>{
+    const pn=(a.project.projectName||'').localeCompare(b.project.projectName||'','th');
+    if(pn!==0) return pn;
+    const da=new Date(a.task.start||a.task.due||'9999-12-31');
+    const db=new Date(b.task.start||b.task.due||'9999-12-31');
+    return da-db;
+  });
+
+  // Render rows
+  const rowsHtml=items.map(({project,task,taskIdx})=>{
+    const start=task.start?new Date(task.start):null;
+    const end=task.due?new Date(task.due):null;
+    let barHtml='';
+    if(start||end){
+      const s=start||end; // single-date task → show as 1-day pill
+      const e=end||start;
+      const startOffset=Math.max(0,Math.floor((s-minDate)/86400000));
+      const days=Math.max(1,Math.ceil((e-s)/86400000)+1);
+      const left=startOffset*dayWidth;
+      const width=days*dayWidth-4;
+      const status=task.status||'NotStarted';
+      const isOverdue=end && end<today && status!=='Done';
+      const cls=isOverdue?'overdue':status;
+      const dateLabel=start?(end?(task.start+' → '+task.due):task.start):task.due;
+      barHtml=`<div class="timeline-bar ${cls}" style="left:${left}px;width:${width}px" 
+        onclick="openProjectDashboard('${project.id}')" 
+        title="${escapeHtml(task.name||'')} | ${dateLabel} | ${statusText(status)}${isOverdue?' (OVERDUE)':''}">
+        ${escapeHtml(task.name||'(no name)').substring(0,Math.floor(width/8))}
+      </div>`;
+    }else{
+      barHtml=`<div class="timeline-no-date">⚠ ไม่มีวัน</div>`;
+    }
+    return `<div class="timeline-row" style="grid-template-columns:${labelWidth}px 1fr">
+      <div class="timeline-row-label">
+        <div class="tl-task-name">${escapeHtml(task.name||'(no name)')}</div>
+        <div class="tl-task-meta">📁 ${escapeHtml(project.projectName||'-').substring(0,30)} • 👤 ${escapeHtml(task.owner||'-')}</div>
+      </div>
+      <div class="timeline-row-track" style="position:relative">${barHtml}</div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML=headerHtml+`<div style="position:relative">${todayLineHtml}${rowsHtml}</div>`;
+}
+
+/* ===================================================================== 
+   ORIGINAL FUNCTIONS (preserved, with small additions for multi-project)
+   ===================================================================== */
+function collectForm(){
+  state.projectName=$('projectName')?.value||'';
+  state.owner=$('owner')?.value||'';
+  state.projectDesc=$('projectDesc')?.value||'';
+  state.problem=$('problem')?.value||'';
+  state.startDate=$('startDate')?.value||'';
+  state.endDate=$('endDate')?.value||'';
+  state.supportTeam=$('supportTeam')?.value||'';
+  state.dc=$('dcName')?.value||state.dc||'';
+  state.region=$('regionName')?.value||state.region||'';
+  state.archived=$('archivedFlag')?.checked||false;
+  state.archiveComment=$('archiveComment')?.value||state.archiveComment||'';
+  return state;
+}
+function fillForm(){
+  ['projectName','owner','projectDesc','problem','startDate','endDate','supportTeam'].forEach(id=>{if($(id))$(id).value=state[id]||''});
+  if($('dcName'))$('dcName').value=state.dc||'';
+  if($('regionName'))$('regionName').value=state.region||'';
+  if($('archivedFlag'))$('archivedFlag').checked=!!state.archived;
+  if($('archiveComment'))$('archiveComment').value=state.archiveComment||'';
+  if($('archiveCommentWrap'))$('archiveCommentWrap').classList.toggle('hidden',!state.archived);
+  renderList('objectives');renderList('kpis');renderTasks(false);renderDashboard();updateUndoRedoUI();
+  updateTaskProjectBanner();
+}
+function showTab(id){
+  document.querySelectorAll('.tabpage').forEach(x=>x.classList.add('hidden'));
+  const sec=$(id); if(sec) sec.classList.remove('hidden');
+  document.querySelectorAll('.spine-tab').forEach(x=>x.classList.remove('active'));
+  const tabBtn=document.querySelector(`.spine-tab[data-tab="${id}"]`);
+  if(tabBtn) tabBtn.classList.add('active');
+  // Per-tab refresh
+  if(id==='overview') renderOverview();
+  if(id==='dashboard'){
+    const hasProj=!!currentProjectId;
+    $('dashCurrentProjectWrap').classList.toggle('hidden',!hasProj);
+    $('dashNoProject').classList.toggle('hidden',hasProj);
+    if(hasProj) renderDashboard();
+  }
+  if(id==='kanban') renderKanban();
+  if(id==='timeline') renderTimeline();
+  if(id==='archive') renderArchive();
+  if(id==='setup'){renderProjectList();renderDCFilter()}
+  if(id==='tasks'){
+    const hasProj=!!currentProjectId;
+    $('tasksContent').classList.toggle('hidden',!hasProj);
+    $('tasksNoProject').classList.toggle('hidden',hasProj);
+    if(hasProj) updateTaskProjectBanner();
+  }
+  if(id==='settings'){renderUsersList();updateNewUserFieldHints()}
+}
+function updateTaskProjectBanner(){
+  const banner=$('taskProjectBannerName');
+  const meta=$('taskProjectBannerMeta');
+  const tracker=$('trackerProjectName');
+  const name=state.projectName||'(Untitled Project)';
+  if(banner) banner.textContent='📁 '+name;
+  if(tracker) tracker.textContent=name;
+  if(meta){
+    const dc=state.dc||'-';
+    const region=state.region||'-';
+    const owner=state.owner||'-';
+    meta.textContent=`📍 ${dc} • 🗺️ ${region} • 👤 ${owner}`;
+  }
+}
+function runProject(){
+  collectForm();
+  if(!currentProjectId){alert('กรุณาเลือกหรือสร้าง Project ก่อน');return}
+  if(!state.projectName||!state.startDate||!state.endDate){alert('กรุณากรอก Project Name, Start Date และ End Date ก่อน Run');return}
+  syncStateToProjects();
+  renderDashboard();
+  pushHistorySnapshot(true);
+  saveLocal(true);
+  showTab('dashboard');
+}
+function markDirty(){
+  isDirty=true;
+  updateSaveStatus('Unsaved changes',true);
+  scheduleHistorySnapshot();
+}
+function updateSaveStatus(text,dirty){
+  const el=$('draftStatus');
+  el.textContent=(dirty?'Unsaved: ':'Saved: ')+text;
+  el.className='pill '+(dirty?'unsaved':'saved');
+}
+function saveLocal(auto=false){
+  collectForm();
+  syncStateToProjects();
+  saveProjectsLocal();
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  if(currentProjectId){
+    const p=projects.find(x=>x.id===currentProjectId);
+    if(p) pushProjectToCloud(p);
+  }
+  isDirty=false;
+  updateSaveStatus((auto?'Auto saved ':'Manual saved ')+new Date().toLocaleTimeString('th-TH'),false);
+}
+function saveProjectsLocal(){localStorage.setItem(PROJECTS_KEY,JSON.stringify(projects))}
+function loadProjectsLocal(){try{projects=JSON.parse(localStorage.getItem(PROJECTS_KEY)||'[]')}catch(e){projects=[]}}
 function manualSave(){pushHistorySnapshot(true);saveLocal(false)}
-function addListItem(type,inputId){const v=$(inputId).value.trim();if(!v)return;pushHistorySnapshot(true);state[type].push(v);$(inputId).value='';renderList(type);markDirty();renderDashboard();autoSaveSoon()}
-function removeListItem(type,i){pushHistorySnapshot(true);state[type].splice(i,1);renderList(type);markDirty();renderDashboard();autoSaveSoon()}
-function renderList(type){const ul=$(type+'List');if(!ul)return;ul.innerHTML=state[type].map((x,i)=>`<li class="listItem"><span>${escapeHtml(x)}</span><button class="x mini" onclick="removeListItem('${type}',${i})">x</button></li>`).join('')||'<li class="muted">ยังไม่มีรายการ</li>'}
+function addListItem(type,inputId){
+  const v=$(inputId).value.trim();if(!v)return;
+  pushHistorySnapshot(true);
+  state[type].push(v);
+  $(inputId).value='';
+  renderList(type);markDirty();renderDashboard();autoSaveSoon();
+}
+function removeListItem(type,i){
+  pushHistorySnapshot(true);
+  state[type].splice(i,1);
+  renderList(type);markDirty();renderDashboard();autoSaveSoon();
+}
+function renderList(type){
+  const ul=$(type+'List');if(!ul)return;
+  ul.innerHTML=state[type].map((x,i)=>`<li class="listItem"><span>${escapeHtml(x)}</span><button class="x mini" onclick="removeListItem('${type}',${i})">x</button></li>`).join('')||'<li class="muted">ยังไม่มีรายการ</li>';
+}
 function daysBetween(a,b){if(!a||!b)return 0;const d1=new Date(a),d2=new Date(b);if(isNaN(d1)||isNaN(d2))return 0;return Math.max(0,Math.round((d2-d1)/86400000)+1)}
 function pctTimeGone(){const total=daysBetween(state.startDate,state.endDate);if(!total)return 0;const start=new Date(state.startDate),today=new Date();const gone=Math.round((today-start)/86400000)+1;return Math.max(0,Math.min(100,Math.round((gone/total)*100)))}
 function taskStatusSummary(){if(!state.tasks.length)return '-';const done=state.tasks.filter(t=>t.status==='Done').length,delay=state.tasks.filter(t=>t.status==='Delay').length,inprog=state.tasks.filter(t=>t.status==='InProgress').length;if(delay)return `${delay} Delay`;if(done===state.tasks.length)return 'Done';if(inprog)return `${inprog} In Progress`;return 'Not Started'}
-function renderDashboard(){collectForm();$('mTotalDays').textContent=daysBetween(state.startDate,state.endDate);$('mTimeGone').textContent=pctTimeGone()+'%';$('timeBar').style.width=pctTimeGone()+'%';$('mTotalTasks').textContent=state.tasks.length;$('mTaskStatus').textContent=taskStatusSummary();$('vProjectName').textContent=state.projectName||'-';$('vDesc').textContent=state.projectDesc||'-';$('vProblem').textContent=state.problem||'-';$('vTeam').innerHTML=`Owner: ${escapeHtml(state.owner||'-')}<br>Support: ${escapeHtml(state.supportTeam||'-')}`;$('vTimeline').textContent=`${state.startDate||'-'} → ${state.endDate||'-'} | Total ${daysBetween(state.startDate,state.endDate)} days`;$('vObjectives').innerHTML=state.objectives.length?state.objectives.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';$('vKpis').innerHTML=state.kpis.length?state.kpis.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';renderTaskRows('dashTaskRows',false)}
-function addTask(){const t={name:$('taskName').value.trim(),detail:$('taskDetail').value.trim(),action:$('taskAction').value.trim(),label:$('taskLabel').value,status:$('taskStatus').value,owner:$('taskOwner').value.trim(),start:$('taskStart').value,due:$('taskDue').value,comment:$('taskComment').value.trim(),_created:Date.now()};if(!t.name){alert('กรุณากรอก Task Name');return}pushHistorySnapshot(true);state.tasks.push(t);['taskName','taskDetail','taskAction','taskOwner','taskStart','taskDue','taskComment'].forEach(id=>$(id).value='');$('taskStatus').value='NotStarted';markDirty();renderTasks(false);renderDashboard();autoSaveSoon()}
-function removeTask(i){if(!confirm('ลบ Task นี้หรือไม่?'))return;pushHistorySnapshot(true);state.tasks.splice(i,1);markDirty();renderTasks(false);renderDashboard();autoSaveSoon()}
+function renderDashboard(){
+  collectForm();
+  if(!$('mTotalDays'))return;
+  $('mTotalDays').textContent=daysBetween(state.startDate,state.endDate);
+  $('mTimeGone').textContent=pctTimeGone()+'%';
+  $('timeBar').style.width=pctTimeGone()+'%';
+  $('mTotalTasks').textContent=state.tasks.length;
+  $('mTaskStatus').textContent=taskStatusSummary();
+  $('vProjectName').textContent=state.projectName||'-';
+  $('vDesc').textContent=state.projectDesc||'-';
+  $('vProblem').textContent=state.problem||'-';
+  $('vTeam').innerHTML=`Owner: ${escapeHtml(state.owner||'-')}<br>Support: ${escapeHtml(state.supportTeam||'-')}`;
+  $('vTimeline').textContent=`${state.startDate||'-'} → ${state.endDate||'-'} | Total ${daysBetween(state.startDate,state.endDate)} days`;
+  $('vObjectives').innerHTML=state.objectives.length?state.objectives.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';
+  $('vKpis').innerHTML=state.kpis.length?state.kpis.map(x=>`<li>${escapeHtml(x)}</li>`).join(''):'<li>-</li>';
+  renderTaskRows('dashTaskRows',false);
+}
+function addTask(){
+  if(!currentProjectId){alert('กรุณาเลือกหรือสร้าง Project ก่อน');return}
+  const t={name:$('taskName').value.trim(),detail:$('taskDetail').value.trim(),action:$('taskAction').value.trim(),label:$('taskLabel').value,status:$('taskStatus').value,owner:$('taskOwner').value.trim(),start:$('taskStart').value,due:$('taskDue').value,comment:$('taskComment').value.trim(),_created:Date.now()};
+  if(!t.name){alert('กรุณากรอก Task Name');return}
+  pushHistorySnapshot(true);
+  state.tasks.push(t);
+  ['taskName','taskDetail','taskAction','taskOwner','taskStart','taskDue','taskComment'].forEach(id=>$(id).value='');
+  $('taskStatus').value='NotStarted';
+  markDirty();renderTasks(false);renderDashboard();autoSaveSoon();
+}
+function removeTask(i){
+  if(!confirm('ลบ Task นี้หรือไม่?'))return;
+  pushHistorySnapshot(true);
+  state.tasks.splice(i,1);
+  markDirty();renderTasks(false);renderDashboard();autoSaveSoon();
+}
 function renderTasks(mark=true){renderTaskRows('taskRows',true);renderDashboard();if(mark)markDirty()}
-function sortedTasks(){return state.tasks.map((t,i)=>({t,i})).sort((a,b)=>{if(sortState.key==='idx')return (a.i-b.i)*sortState.dir;let va=(a.t[sortState.key]||'').toString(),vb=(b.t[sortState.key]||'').toString();if(sortState.key==='status'){const order={Delay:1,InProgress:2,NotStarted:3,Done:4};return ((order[a.t.status]||9)-(order[b.t.status]||9))*sortState.dir}if(sortState.key==='due')return ((va||'9999-12-31').localeCompare(vb||'9999-12-31'))*sortState.dir;return va.localeCompare(vb,'th')*sortState.dir})}
+function sortedTasks(){
+  return state.tasks.map((t,i)=>({t,i})).sort((a,b)=>{
+    if(sortState.key==='idx')return (a.i-b.i)*sortState.dir;
+    let va=(a.t[sortState.key]||'').toString(),vb=(b.t[sortState.key]||'').toString();
+    if(sortState.key==='status'){const order={Delay:1,InProgress:2,NotStarted:3,Done:4};return ((order[a.t.status]||9)-(order[b.t.status]||9))*sortState.dir}
+    if(sortState.key==='due')return ((va||'9999-12-31').localeCompare(vb||'9999-12-31'))*sortState.dir;
+    return va.localeCompare(vb,'th')*sortState.dir;
+  });
+}
 function sortTasks(key){if(sortState.key===key)sortState.dir*=-1;else{sortState.key=key;sortState.dir=1}renderTaskRows('taskRows',true);renderTaskRows('dashTaskRows',false)}
-function renderTaskRows(tbodyId,editable){const body=$(tbodyId);if(!body)return;const rows=sortedTasks();if(!rows.length){body.innerHTML=`<tr><td colspan="${editable?9:6}">ยังไม่มี Task</td></tr>`;return}if(!editable){body.innerHTML=rows.map(({t})=>`<tr><td><b>${escapeHtml(t.name)}</b><br><span class="muted">${escapeHtml(t.detail)}</span></td><td>${escapeHtml(t.action)}</td><td><span class="labelpill">${escapeHtml(t.label)}</span></td><td>${escapeHtml(t.owner||'-')}</td><td><span class="status ${t.status}">${statusText(t.status)}</span></td><td>${t.due||'-'}</td></tr>`).join('');return}
-body.innerHTML=rows.map(({t,i},displayIndex)=>`<tr>
+function renderTaskRows(tbodyId,editable){
+  const body=$(tbodyId);if(!body)return;
+  const rows=sortedTasks();
+  if(!rows.length){body.innerHTML=`<tr><td colspan="${editable?9:6}">ยังไม่มี Task</td></tr>`;return}
+  if(!editable){
+    body.innerHTML=rows.map(({t})=>`<tr><td><b>${escapeHtml(t.name)}</b><br><span class="muted">${escapeHtml(t.detail)}</span></td><td>${escapeHtml(t.action)}</td><td><span class="labelpill">${escapeHtml(t.label)}</span></td><td>${escapeHtml(t.owner||'-')}</td><td><span class="status ${t.status}">${statusText(t.status)}</span></td><td>${t.due||'-'}</td></tr>`).join('');
+    return;
+  }
+  body.innerHTML=rows.map(({t,i},displayIndex)=>`<tr>
 <td>${displayIndex+1}</td>
 <td class="taskCellName"><input class="taskInput" value="${attr(t.name)}" onchange="updateTask(${i},'name',this.value)"><textarea class="taskArea" placeholder="Task Details" onchange="updateTask(${i},'detail',this.value)">${escapeHtml(t.detail)}</textarea></td>
 <td class="taskCellAction"><textarea class="taskArea" placeholder="Action Required" onchange="updateTask(${i},'action',this.value)">${escapeHtml(t.action)}</textarea></td>
-<td><select class="taskSelect" onchange="updateTask(${i},'label',this.value)">${labelOptions(t.label)}</select></td>
+<td class="taskCellLabel"><select class="taskSelect" onchange="updateTask(${i},'label',this.value)">${labelOptions(t.label)}</select></td>
 <td><input class="taskInput" value="${attr(t.owner||'')}" onchange="updateTask(${i},'owner',this.value)"></td>
-<td><select class="taskSelect" onchange="updateTask(${i},'status',this.value)">${statusOptions(t.status)}</select></td>
+<td class="taskCellStatus"><select class="taskSelect" onchange="updateTask(${i},'status',this.value)">${statusOptions(t.status)}</select></td>
 <td class="task-due"><input class="taskInput" type="date" value="${attr(t.due||'')}" onchange="updateTask(${i},'due',this.value)"></td>
 <td class="taskCellComment"><textarea class="taskArea" placeholder="Comment / Support" onchange="updateTask(${i},'comment',this.value)">${escapeHtml(t.comment)}</textarea></td>
 <td><button class="x mini" onclick="removeTask(${i})">Delete</button></td>
-</tr>`).join('')}
+</tr>`).join('');
+}
 function updateTask(i,key,value){if(!state.tasks[i])return;pushHistorySnapshot(true);state.tasks[i][key]=value;markDirty();renderTaskRows('taskRows',true);renderDashboard();autoSaveSoon();updateUndoRedoUI()}
 function labelOptions(current){return ['ด่วน+สำคัญ','ด่วน+ไม่สำคัญ','ไม่ด่วน+สำคัญ','ไม่ด่วน+ไม่สำคัญ'].map(x=>`<option ${x===current?'selected':''}>${x}</option>`).join('')}
 function statusOptions(current){return [['NotStarted','Not Started'],['InProgress','In Progress'],['Delay','Delay'],['Done','Done']].map(([v,t])=>`<option value="${v}" ${v===current?'selected':''}>${t}</option>`).join('')}
 function statusText(s){return {NotStarted:'Not Started',InProgress:'In Progress',Delay:'Delay',Done:'Done'}[s]||s}
-function exportJSON(){collectForm();download(JSON.stringify(state,null,2),'RTM_Project_Draft.json','application/json')}
-function importJSON(ev){const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{pushHistorySnapshot(true);state=Object.assign(blankState(),JSON.parse(e.target.result));fillForm();saveLocal(true);pushHistorySnapshot(true);alert('Import JSON สำเร็จ')}catch(err){alert('ไฟล์ JSON ไม่ถูกต้อง')}};reader.readAsText(file)}
-function exportCSV(){collectForm();const rows=[['Project Name','Owner','Start','End','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Due Date','Comment']];const max=Math.max(state.objectives.length,state.kpis.length,state.tasks.length,1);for(let i=0;i<max;i++){const t=state.tasks[i]||{};rows.push([state.projectName,state.owner,state.startDate,state.endDate,state.objectives[i]||'',state.kpis[i]||'',t.name||'',t.detail||'',t.action||'',t.label||'',t.owner||'',statusText(t.status)||'',t.due||'',t.comment||''])}download(rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Project_Export.csv','text/csv;charset=utf-8')}
-function exportExcel(){collectForm();let html='<html><head><meta charset="UTF-8"></head><body>';html+=`<h1>${escapeHtml(state.projectName||'RTM Project')}</h1><table border="1"><tr><th>Field</th><th>Value</th></tr>${[['Owner',state.owner],['Description',state.projectDesc],['Problem',state.problem],['Start',state.startDate],['End',state.endDate],['Support',state.supportTeam],['Total Day',daysBetween(state.startDate,state.endDate)],['Time Gone',pctTimeGone()+'%']].map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')}</table>`;html+='<h2>Objectives</h2><table border="1"><tr><th>#</th><th>Objective</th></tr>'+state.objectives.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';html+='<h2>KPI Achievement</h2><table border="1"><tr><th>#</th><th>KPI</th></tr>'+state.kpis.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';html+='<h2>Tasks</h2><table border="1"><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Due</th><th>Comment</th></tr>'+state.tasks.map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.detail)}</td><td>${escapeHtml(t.action)}</td><td>${escapeHtml(t.label)}</td><td>${escapeHtml(t.owner)}</td><td>${statusText(t.status)}</td><td>${t.due}</td><td>${escapeHtml(t.comment)}</td></tr>`).join('')+'</table></body></html>';download(html,'RTM_Project_Export.xls','application/vnd.ms-excel')}
+
+/* ---------- Export / Import (preserved) ---------- */
+function exportJSON(){collectForm();syncStateToProjects();download(JSON.stringify(state,null,2),'RTM_Project_Draft.json','application/json')}
+function importJSON(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      pushHistorySnapshot(true);
+      const parsed=JSON.parse(e.target.result);
+      // If currentProjectId set, overwrite that project
+      if(!currentProjectId){newProject()}
+      state=Object.assign(blankState(),parsed);
+      syncStateToProjects();
+      saveProjectsLocal();
+      pushHistorySnapshot(true);
+      fillForm();
+      alert('Import JSON สำเร็จ');
+    }catch(err){alert('ไฟล์ JSON ไม่ถูกต้อง')}
+  };
+  reader.readAsText(file);
+}
+function exportCSV(){
+  collectForm();
+  const rows=[['Project Name','Owner','Start','End','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Due Date','Comment']];
+  const max=Math.max(state.objectives.length,state.kpis.length,state.tasks.length,1);
+  for(let i=0;i<max;i++){const t=state.tasks[i]||{};rows.push([state.projectName,state.owner,state.startDate,state.endDate,state.objectives[i]||'',state.kpis[i]||'',t.name||'',t.detail||'',t.action||'',t.label||'',t.owner||'',statusText(t.status)||'',t.due||'',t.comment||''])}
+  download(rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Project_Export.csv','text/csv;charset=utf-8');
+}
+function exportExcel(){
+  collectForm();
+  let html='<html><head><meta charset="UTF-8"></head><body>';
+  html+=`<h1>${escapeHtml(state.projectName||'RTM Project')}</h1><table border="1"><tr><th>Field</th><th>Value</th></tr>${[['Owner',state.owner],['Description',state.projectDesc],['Problem',state.problem],['Start',state.startDate],['End',state.endDate],['Support',state.supportTeam],['Total Day',daysBetween(state.startDate,state.endDate)],['Time Gone',pctTimeGone()+'%']].map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')}</table>`;
+  html+='<h2>Objectives</h2><table border="1"><tr><th>#</th><th>Objective</th></tr>'+state.objectives.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
+  html+='<h2>KPI Achievement</h2><table border="1"><tr><th>#</th><th>KPI</th></tr>'+state.kpis.map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
+  html+='<h2>Tasks</h2><table border="1"><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Due</th><th>Comment</th></tr>'+state.tasks.map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.detail)}</td><td>${escapeHtml(t.action)}</td><td>${escapeHtml(t.label)}</td><td>${escapeHtml(t.owner)}</td><td>${statusText(t.status)}</td><td>${t.due}</td><td>${escapeHtml(t.comment)}</td></tr>`).join('')+'</table></body></html>';
+  download(html,'RTM_Project_Export.xls','application/vnd.ms-excel');
+}
 function exportPDF(){renderDashboard();showTab('dashboard');setTimeout(()=>window.print(),200)}
-function clearDraft(){if(confirm('ต้องการล้างข้อมูล Draft ทั้งหมดหรือไม่?')){pushHistorySnapshot(true);localStorage.removeItem(STORAGE_KEY);state=blankState();fillForm();pushHistorySnapshot(true);updateSaveStatus('Draft cleared',false)}}
+function clearDraft(){
+  if(!currentProjectId){alert('ยังไม่ได้เลือก Project');return}
+  if(confirm('ต้องการล้างข้อมูล Project ปัจจุบันหรือไม่?')){
+    pushHistorySnapshot(true);
+    const id=currentProjectId;
+    const p=projects.find(x=>x.id===id);
+    const keep={id:p.id,createdBy:p.createdBy,dc:state.dc,region:state.region};
+    state=Object.assign(blankState(),{dc:keep.dc,region:keep.region});
+    Object.assign(p,blankState(),keep,{_updatedAt:Date.now()});
+    saveProjectsLocal();
+    pushProjectToCloud(p);
+    fillForm();
+    pushHistorySnapshot(true);
+    updateSaveStatus('Project cleared',false);
+  }
+}
 function csvCell(x){x=(x||'').toString();return '"'+x.replace(/"/g,'""')+'"'}
 function download(content,filename,type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href)}
 function escapeHtml(s){return (s||'').toString().replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function attr(s){return escapeHtml(s).replace(/'/g,'&#39;')}
+
+/* ---------- Auto-save + history ---------- */
 let saveTimer;function autoSaveSoon(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveLocal(true),1500)}
 let histTimer;function scheduleHistorySnapshot(){clearTimeout(histTimer);histTimer=setTimeout(()=>pushHistorySnapshot(false),650)}
-function pushHistorySnapshot(force=false){if(isRestoring)return;collectForm();const snap=JSON.stringify(state);if(!force&&historyStack[historyIndex]===snap)return;if(historyStack[historyIndex]===snap)return;if(historyIndex<historyStack.length-1)historyStack=historyStack.slice(0,historyIndex+1);historyStack.push(snap);if(historyStack.length>MAX_HISTORY)historyStack.shift();historyIndex=historyStack.length-1;updateUndoRedoUI()}
+function pushHistorySnapshot(force=false){
+  if(isRestoring)return;
+  collectForm();
+  const snap=JSON.stringify(state);
+  if(!force&&historyStack[historyIndex]===snap)return;
+  if(historyStack[historyIndex]===snap)return;
+  if(historyIndex<historyStack.length-1)historyStack=historyStack.slice(0,historyIndex+1);
+  historyStack.push(snap);
+  if(historyStack.length>MAX_HISTORY)historyStack.shift();
+  historyIndex=historyStack.length-1;
+  updateUndoRedoUI();
+}
 function undo(){if(historyIndex<=0)return;historyIndex--;restoreHistory(historyStack[historyIndex]);updateSaveStatus('Undo applied',true);isDirty=true;autoSaveSoon()}
 function redo(){if(historyIndex>=historyStack.length-1)return;historyIndex++;restoreHistory(historyStack[historyIndex]);updateSaveStatus('Redo applied',true);isDirty=true;autoSaveSoon()}
 function restoreHistory(snap){isRestoring=true;state=Object.assign(blankState(),JSON.parse(snap));fillForm();isRestoring=false;updateUndoRedoUI()}
 function updateUndoRedoUI(){const u=$('undoBtn'),r=$('redoBtn'),b=$('historyBadge');if(u)u.disabled=historyIndex<=0;if(r)r.disabled=historyIndex>=historyStack.length-1;if(b)b.textContent=`History: ${Math.max(0,historyIndex+1)}/${historyStack.length}`}
-document.addEventListener('input',e=>{if(isRestoring)return;if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){collectForm();markDirty();autoSaveSoon();renderDashboard();}});
+
+document.addEventListener('input',e=>{
+  if(isRestoring)return;
+  if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)){
+    // skip login / settings / filter inputs
+    const skipIds=['loginUser','loginPass','projectSearch','projectFilterDC','projectFilterStatus','archiveSearch','kanbanFilterUser','kanbanFilterProject','kanbanSearch','newUserName','newUserPass','newUserRole','newUserRegion','newUserDC','firebaseConfigInput','overviewSearch','overviewFilterRegion','overviewFilterDC','overviewFilterOwner','overviewFilterStatus','timelineFilterProject','timelineFilterOwner','timelineFilterStatus','timelineRange'];
+    if(skipIds.includes(e.target.id))return;
+    if(e.target.closest('#settings'))return;
+    if(!currentProjectId)return;
+    collectForm();markDirty();autoSaveSoon();renderDashboard();updateTaskProjectBanner();
+  }
+});
 document.addEventListener('keydown',e=>{const key=e.key.toLowerCase();if(e.ctrlKey&&key==='z'){e.preventDefault();undo()}if(e.ctrlKey&&(key==='y'||(e.shiftKey&&key==='z'))){e.preventDefault();redo()}});
 setInterval(()=>{if(isDirty)saveLocal(true)},10000);
 window.addEventListener('beforeunload',e=>{if(isDirty){e.preventDefault();e.returnValue=''}});
-window.addEventListener('load',()=>{const saved=localStorage.getItem(STORAGE_KEY)||localStorage.getItem('rtm_project_tracker_v5')||localStorage.getItem('rtm_project_tracker_v4');if(saved){try{state=Object.assign(blankState(),JSON.parse(saved));fillForm();updateSaveStatus('Draft loaded: '+new Date().toLocaleTimeString('th-TH'),false)}catch(e){fillForm()}}else{fillForm()}pushHistorySnapshot(true)});
+
+/* ===================================================================== 
+   FIREBASE INTEGRATION (free Spark plan, real-time sync)
+   ===================================================================== */
+function setCloudStatus(text,cls){
+  const el=$('cloudStatus');
+  if(!el)return;
+  el.textContent='☁️ '+text;
+  el.className='pill cloud-status '+cls;
+}
+function getFirebaseConfig(){
+  try{return JSON.parse(localStorage.getItem(FB_CONFIG_KEY)||'null')}catch(e){return null}
+}
+function saveFirebaseConfig(){
+  try{
+    const txt=$('firebaseConfigInput').value.trim();
+    if(!txt){alert('กรุณาวาง config');return}
+    const cfg=JSON.parse(txt);
+    if(!cfg.apiKey||!cfg.projectId){alert('config ไม่ถูกต้อง: ต้องมี apiKey และ projectId');return}
+    localStorage.setItem(FB_CONFIG_KEY,JSON.stringify(cfg));
+    alert('บันทึก config สำเร็จ - กำลังเชื่อมต่อ...');
+    initFirebaseIfConfigured();
+  }catch(e){alert('JSON ไม่ถูกต้อง: '+e.message)}
+}
+function disconnectFirebase(){
+  if(!confirm('ตัดการเชื่อมต่อ Firebase และกลับสู่ Local mode?'))return;
+  localStorage.removeItem(FB_CONFIG_KEY);
+  if(unsubProjects){unsubProjects();unsubProjects=null}
+  if(unsubUsers){unsubUsers();unsubUsers=null}
+  firebaseEnabled=false;cloudReady=false;
+  setCloudStatus('Local Mode','local');
+  location.reload();
+}
+function testFirebaseConnection(){
+  const cfg=getFirebaseConfig();
+  if(!cfg){alert('ยังไม่ได้ตั้งค่า config');return}
+  if(!fbDb){alert('Firebase ยังไม่ได้เริ่ม - ลอง refresh หน้า');return}
+  alert('✅ เชื่อมต่อ Firebase สำเร็จ - project: '+cfg.projectId);
+}
+async function initFirebaseIfConfigured(){
+  const cfg=getFirebaseConfig();
+  if(!cfg){setCloudStatus('Local Mode','local');return}
+  if($('firebaseConfigInput'))$('firebaseConfigInput').value=JSON.stringify(cfg,null,2);
+  setCloudStatus('Connecting...','local');
+  try{
+    // Dynamic import Firebase v10 modular SDK
+    const {initializeApp}=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+    const {getFirestore,collection,doc,setDoc,deleteDoc,onSnapshot}=await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    fbApp=initializeApp(cfg);
+    fbDb=getFirestore(fbApp);
+    window._fb={collection,doc,setDoc,deleteDoc,onSnapshot};
+    firebaseEnabled=true;cloudReady=true;
+    setCloudStatus('Connected • '+cfg.projectId,'online');
+    // Subscribe to users + projects
+    subscribeUsers();
+    subscribeProjects();
+  }catch(err){
+    console.error('Firebase init failed',err);
+    setCloudStatus('Connection failed','offline');
+    firebaseEnabled=false;
+  }
+}
+function subscribeUsers(){
+  if(!fbDb||!window._fb)return;
+  const {collection,onSnapshot}=window._fb;
+  if(unsubUsers)unsubUsers();
+  unsubUsers=onSnapshot(collection(fbDb,'users'),snap=>{
+    const cloudUsers=[];
+    snap.forEach(d=>cloudUsers.push(d.data()));
+    if(cloudUsers.length){users=cloudUsers;saveUsersLocal();renderUsersList()}
+  },err=>console.error('users subscribe err',err));
+}
+function subscribeProjects(){
+  if(!fbDb||!window._fb)return;
+  const {collection,onSnapshot}=window._fb;
+  if(unsubProjects)unsubProjects();
+  unsubProjects=onSnapshot(collection(fbDb,'projects'),snap=>{
+    const cloudProjs=[];
+    snap.forEach(d=>cloudProjs.push(d.data()));
+    if(cloudProjs.length || projects.length===0){
+      projects=cloudProjs;
+      saveProjectsLocal();
+      renderProjectList();renderDCFilter();renderArchive();renderOverview();renderKanban();
+      // if current project still exists, reload it
+      if(currentProjectId){
+        const p=projects.find(x=>x.id===currentProjectId);
+        if(p){
+          // Only reload if not currently dirty (avoid overwriting user edits)
+          if(!isDirty) loadProjectIntoState(currentProjectId);
+        }else{
+          // current project was deleted by someone else
+          currentProjectId=null;
+          state=blankState();
+          $('projectEditWrapper').classList.add('hidden');
+        }
+      }
+    }
+  },err=>console.error('projects subscribe err',err));
+}
+async function pushProjectToCloud(p){
+  if(!firebaseEnabled||!fbDb||!window._fb||!p)return;
+  try{
+    const {doc,setDoc}=window._fb;
+    await setDoc(doc(fbDb,'projects',p.id),JSON.parse(JSON.stringify(p)));
+  }catch(e){console.error('push project err',e);setCloudStatus('Sync error','offline')}
+}
+async function deleteProjectFromCloud(id){
+  if(!firebaseEnabled||!fbDb||!window._fb)return;
+  try{const {doc,deleteDoc}=window._fb;await deleteDoc(doc(fbDb,'projects',id))}catch(e){console.error(e)}
+}
+async function pushUserToCloud(u){
+  if(!firebaseEnabled||!fbDb||!window._fb)return;
+  try{const {doc,setDoc}=window._fb;await setDoc(doc(fbDb,'users',u.username),u)}catch(e){console.error(e)}
+}
+async function deleteUserFromCloud(username){
+  if(!firebaseEnabled||!fbDb||!window._fb)return;
+  try{const {doc,deleteDoc}=window._fb;await deleteDoc(doc(fbDb,'users',username))}catch(e){console.error(e)}
+}
+
+function copySecurityRules(){
+  const rules=`rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Note: this app uses client-side username/password (not Firebase Auth).
+    // For production, migrate to Firebase Auth and check request.auth.token.role.
+    // These rules allow read/write to any client that has the apiKey.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
+  navigator.clipboard.writeText(rules).then(()=>alert('คัดลอก Security Rules แล้ว - วางใน Firebase Console → Firestore → Rules'));
+}
+
+/* ===================================================================== 
+   MIGRATION FROM LEGACY (single-project v6)
+   ===================================================================== */
+function migrateLegacyIfAny(){
+  // Check legacy keys
+  let legacy=null;
+  for(const k of [STORAGE_KEY,...LEGACY_KEYS]){
+    const raw=localStorage.getItem(k);
+    if(raw){try{const parsed=JSON.parse(raw);if(parsed.projectName||parsed.tasks?.length){legacy=parsed;break}}catch(e){}}
+  }
+  if(!legacy)return;
+  // If we already have projects with same name, skip
+  if(projects.some(p=>p.projectName===legacy.projectName))return;
+  const id='p_legacy_'+Date.now();
+  const np=Object.assign(blankState(),legacy,{
+    id,
+    createdBy:session.username,
+    dc:legacy.dc||session.dc||'',
+    region:legacy.region||session.region||'',
+    archived:!!legacy.archived,
+    _updatedAt:Date.now()
+  });
+  projects.push(np);
+  saveProjectsLocal();
+  pushProjectToCloud(np);
+}
+
+/* ===================================================================== 
+   BOOT
+   ===================================================================== */
+window.addEventListener('load',()=>{
+  loadUsersLocal();
+  loadProjectsLocal();
+  ensureBootstrapUser();
+  // Try restore session
+  try{
+    const s=JSON.parse(localStorage.getItem(SESSION_KEY)||'null');
+    if(s && users.find(u=>u.username===s.username)){
+      session=s;
+      $('loginOverlay').style.display='none';
+      postLoginInit();
+    }
+  }catch(e){}
+});
 </script>
 </body>
 </html>
