@@ -646,6 +646,18 @@ function ensureBootstrapUser(){
     saveUsersLocal();
   }
 }
+async function ensureSelfInCloud(){
+  // After login + cloud connected, make sure self user exists in cloud
+  // (fixes bug where local-only rtm gets wiped when other users sync down)
+  if(!firebaseEnabled || !fbDb || !window._fb || !session) return;
+  const self=users.find(u=>u.username===session.username);
+  if(!self)return;
+  try{
+    const {doc,setDoc}=window._fb;
+    await setDoc(doc(fbDb,'users',self.username),JSON.parse(JSON.stringify(self)));
+    console.log('Ensured self user in cloud:',self.username);
+  }catch(e){console.error('ensureSelfInCloud err',e)}
+}
 function doLogin(){
   const u=$('loginUser').value.trim();
   const p=$('loginPass').value;
@@ -1546,30 +1558,59 @@ function getMockData(){
   return {users:mockUsers,projects:mockProjects};
 }
 
-function loadMockData(){
+async function loadMockData(){
   if(session.role!=='RTM'){alert('เฉพาะ RTM เท่านั้น');return}
   if(!confirm('โหลด Mock Data จะ:\n\n1. เพิ่ม 16 users (RTM/RSM/ASM/RS ครบทุกภาค)\n2. เพิ่ม 15 projects (active + archived พร้อม tasks)\n3. รวมกับข้อมูลที่มีอยู่ (ไม่ลบของเดิม)\n\nดำเนินการต่อ?'))return;
   const mock=getMockData();
+  const rep=$('mockDataReport');
+  rep.style.display='block';
+  rep.innerHTML='<b>⏳ กำลังโหลด...</b>';
+
   let usersAdded=0,projectsAdded=0,usersSkipped=0,projectsSkipped=0;
+  const newUsers=[],newProjects=[];
   mock.users.forEach(u=>{
     if(users.some(x=>x.username===u.username)){usersSkipped++;return}
-    users.push(u);usersAdded++;
-    pushUserToCloud(u);
+    users.push(u);usersAdded++;newUsers.push(u);
   });
   mock.projects.forEach(p=>{
     if(projects.some(x=>x.id===p.id)){projectsSkipped++;return}
-    projects.push(p);projectsAdded++;
-    pushProjectToCloud(p);
+    projects.push(p);projectsAdded++;newProjects.push(p);
   });
   saveUsersLocal();saveProjectsLocal();
   renderUsersList();renderProjectList();renderOverview();renderArchive();renderKanban();
-  const rep=$('mockDataReport');
-  rep.style.display='block';
+
+  // Push to cloud (sequential with progress)
+  let cloudPushed=0,cloudErrors=0;
+  if(firebaseEnabled && fbDb && window._fb){
+    rep.innerHTML='<b>⏳ กำลัง sync ขึ้น cloud...</b> 0/'+(newUsers.length+newProjects.length);
+    for(const u of newUsers){
+      try{
+        const {doc,setDoc}=window._fb;
+        await setDoc(doc(fbDb,'users',u.username),JSON.parse(JSON.stringify(u)));
+        cloudPushed++;
+      }catch(e){cloudErrors++;console.error('push user err',u.username,e)}
+      rep.innerHTML='<b>⏳ กำลัง sync ขึ้น cloud...</b> '+cloudPushed+'/'+(newUsers.length+newProjects.length);
+    }
+    for(const p of newProjects){
+      try{
+        const {doc,setDoc}=window._fb;
+        await setDoc(doc(fbDb,'projects',p.id),JSON.parse(JSON.stringify(p)));
+        cloudPushed++;
+      }catch(e){cloudErrors++;console.error('push project err',p.id,e)}
+      rep.innerHTML='<b>⏳ กำลัง sync ขึ้น cloud...</b> '+cloudPushed+'/'+(newUsers.length+newProjects.length);
+    }
+  }
+
+  const cloudMsg=firebaseEnabled
+    ? `• Sync ขึ้น cloud: ${cloudPushed}/${newUsers.length+newProjects.length} documents ${cloudErrors?'<span style="color:var(--roseText)">(❌ '+cloudErrors+' error - ดู Console F12)</span>':'✅'}<br>`
+    : '• <span class="muted">Cloud ไม่ได้เชื่อมต่อ — ข้อมูลเก็บใน local เท่านั้น</span><br>';
+
   rep.innerHTML=`<b style="color:var(--greenText)">✅ โหลด Mock Data สำเร็จ</b><br>
     • เพิ่ม Users: ${usersAdded} คน ${usersSkipped?` (ข้าม ${usersSkipped} - มีอยู่แล้ว)`:''}<br>
     • เพิ่ม Projects: ${projectsAdded} projects ${projectsSkipped?` (ข้าม ${projectsSkipped} - มีอยู่แล้ว)`:''}<br>
+    ${cloudMsg}
     <div style="margin-top:8px;padding:8px;background:#fff8e6;border-radius:8px;color:#5b4200">
-      <b>💡 ลองดู:</b> Logout แล้ว login ด้วย <code>rsm_nor / pass123</code> → จะเห็น 5 projects ในภาค NOR (จาก ASM 2 คน + RS 2 คน)
+      <b>💡 ลองดู:</b> Logout แล้ว login ด้วย <code>rsm_nor / pass123</code> → จะเห็น 4 projects ในภาค NOR
     </div>`;
 }
 
@@ -2401,6 +2442,8 @@ async function initFirebaseIfConfigured(){
     // Subscribe to users + projects
     subscribeUsers();
     subscribeProjects();
+    // Ensure self user is in cloud (prevents lockout)
+    setTimeout(()=>ensureSelfInCloud(),500);
   }catch(err){
     console.error('Firebase init failed',err);
     setCloudStatus('Connection failed','offline');
@@ -2414,7 +2457,22 @@ function subscribeUsers(){
   unsubUsers=onSnapshot(collection(fbDb,'users'),snap=>{
     const cloudUsers=[];
     snap.forEach(d=>cloudUsers.push(d.data()));
-    if(cloudUsers.length){users=cloudUsers;saveUsersLocal();renderUsersList()}
+    if(cloudUsers.length){
+      // Replace local with cloud — BUT keep current session user if cloud doesn't have it
+      // (prevents lockout if self is local-only and cloud has other users)
+      if(session){
+        const selfInCloud=cloudUsers.find(u=>u.username===session.username);
+        const selfInLocal=users.find(u=>u.username===session.username);
+        if(!selfInCloud && selfInLocal){
+          cloudUsers.push(selfInLocal);
+          // Push self up to cloud so future syncs include it
+          ensureSelfInCloud();
+        }
+      }
+      users=cloudUsers;
+      saveUsersLocal();
+      renderUsersList();
+    }
   },err=>console.error('users subscribe err',err));
 }
 function subscribeProjects(){
