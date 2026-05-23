@@ -2893,95 +2893,248 @@ function importJSON(ev){
   reader.readAsText(file);
 }
 function exportCSV(){
-  // If a single project is selected → export that project only
-  // Otherwise → export ALL visible projects (per user's role/scope)
-  const visibleProjs=visibleProjects(true);  // include archived too
-  if(currentProjectId){
-    collectForm();
-    syncStateToProjects();
-  }
+  const visibleProjs=visibleProjects(true);
+  if(currentProjectId){collectForm();syncStateToProjects()}
   const projectsToExport = currentProjectId
     ? [projects.find(p=>p.id===currentProjectId)].filter(Boolean)
     : visibleProjs;
   if(!projectsToExport.length){alert('ไม่มีข้อมูลที่ export ได้ — กรุณาสร้าง Project ก่อน');return}
 
-  const rows=[['Project Name','Owner','Region','DC','Start','End','Archived','Archive Comment','Objective','KPI','Task Name','Detail','Action','Label','Task Owner','Status','Start Date','Due Date','Comment']];
-  projectsToExport.forEach(p=>{
-    const objectives=p.objectives||[];
-    const kpis=p.kpis||[];
+  // === Helper: compute extra fields ===
+  const today=new Date(); today.setHours(0,0,0,0);
+  const computeMeta=(p)=>{
     const tasks=p.tasks||[];
-    const max=Math.max(objectives.length,kpis.length,tasks.length,1);
-    for(let i=0;i<max;i++){
-      const t=tasks[i]||{};
+    const total=tasks.length;
+    const done=tasks.filter(t=>t.status==='Done').length;
+    const inprog=tasks.filter(t=>t.status==='InProgress').length;
+    const delay=tasks.filter(t=>t.status==='Delay').length;
+    const notstart=tasks.filter(t=>t.status==='NotStarted').length;
+    const pctDone=total?Math.round(done*100/total):0;
+    const start=p.startDate?new Date(p.startDate):null;
+    const end=p.endDate?new Date(p.endDate):null;
+    const totalDays=(start&&end)?Math.max(0,Math.ceil((end-start)/86400000)+1):'';
+    const daysElapsed=(start)?Math.max(0,Math.ceil((today-start)/86400000)):'';
+    const daysRemaining=(end)?Math.ceil((end-today)/86400000):'';
+    const isOverdue=(end && end<today && pctDone<100)?'Yes':'No';
+    return {total,done,inprog,delay,notstart,pctDone,totalDays,daysElapsed,daysRemaining,isOverdue};
+  };
+  const taskMeta=(t)=>{
+    const due=t.due?new Date(t.due):null;
+    const start=t.start?new Date(t.start):null;
+    const dur=(start&&due)?Math.ceil((due-start)/86400000)+1:'';
+    const isOverdue=(due && due<today && t.status!=='Done')?'Yes':'No';
+    const daysToDue=due?Math.ceil((due-today)/86400000):'';
+    return {duration:dur,isOverdue,daysToDue};
+  };
+
+  // === 19+13+5 = full column set ===
+  const headers=[
+    // Project basic info
+    'Project ID','Project Name','Owner','Created By','Region','DC',
+    'Description','Problem / Background','Support Team',
+    // Timeline
+    'Start Date','End Date','Total Days','Days Elapsed','Days Remaining',
+    // Status
+    'Archived','Archive Comment',
+    // Statistics
+    'Total Tasks','Tasks Done','Tasks In Progress','Tasks Delay','Tasks Not Started',
+    '% Done','Project Overdue',
+    // Objectives & KPIs (joined with newlines)
+    'Objectives','KPIs',
+    // Per-task fields
+    'Task #','Task Name','Task Detail','Task Action Required','Task Label',
+    'Task Owner','Task Status','Task Start','Task Due','Task Duration (days)',
+    'Task Overdue','Days to Due','Task Comment',
+    // Meta
+    'Last Updated'
+  ];
+
+  const rows=[headers];
+
+  projectsToExport.forEach(p=>{
+    const m=computeMeta(p);
+    const objs=(p.objectives||[]).join('\n');
+    const kpis=(p.kpis||[]).join('\n');
+    const tasks=p.tasks||[];
+    const lastUpd=p._updatedAt?new Date(p._updatedAt).toLocaleString('th-TH'):'';
+
+    if(tasks.length===0){
+      // Project with no tasks: still export 1 row
       rows.push([
-        p.projectName||'',p.owner||'',getProjectRegion(p)||'',getProjectDc(p)||'',
-        p.startDate||'',p.endDate||'',
+        p.id||'', p.projectName||'', p.owner||'', p.createdBy||'',
+        getProjectRegion(p)||'', getProjectDc(p)||'',
+        p.projectDesc||'', p.problem||'', p.supportTeam||'',
+        p.startDate||'', p.endDate||'', m.totalDays, m.daysElapsed, m.daysRemaining,
         p.archived?'Yes':'No', p.archiveComment||'',
-        objectives[i]||'', kpis[i]||'',
-        t.name||'', t.detail||'', t.action||'', t.label||'',
-        t.owner||'', statusText(t.status)||'',
-        t.start||'', t.due||'', t.comment||''
+        m.total, m.done, m.inprog, m.delay, m.notstart, m.pctDone+'%', m.isOverdue,
+        objs, kpis,
+        '', '', '', '', '', '', '', '', '', '', '', '', '',  // empty task fields
+        lastUpd
       ]);
+    } else {
+      tasks.forEach((t,i)=>{
+        const tm=taskMeta(t);
+        rows.push([
+          p.id||'', p.projectName||'', p.owner||'', p.createdBy||'',
+          getProjectRegion(p)||'', getProjectDc(p)||'',
+          p.projectDesc||'', p.problem||'', p.supportTeam||'',
+          p.startDate||'', p.endDate||'', m.totalDays, m.daysElapsed, m.daysRemaining,
+          p.archived?'Yes':'No', p.archiveComment||'',
+          m.total, m.done, m.inprog, m.delay, m.notstart, m.pctDone+'%', m.isOverdue,
+          // Show Objectives/KPIs only on first task row of each project (avoid duplication)
+          i===0?objs:'', i===0?kpis:'',
+          i+1, t.name||'', t.detail||'', t.action||'', t.label||'',
+          t.owner||'', statusText(t.status)||'', t.start||'', t.due||'', tm.duration,
+          tm.isOverdue, tm.daysToDue, t.comment||'',
+          i===0?lastUpd:''
+        ]);
+      });
     }
   });
-  // BOM for Excel to recognize UTF-8 (Thai characters)
+
+  // BOM for Excel UTF-8 recognition (Thai support)
   const BOM='\uFEFF';
-  download(BOM+rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Projects_Export.csv','text/csv;charset=utf-8');
+  download(BOM+rows.map(r=>r.map(csvCell).join(',')).join('\n'),'RTM_Projects_Full_Export.csv','text/csv;charset=utf-8');
 }
 
 function exportExcel(){
   const visibleProjs=visibleProjects(true);
-  if(currentProjectId){
-    collectForm();
-    syncStateToProjects();
-  }
+  if(currentProjectId){collectForm();syncStateToProjects()}
   const projectsToExport = currentProjectId
     ? [projects.find(p=>p.id===currentProjectId)].filter(Boolean)
     : visibleProjs;
   if(!projectsToExport.length){alert('ไม่มีข้อมูลที่ export ได้ — กรุณาสร้าง Project ก่อน');return}
 
-  let html='<html><head><meta charset="UTF-8"><style>table{border-collapse:collapse;margin-bottom:20px}td,th{border:1px solid #ccc;padding:6px 10px;font-family:Arial,sans-serif;font-size:12px}th{background:#f1f5f9;font-weight:bold}h1{color:#0b2f66}h2{color:#1849a9;margin-top:30px}</style></head><body>';
+  const today=new Date(); today.setHours(0,0,0,0);
+  const computeMeta=(p)=>{
+    const tasks=p.tasks||[];
+    const total=tasks.length;
+    const done=tasks.filter(t=>t.status==='Done').length;
+    const delay=tasks.filter(t=>t.status==='Delay').length;
+    const inprog=tasks.filter(t=>t.status==='InProgress').length;
+    const notstart=tasks.filter(t=>t.status==='NotStarted').length;
+    const pctDone=total?Math.round(done*100/total):0;
+    const start=p.startDate?new Date(p.startDate):null;
+    const end=p.endDate?new Date(p.endDate):null;
+    const totalDays=(start&&end)?Math.max(0,Math.ceil((end-start)/86400000)+1):'';
+    const daysElapsed=(start)?Math.max(0,Math.ceil((today-start)/86400000)):'';
+    const daysRemaining=(end)?Math.ceil((end-today)/86400000):'';
+    return {total,done,delay,inprog,notstart,pctDone,totalDays,daysElapsed,daysRemaining};
+  };
 
-  if(projectsToExport.length===1){
-    // Single project: detailed view (original layout)
-    const p=projectsToExport[0];
-    html+=`<h1>${escapeHtml(p.projectName||'RTM Project')}</h1>`;
-    html+=`<table><tr><th>Field</th><th>Value</th></tr>`+
-      [['Owner',p.owner],['Region',getProjectRegion(p)],['DC',getProjectDc(p)],['Description',p.projectDesc],['Problem',p.problem],['Start',p.startDate],['End',p.endDate],['Support',p.supportTeam],['Archived',p.archived?'Yes':'No'],['Archive Comment',p.archiveComment]]
-        .map(r=>`<tr><td>${r[0]}</td><td>${escapeHtml(r[1]||'')}</td></tr>`).join('')+`</table>`;
-    html+='<h2>Objectives</h2><table><tr><th>#</th><th>Objective</th></tr>'+(p.objectives||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
-    html+='<h2>KPI Achievement</h2><table><tr><th>#</th><th>KPI</th></tr>'+(p.kpis||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(x)}</td></tr>`).join('')+'</table>';
-    html+='<h2>Tasks</h2><table><tr><th>#</th><th>Task</th><th>Detail</th><th>Action</th><th>Label</th><th>Owner</th><th>Status</th><th>Start</th><th>Due</th><th>Comment</th></tr>'+(p.tasks||[]).map((t,i)=>`<tr><td>${i+1}</td><td>${escapeHtml(t.name||'')}</td><td>${escapeHtml(t.detail||'')}</td><td>${escapeHtml(t.action||'')}</td><td>${escapeHtml(t.label||'')}</td><td>${escapeHtml(t.owner||'')}</td><td>${statusText(t.status)}</td><td>${t.start||''}</td><td>${t.due||''}</td><td>${escapeHtml(t.comment||'')}</td></tr>`).join('')+'</table>';
-  }else{
-    // Multiple projects: summary table + tasks list
-    html+=`<h1>RTM Projects Export (${projectsToExport.length} projects)</h1>`;
-    html+=`<p style="color:#666;font-size:11px">Exported by: ${session.username} (${session.role}) on ${new Date().toLocaleString('th-TH')}</p>`;
+  let html='<html><head><meta charset="UTF-8"><style>'
+    +'table{border-collapse:collapse;margin-bottom:24px;font-family:Arial,sans-serif}'
+    +'td,th{border:1px solid #ccc;padding:6px 10px;font-size:12px;vertical-align:top}'
+    +'th{background:#1849a9;color:#fff;font-weight:bold;font-size:11px}'
+    +'h1{color:#0b2f66;font-family:Arial}'
+    +'h2{color:#1849a9;margin-top:30px;font-family:Arial;border-bottom:2px solid #1849a9;padding-bottom:4px}'
+    +'h3{color:#0b2f66;margin-top:20px;font-family:Arial}'
+    +'.label{background:#f1f5f9;font-weight:bold;width:180px}'
+    +'.status-Done{background:#d4f7e0;color:#0a6b2f;font-weight:bold;padding:2px 6px;border-radius:4px}'
+    +'.status-Delay{background:#ffd6d6;color:#8a1f1f;font-weight:bold;padding:2px 6px;border-radius:4px}'
+    +'.status-InProgress{background:#ffe7b8;color:#6b4500;font-weight:bold;padding:2px 6px;border-radius:4px}'
+    +'.status-NotStarted{background:#e2e8f0;color:#42526e;font-weight:bold;padding:2px 6px;border-radius:4px}'
+    +'.archived-row{background:#fff8e6}'
+    +'.overdue{color:#cc0000;font-weight:bold}'
+    +'.cover{background:linear-gradient(135deg,#0b2f66,#1849a9);color:#fff;padding:20px;margin-bottom:20px;border-radius:8px}'
+    +'.cover h1{color:#fff;margin:0 0 8px}'
+    +'.cover p{margin:2px 0;color:#cfe0ff;font-size:12px}'
+    +'</style></head><body>';
 
-    // Projects summary
-    html+='<h2>Projects Summary</h2>';
-    html+='<table><tr><th>#</th><th>Project Name</th><th>Owner</th><th>Region</th><th>DC</th><th>Start</th><th>End</th><th>Tasks</th><th>Done</th><th>Delay</th><th>Status</th></tr>';
-    projectsToExport.forEach((p,i)=>{
-      const tasks=p.tasks||[];
-      const done=tasks.filter(t=>t.status==='Done').length;
-      const delay=tasks.filter(t=>t.status==='Delay').length;
-      const status=p.archived?'Archived':(delay>0?'Has Delay':(tasks.length>0&&done===tasks.length?'All Done':'Active'));
-      html+=`<tr><td>${i+1}</td><td><b>${escapeHtml(p.projectName||'')}</b></td><td>${escapeHtml(p.owner||'')}</td><td>${escapeHtml(getProjectRegion(p)||'')}</td><td>${escapeHtml(getProjectDc(p)||'')}</td><td>${p.startDate||''}</td><td>${p.endDate||''}</td><td>${tasks.length}</td><td>${done}</td><td>${delay}</td><td>${status}</td></tr>`;
+  html+=`<div class="cover">
+    <h1>RTM Project Tracker — Full Export</h1>
+    <p>Exported by: <b>${escapeHtml(session.username)}</b> (${session.role}${session.region?' • '+session.region:''}${session.dc?' • '+session.dc:''})</p>
+    <p>Date: ${new Date().toLocaleString('th-TH')}</p>
+    <p>Total Projects: <b>${projectsToExport.length}</b> • Total Tasks: <b>${projectsToExport.reduce((s,p)=>s+(p.tasks||[]).length,0)}</b></p>
+  </div>`;
+
+  // === SUMMARY TABLE ===
+  html+='<h2>📊 Projects Summary</h2>';
+  html+='<table><tr><th>#</th><th>Project Name</th><th>Owner</th><th>Region</th><th>DC</th><th>Start</th><th>End</th><th>Total Days</th><th>Days Left</th><th>Tasks</th><th>Done</th><th>In Prog</th><th>Delay</th><th>Not Start</th><th>% Done</th><th>Status</th></tr>';
+  projectsToExport.forEach((p,i)=>{
+    const m=computeMeta(p);
+    const status=p.archived?'<span class="status-Done">📦 Archived</span>':(m.delay>0?'<span class="status-Delay">⚠ Has Delay</span>':(m.total>0&&m.done===m.total?'<span class="status-Done">✓ All Done</span>':'<span class="status-InProgress">🔄 Active</span>'));
+    const rowClass=p.archived?' class="archived-row"':'';
+    html+=`<tr${rowClass}><td>${i+1}</td><td><b>${escapeHtml(p.projectName||'')}</b></td><td>${escapeHtml(p.owner||'')}</td><td>${escapeHtml(getProjectRegion(p)||'')}</td><td>${escapeHtml(getProjectDc(p)||'')}</td><td>${p.startDate||''}</td><td>${p.endDate||''}</td><td style="text-align:center">${m.totalDays}</td><td style="text-align:center">${m.daysRemaining}</td><td style="text-align:center"><b>${m.total}</b></td><td style="text-align:center">${m.done}</td><td style="text-align:center">${m.inprog}</td><td style="text-align:center">${m.delay}</td><td style="text-align:center">${m.notstart}</td><td style="text-align:center"><b>${m.pctDone}%</b></td><td>${status}</td></tr>`;
+  });
+  html+='</table>';
+
+  // === PER-PROJECT DETAILS ===
+  projectsToExport.forEach((p,idx)=>{
+    const m=computeMeta(p);
+    html+=`<h2>${idx+1}. ${escapeHtml(p.projectName||'(Untitled)')}${p.archived?' 📦':''}</h2>`;
+
+    // Project Info Table
+    html+='<h3>Project Information</h3>';
+    html+='<table>';
+    const fields=[
+      ['Project ID',p.id||''],
+      ['Project Name',p.projectName||''],
+      ['Owner',p.owner||''],
+      ['Created By',p.createdBy||''],
+      ['Region',getProjectRegion(p)||''],
+      ['DC (Distribution Center)',getProjectDc(p)||''],
+      ['Description',p.projectDesc||''],
+      ['Problem / Background',p.problem||''],
+      ['Support Team',p.supportTeam||''],
+      ['Start Date',p.startDate||''],
+      ['End Date',p.endDate||''],
+      ['Total Days',m.totalDays],
+      ['Days Elapsed',m.daysElapsed],
+      ['Days Remaining',m.daysRemaining],
+      ['Archived',p.archived?'✅ Yes':'No'],
+      ['Archive Comment',p.archiveComment||''],
+      ['Last Updated',p._updatedAt?new Date(p._updatedAt).toLocaleString('th-TH'):'']
+    ];
+    fields.forEach(f=>{
+      html+=`<tr><td class="label">${f[0]}</td><td>${escapeHtml(String(f[1]))}</td></tr>`;
     });
     html+='</table>';
 
-    // All Tasks combined
-    html+='<h2>All Tasks</h2>';
-    html+='<table><tr><th>Project</th><th>Task</th><th>Detail</th><th>Owner</th><th>Status</th><th>Start</th><th>Due</th><th>Comment</th></tr>';
-    projectsToExport.forEach(p=>{
-      (p.tasks||[]).forEach(t=>{
-        html+=`<tr><td>${escapeHtml(p.projectName||'')}</td><td><b>${escapeHtml(t.name||'')}</b></td><td>${escapeHtml(t.detail||'')}</td><td>${escapeHtml(t.owner||'')}</td><td>${statusText(t.status)}</td><td>${t.start||''}</td><td>${t.due||''}</td><td>${escapeHtml(t.comment||'')}</td></tr>`;
+    // Statistics
+    html+='<h3>Task Statistics</h3>';
+    html+=`<table><tr><th>Metric</th><th>Count</th><th>%</th></tr>
+      <tr><td>Total Tasks</td><td><b>${m.total}</b></td><td>100%</td></tr>
+      <tr><td>✓ Done</td><td>${m.done}</td><td>${m.total?Math.round(m.done*100/m.total):0}%</td></tr>
+      <tr><td>🔄 In Progress</td><td>${m.inprog}</td><td>${m.total?Math.round(m.inprog*100/m.total):0}%</td></tr>
+      <tr><td>⚠ Delay</td><td>${m.delay}</td><td>${m.total?Math.round(m.delay*100/m.total):0}%</td></tr>
+      <tr><td>⏸ Not Started</td><td>${m.notstart}</td><td>${m.total?Math.round(m.notstart*100/m.total):0}%</td></tr>
+    </table>`;
+
+    // Objectives
+    if((p.objectives||[]).length){
+      html+='<h3>🎯 Objectives</h3><table><tr><th>#</th><th>Objective</th></tr>';
+      p.objectives.forEach((o,i)=>{html+=`<tr><td>${i+1}</td><td>${escapeHtml(o)}</td></tr>`});
+      html+='</table>';
+    }
+
+    // KPIs
+    if((p.kpis||[]).length){
+      html+='<h3>📈 KPI Achievement</h3><table><tr><th>#</th><th>KPI</th></tr>';
+      p.kpis.forEach((k,i)=>{html+=`<tr><td>${i+1}</td><td>${escapeHtml(k)}</td></tr>`});
+      html+='</table>';
+    }
+
+    // Tasks
+    if((p.tasks||[]).length){
+      html+='<h3>✅ Tasks ('+p.tasks.length+')</h3>';
+      html+='<table><tr><th>#</th><th>Task Name</th><th>Detail</th><th>Action Required</th><th>Label</th><th>Owner</th><th>Status</th><th>Start</th><th>Due</th><th>Duration</th><th>Overdue?</th><th>Comment</th></tr>';
+      p.tasks.forEach((t,i)=>{
+        const due=t.due?new Date(t.due):null;
+        const start=t.start?new Date(t.start):null;
+        const dur=(start&&due)?(Math.ceil((due-start)/86400000)+1)+' d':'';
+        const isOverdue=(due && due<today && t.status!=='Done');
+        const status=t.status||'NotStarted';
+        const statusCell=`<span class="status-${status}">${statusText(status)}</span>`;
+        const overdueCell=isOverdue?'<span class="overdue">⚠ YES</span>':'No';
+        html+=`<tr><td>${i+1}</td><td><b>${escapeHtml(t.name||'')}</b></td><td>${escapeHtml(t.detail||'')}</td><td>${escapeHtml(t.action||'')}</td><td>${escapeHtml(t.label||'')}</td><td>${escapeHtml(t.owner||'')}</td><td>${statusCell}</td><td>${t.start||''}</td><td>${t.due||''}</td><td>${dur}</td><td>${overdueCell}</td><td>${escapeHtml(t.comment||'')}</td></tr>`;
       });
-    });
-    html+='</table>';
-  }
+      html+='</table>';
+    }
+  });
 
   html+='</body></html>';
-  download(html,'RTM_Projects_Export.xls','application/vnd.ms-excel');
+  download(html,'RTM_Projects_Full_Export.xls','application/vnd.ms-excel');
 }
 function exportPDF(){renderDashboard();showTab('dashboard');setTimeout(()=>window.print(),200)}
 function clearDraft(){
