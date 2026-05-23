@@ -99,16 +99,57 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .task-th-wrap{white-space:normal!important;min-width:90px}
 
 /* Timeline (Gantt-style) */
-.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;position:relative;-webkit-overflow-scrolling:touch}
+.timeline-container{
+  overflow-x:auto;
+  overflow-y:auto;
+  max-height:70vh;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  -webkit-overflow-scrolling:touch;
+}
 .timeline-empty{padding:40px;text-align:center;color:var(--muted)}
-.timeline-header{display:grid;background:#f1f5f9;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:6}
-.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;z-index:7;box-shadow:2px 0 6px rgba(0,0,0,.08);will-change:transform}
+.timeline-header{
+  display:grid;
+  background:#f1f5f9;
+  border-bottom:2px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:6;
+}
+.timeline-header-label{
+  padding:10px 12px;
+  font-weight:800;
+  font-size:12px;
+  color:var(--navy);
+  border-right:1px solid var(--line);
+  background:#f1f5f9;
+  position:sticky;
+  left:0;
+  z-index:7;
+}
 .timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5}
 .timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
-.timeline-row{display:grid;border-bottom:1px solid #eef2f6;min-height:42px;position:relative}
+.timeline-row{
+  display:grid;
+  border-bottom:1px solid #eef2f6;
+  min-height:42px;
+}
 .timeline-row:hover{background:#fafcff}
 .timeline-row:hover .timeline-row-label{background:#fafcff}
-.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;z-index:4;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 6px rgba(0,0,0,.06);will-change:transform}
+.timeline-row-label{
+  padding:8px 12px;
+  border-right:2px solid var(--line);
+  font-size:12px;
+  line-height:1.35;
+  background:#fff;
+  position:sticky;
+  left:0;
+  z-index:4;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
 .timeline-row-label .tl-task-name{font-weight:800;color:var(--navy);font-size:13px}
 .timeline-row-label .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
 .timeline-row-track{position:relative;height:42px}
@@ -438,25 +479,15 @@ label.checkbox-card:has(input:checked),
   .kanban-card .kc-title{font-size:13px}
   .kanban-card .kc-meta{font-size:10px}
 
-  /* ===== TIMELINE — JS-based sticky labels, scroll horizontally ===== */
+  /* ===== TIMELINE — mobile: smaller label width ===== */
   .timeline-container{
     max-height:65vh;
-    overflow-x:auto;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
   }
-  .timeline-header{position:sticky;top:0;z-index:3}
-  /* JS will handle horizontal stickiness via transform */
   .timeline-header-label,
   .timeline-row-label{
-    background:#fff;
-    box-shadow:2px 0 6px rgba(0,0,0,.08);
     max-width:140px;
     min-width:140px;
-    z-index:5;
   }
-  .timeline-header-label{background:#f1f5f9;z-index:6}
-  .timeline-row-label{padding:8px 10px}
   .timeline-row-label .tl-task-name{font-size:12px;font-weight:800}
   .timeline-row-label .tl-task-meta{font-size:10px}
   .timeline-legend{font-size:10px;padding:8px;gap:6px;flex-wrap:wrap}
@@ -2551,10 +2582,18 @@ function renderTimeline(){
     </div>`;
   }).join('');
 
-  // Render WITHOUT wrapper div — rows + today-line are direct children of container
-  container.innerHTML=headerHtml+rowsHtml+todayLineHtml;
+  // Render rows DIRECTLY in container — no wrapper div
+  // Today-line wrapped in absolute container that doesn't block sticky
+  container.innerHTML=headerHtml+rowsHtml;
 
-  // === STICKY LEFT via JavaScript scroll listener (more reliable than CSS sticky on mobile) ===
+  // Today-line — append as separate absolute element AFTER rows
+  if(todayPos>labelWidth){
+    const todayDiv=document.createElement('div');
+    todayDiv.innerHTML=todayLineHtml;
+    container.appendChild(todayDiv);
+  }
+
+  // Position today-line correctly after DOM render
   requestAnimationFrame(()=>{
     const line=container.querySelector('.timeline-today-line');
     const marker=container.querySelector('.timeline-today-marker');
@@ -2567,14 +2606,6 @@ function renderTimeline(){
       line.style.height=rowsTotalHeight+'px';
       if(marker) marker.style.top=(headerH-6)+'px';
     }
-    // Sticky labels via translateX — works on all mobile browsers
-    const labels=container.querySelectorAll('.timeline-row-label, .timeline-header-label');
-    const updateLabels=()=>{
-      const x=container.scrollLeft;
-      labels.forEach(el=>{el.style.transform=`translateX(${x}px)`});
-    };
-    container.addEventListener('scroll',updateLabels,{passive:true});
-    updateLabels(); // initial position
   });
 }
 
