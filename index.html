@@ -99,15 +99,16 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 .task-th-wrap{white-space:normal!important;min-width:90px}
 
 /* Timeline (Gantt-style) */
-.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff}
+.timeline-container{overflow-x:auto;overflow-y:auto;max-height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff;position:relative}
 .timeline-empty{padding:40px;text-align:center;color:var(--muted)}
-.timeline-header{display:grid;background:#f1f5f9;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:3}
-.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;position:sticky;left:0;z-index:4}
+.timeline-header{display:grid;background:#f1f5f9;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:6}
+.timeline-header-label{padding:10px 12px;font-weight:800;font-size:12px;color:var(--navy);border-right:1px solid var(--line);background:#f1f5f9;position:sticky;left:0;z-index:7;box-shadow:2px 0 6px rgba(0,0,0,.08)}
 .timeline-header-cell{padding:8px 4px;font-size:11px;font-weight:800;color:var(--muted);text-align:center;border-right:1px solid #e6edf5}
 .timeline-header-cell.month-start{border-left:2px solid var(--blue);color:var(--navy);background:#eaf3ff}
 .timeline-row{display:grid;border-bottom:1px solid #eef2f6;min-height:42px;position:relative}
 .timeline-row:hover{background:#fafcff}
-.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;position:sticky;left:0;z-index:2;display:flex;flex-direction:column;justify-content:center}
+.timeline-row:hover .timeline-row-label{background:#fafcff}
+.timeline-row-label{padding:8px 12px;border-right:1px solid var(--line);font-size:12px;line-height:1.35;background:#fff;position:sticky;left:0;z-index:4;display:flex;flex-direction:column;justify-content:center;box-shadow:2px 0 6px rgba(0,0,0,.06)}
 .timeline-row-label .tl-task-name{font-weight:800;color:var(--navy);font-size:13px}
 .timeline-row-label .tl-task-meta{font-size:10px;color:var(--muted);margin-top:2px}
 .timeline-row-track{position:relative;height:42px}
@@ -197,59 +198,123 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .spine-tab span:first-child{font-size:18px}
   .spine-tab.active{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(11,47,102,.2)}
 
-  /* ===== TOPBAR — compact + hamburger ===== */
+  /* ===== TOPBAR — 3-zone layout: hamburger | title | actions ===== */
   .topbar{
-    padding:10px 12px;
+    padding:8px 10px;
     border-radius:0;
     margin-bottom:8px;
     position:sticky;top:0;z-index:50;
     background:#fff;
     box-shadow:0 2px 8px rgba(0,0,0,.04);
   }
-  .topbar-row{flex-direction:row;align-items:center;gap:8px;flex-wrap:wrap}
-  .titlebox{flex:1;min-width:0}
-  .titlebox h1{font-size:15px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .titlebox p{font-size:10px;margin:0;display:none}
+  .topbar-row{
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center;
+    gap:8px;
+    flex-wrap:nowrap!important;
+  }
+  .titlebox{flex:1;min-width:0;text-align:center}
+  .titlebox h1{font-size:14px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .titlebox p{display:none}
 
-  /* Hide most action buttons — show hamburger instead */
-  .actions{gap:4px;align-items:center;flex-wrap:nowrap}
-  .actions .btn{padding:7px 10px;font-size:11px;border-radius:8px;min-height:36px;white-space:nowrap}
-  .actions #undoBtn,.actions #redoBtn,.actions label.btn,.actions .btn.danger{display:none}
+  /* Hamburger button — LEFT */
+  .mobile-menu-btn{
+    display:flex!important;
+    align-items:center;justify-content:center;
+    width:40px;height:40px;
+    border-radius:10px;
+    background:var(--blueBg);
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+    color:var(--navy);
+    flex-shrink:0;
+  }
+  .mobile-menu-btn:hover{background:var(--blue);color:#fff}
 
-  /* Mobile hamburger button (added via JS) */
-  .mobile-menu-btn{display:flex!important;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:var(--line);border:none;font-size:18px;cursor:pointer}
-  .mobile-menu-btn:hover{background:var(--blueBg)}
+  /* Actions area — only mobile-only-btn + user chip should show */
+  .actions{
+    gap:4px;
+    flex-wrap:nowrap;
+    align-items:center;
+    flex-shrink:0;
+  }
+  .desktop-only-btn{display:none!important}
+  .mobile-only-btn{
+    display:inline-flex!important;
+    align-items:center;justify-content:center;
+    width:40px;height:40px;
+    padding:0;
+    font-size:16px;
+    border-radius:10px;
+    min-height:40px;
+  }
+
+  /* User chip — compact, wrap correctly */
+  .user-chip{
+    display:none!important;  /* hide chip on mobile — already shown in drawer */
+  }
+
+  /* Status line — wrap nicely */
+  .statusline{gap:4px;margin-top:6px;font-size:10px;flex-wrap:wrap}
+  .pill{padding:3px 7px;font-size:10px;border-radius:999px}
 
   /* Mobile menu drawer */
   .mobile-menu-drawer{
     display:none;
     position:fixed;
-    top:0;right:0;bottom:0;
-    width:260px;
+    top:0;left:0;bottom:0;  /* CHANGED: from RIGHT to LEFT */
+    width:280px;max-width:85vw;
     background:#fff;
     z-index:9500;
-    box-shadow:-4px 0 16px rgba(0,0,0,.15);
+    box-shadow:4px 0 16px rgba(0,0,0,.15);  /* shadow now on right */
     padding:16px;
     flex-direction:column;
     gap:8px;
     overflow-y:auto;
-    transform:translateX(100%);
-    transition:transform .2s ease;
+    transform:translateX(-100%);  /* CHANGED: slide from left */
+    transition:transform .25s ease;
   }
   .mobile-menu-drawer.show{display:flex;transform:translateX(0)}
-  .mobile-menu-drawer .btn{width:100%;justify-content:flex-start;padding:12px;font-size:14px;min-height:44px}
-  .mobile-menu-drawer .menu-section{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;padding:8px 0 4px;border-top:1px solid var(--line);margin-top:8px}
+  .mobile-menu-drawer .btn{width:100%;justify-content:flex-start;padding:12px;font-size:14px;min-height:44px;text-align:left}
+  .mobile-menu-drawer .menu-section{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;padding:10px 0 4px;border-top:1px solid var(--line);margin-top:8px;letter-spacing:.5px}
   .mobile-menu-drawer .menu-section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+  .mobile-menu-drawer .user-info{
+    background:linear-gradient(135deg,var(--blueBg),#fff);
+    border:1px solid var(--line);
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:6px;
+    text-align:center;
+  }
+  .mobile-menu-drawer .user-info .uname{font-size:16px;font-weight:800;color:var(--navy)}
+  .mobile-menu-drawer .user-info .urole{font-size:11px;color:var(--muted);margin-top:4px}
   .mobile-menu-backdrop{display:none;position:fixed;inset:0;background:rgba(11,47,102,.4);z-index:9400}
   .mobile-menu-backdrop.show{display:block}
 
-  /* Status line — compact */
-  .statusline{gap:4px;margin-top:6px;font-size:10px;flex-wrap:wrap}
-  .pill{padding:3px 7px;font-size:10px;border-radius:999px}
-
-  /* User chip */
-  .user-chip{padding:3px 7px;font-size:10px;gap:4px}
-  .user-chip .role-tag{padding:1px 5px;font-size:9px}
+  /* ===== CHECKBOX — bigger, prettier ===== */
+  input[type="checkbox"]{
+    width:22px!important;
+    height:22px!important;
+    cursor:pointer;
+    accent-color:var(--blue);
+    margin:0 6px 0 0;
+    flex-shrink:0;
+  }
+  label:has(input[type="checkbox"]){
+    display:flex!important;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+    min-height:44px;
+  }
+  label:has(input[type="checkbox"]):hover{background:var(--blueBg);border-color:var(--blue)}
 
   /* ===== FORMS — single column, big touch targets ===== */
   input,select,textarea{
@@ -260,6 +325,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
     -webkit-appearance:none;
   }
   textarea{min-height:80px}
+  input[type="search"]{padding-left:36px;background-position:10px center}
   label{font-size:11px;margin-bottom:4px;font-weight:700}
   .grid{gap:10px}
   .col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}
@@ -290,12 +356,9 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .project-tile .btn,.project-tile button{min-height:36px}
 
   /* ===== TABLES → CARD VIEW on mobile ===== */
-  /* Generic responsive table wrapper */
   .table-wrap{border-radius:10px;-webkit-overflow-scrolling:touch}
   .table-wrap table{font-size:12px}
   th,td{padding:8px 6px;font-size:12px}
-
-  /* Make tables horizontally scrollable but readable */
   .taskInput,.taskSelect,.taskArea{padding:8px;font-size:13px;min-height:38px;min-width:100px}
   .taskCellName{min-width:160px}
   .taskCellAction{min-width:130px}
@@ -307,14 +370,15 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   /* ===== USERS TABLE → CARD VIEW ===== */
   .user-row{
     grid-template-columns:1fr!important;
-    gap:8px;padding:14px;
+    gap:10px;padding:14px;
     border-radius:12px;
     border:1px solid var(--line);
-    margin-bottom:8px;
+    margin-bottom:10px;
     background:#fff;
+    box-shadow:0 1px 3px rgba(11,47,102,.04);
   }
   .user-row.header{display:none}
-  .user-row>div{display:flex;flex-direction:column;gap:3px}
+  .user-row>div{display:flex;flex-direction:column;gap:4px}
   .user-row>div::before{
     content:attr(data-label);
     font-size:10px;
@@ -326,7 +390,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .user-row input,.user-row select{padding:10px 12px;font-size:14px}
   .user-row .btn,.user-row button{width:100%;padding:10px;min-height:40px}
 
-  /* ===== KANBAN — single column, full-width cards ===== */
+  /* ===== KANBAN — single column ===== */
   .kanban-board{grid-template-columns:1fr;gap:10px}
   .kanban-col{padding:10px;min-height:auto}
   .kanban-col-header{font-size:12px;padding:6px 10px}
@@ -334,11 +398,29 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   .kanban-card .kc-title{font-size:13px}
   .kanban-card .kc-meta{font-size:10px}
 
-  /* ===== TIMELINE — compact ===== */
-  .timeline-container{max-height:60vh}
-  .timeline-header-label,.timeline-row-label{padding:6px 8px}
-  .timeline-row-label .tl-task-name{font-size:11px}
-  .timeline-row-label .tl-task-meta{font-size:9px}
+  /* ===== TIMELINE — sticky labels, scroll horizontally ===== */
+  .timeline-container{
+    max-height:65vh;
+    overflow-x:auto;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .timeline-header{position:sticky;top:0;z-index:3}
+  /* Make label column STICKY on horizontal scroll */
+  .timeline-header-label,
+  .timeline-row-label{
+    position:sticky;
+    left:0;
+    z-index:4;
+    background:#fff;
+    box-shadow:2px 0 6px rgba(0,0,0,.08);
+    max-width:160px;
+    min-width:160px;
+  }
+  .timeline-header-label{background:#f1f5f9;z-index:5}
+  .timeline-row-label{padding:8px 10px}
+  .timeline-row-label .tl-task-name{font-size:12px;font-weight:800}
+  .timeline-row-label .tl-task-meta{font-size:10px}
   .timeline-legend{font-size:10px;padding:8px;gap:6px;flex-wrap:wrap}
   .timeline-header-cell{font-size:10px;padding:6px 2px}
   .timeline-bar{font-size:10px;padding:0 6px;height:24px;top:9px}
@@ -385,22 +467,21 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   #taskProjectBanner h3{font-size:14px;margin:0}
   #taskProjectBanner .ptile-meta{font-size:11px}
 
-  /* Project name banner on top of task page */
   #trackerProjectName{font-size:14px;font-weight:700}
 
-  /* ===== TABS PAGE TRANSITIONS ===== */
+  /* ===== TABS PAGE ===== */
   .tabpage{padding-bottom:20px}
 
   /* ===== ACTIONS in dashboards ===== */
   .actions.dash-actions{flex-direction:column;align-items:stretch}
   .actions.dash-actions .btn{width:100%;justify-content:center}
 
-  /* Dropdown menu (export) */
   .dropdown-menu{position:fixed!important;right:8px!important;left:8px!important;top:auto;bottom:80px;min-width:auto}
 }
 
-/* Hide hamburger on desktop */
-.mobile-menu-btn{display:none}
+/* Hide mobile-only elements on desktop */
+.mobile-menu-btn,.mobile-only-btn{display:none}
+.desktop-only-btn{}  /* default visible */
 
 /* ===== TINY PHONES (≤480px) — extra compact ===== */
 @media(max-width:480px){
@@ -455,6 +536,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
   <main class="main">
     <header class="topbar noPrint">
       <div class="topbar-row">
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
         <div class="titlebox">
           <h1>RTM Project Tracker</h1>
           <p>Multi-Project + Team Collaboration • Flow: Setup → Task → Dashboard</p>
@@ -464,15 +546,17 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
             <span id="userChipName">-</span>
             <span id="userChipRole" class="role-tag">-</span>
           </span>
-          <button class="btn primary" onclick="runProject()">▶ Run</button>
-          <button class="btn ok" onclick="manualSave()">💾 Save</button>
-          <button id="undoBtn" class="btn ghost" onclick="undo()">↩ Undo</button>
-          <button id="redoBtn" class="btn ghost" onclick="redo()">↪ Redo</button>
-          <div class="dropdown"><button class="btn">📤 Export</button><div class="dropdown-menu"><button onclick="exportExcel()">Excel (.xls)</button><button onclick="exportCSV()">CSV</button><button onclick="exportPDF()">PDF</button><button onclick="exportJSON()">JSON Draft</button></div></div>
-          <label class="btn ghost" style="margin:0;cursor:pointer">Import JSON<input type="file" accept="application/json" onchange="importJSON(event)" style="display:none"></label>
-          <button class="btn danger" onclick="clearDraft()">Clear</button>
-          <button class="btn ghost" onclick="doLogout()">🚪 Logout</button>
-          <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+          <button class="btn primary desktop-only-btn" onclick="runProject()">▶ Run</button>
+          <button class="btn ok desktop-only-btn" onclick="manualSave()">💾 Save</button>
+          <button id="undoBtn" class="btn ghost desktop-only-btn" onclick="undo()">↩ Undo</button>
+          <button id="redoBtn" class="btn ghost desktop-only-btn" onclick="redo()">↪ Redo</button>
+          <div class="dropdown desktop-only-btn"><button class="btn">📤 Export</button><div class="dropdown-menu"><button onclick="exportExcel()">Excel (.xls)</button><button onclick="exportCSV()">CSV</button><button onclick="exportPDF()">PDF</button><button onclick="exportJSON()">JSON Draft</button></div></div>
+          <label class="btn ghost desktop-only-btn" style="margin:0;cursor:pointer">Import JSON<input type="file" accept="application/json" onchange="importJSON(event)" style="display:none"></label>
+          <button class="btn danger desktop-only-btn" onclick="clearDraft()">Clear</button>
+          <button class="btn ghost desktop-only-btn" onclick="doLogout()">🚪 Logout</button>
+          <!-- Mobile-only quick action buttons -->
+          <button class="btn primary mobile-only-btn" onclick="runProject()" title="Run">▶</button>
+          <button class="btn ok mobile-only-btn" onclick="manualSave()" title="Save">💾</button>
         </div>
       </div>
       <div class="statusline">
@@ -489,7 +573,12 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
     <div id="mobileMenuDrawer" class="mobile-menu-drawer">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <b style="font-size:14px;color:var(--navy)">Menu</b>
-        <button onclick="closeMobileMenu()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">×</button>
+        <button onclick="closeMobileMenu()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);padding:0 4px">×</button>
+      </div>
+      <!-- User info (shown in drawer since chip is hidden on mobile topbar) -->
+      <div class="user-info" id="mobileMenuUserInfo">
+        <div class="uname" id="mobileMenuUserName">-</div>
+        <div class="urole" id="mobileMenuUserRole">-</div>
       </div>
       <div class="menu-section">Actions</div>
       <button class="btn ghost" onclick="undo();closeMobileMenu()">↩ Undo</button>
@@ -1002,6 +1091,9 @@ function postLoginInit(){
   const roleEl=$('userChipRole');
   roleEl.textContent=session.role+(session.region?' • '+session.region:'')+(session.dc?' • '+session.dc:'');
   roleEl.className='role-tag '+session.role;
+  // Update mobile menu user info too
+  if($('mobileMenuUserName')) $('mobileMenuUserName').textContent=session.username;
+  if($('mobileMenuUserRole')) $('mobileMenuUserRole').textContent=session.role+(session.region?' • '+session.region:'')+(session.dc?' • '+session.dc:'');
   // Show Settings tab only for RTM
   $('settingsTab').style.display=session.role==='RTM'?'flex':'none';
   // Hide Setup + Task tabs for RSM/RTM (they don't create/edit projects directly — they oversee)
@@ -2335,8 +2427,11 @@ function renderTimeline(){
   }
 
   const totalDays=Math.ceil((maxDate-minDate)/86400000)+1;
-  const dayWidth=Math.max(22,Math.min(60,Math.floor(900/totalDays))); // 22-60px per day
-  const labelWidth=240;
+  const isMobile=window.innerWidth<=768;
+  const dayWidth=isMobile
+    ? Math.max(28,Math.min(60,Math.floor(900/totalDays)))   // wider per day on mobile for readability
+    : Math.max(22,Math.min(60,Math.floor(900/totalDays)));
+  const labelWidth=isMobile?140:240;
 
   // Build header dates
   const headerCells=[];
