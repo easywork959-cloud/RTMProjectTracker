@@ -2,7 +2,11 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+<meta name="theme-color" content="#0b2f66" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <title>RTM Project Tracker</title>
 <style>
 :root{
@@ -155,139 +159,263 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
 
 @media(max-width:1000px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;flex-direction:row;justify-content:flex-start;overflow:auto}.brand-spine{writing-mode:initial;transform:none;margin:0 8px 0 0}.spine-tab{min-width:72px;min-height:58px}.dashboard-layout,.task-page-layout{grid-template-columns:1fr}.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}.topbar{top:0;border-radius:0}.user-row{grid-template-columns:1fr 1fr;font-size:12px}.user-row.header{display:none}}
 
-/* ===== MOBILE-FIRST RESPONSIVE OVERRIDES (≤768px) ===== */
+/* ===== MOBILE OVERHAUL (≤768px) — bottom nav + card views + hamburger ===== */
 @media(max-width:768px){
-  /* Body & spacing */
-  body{font-size:14px}
-  .main{padding:8px 8px 12px}
+  body{font-size:14px;padding-bottom:72px}  /* room for bottom nav */
+  .app{display:block;grid-template-columns:none}
+  .main{padding:6px 8px 12px}
   .card{padding:12px;border-radius:14px;margin-bottom:10px}
 
-  /* Sidebar — compact horizontal scroll */
-  .sidebar{padding:8px 6px;gap:6px}
-  .brand-spine{display:none}  /* hide on mobile to save space */
-  .spine-tab{min-width:64px;min-height:54px;font-size:10px;padding:4px;border-radius:10px}
-  .spine-tab span:first-child{font-size:16px}
+  /* ===== SIDEBAR → BOTTOM NAVIGATION ===== */
+  .sidebar{
+    position:fixed!important;
+    bottom:0;left:0;right:0;top:auto;
+    z-index:900;
+    flex-direction:row!important;
+    background:#fff;
+    border-top:1px solid var(--line);
+    box-shadow:0 -4px 12px rgba(11,47,102,.08);
+    padding:6px 4px 8px;
+    gap:2px;
+    overflow-x:auto;
+    border-radius:0;
+    height:auto;
+    justify-content:space-around;
+  }
+  .brand-spine{display:none}
+  .spine-tab{
+    min-width:54px;
+    min-height:56px;
+    font-size:9px;
+    padding:4px 2px;
+    border-radius:10px;
+    flex-direction:column;
+    gap:2px;
+    flex:1;
+    max-width:80px;
+  }
+  .spine-tab span:first-child{font-size:18px}
+  .spine-tab.active{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(11,47,102,.2)}
 
-  /* Topbar — collapsible + smaller buttons */
-  .topbar{padding:10px 12px;border-radius:0;margin-bottom:10px}
-  .topbar-row{flex-direction:column;align-items:stretch;gap:8px}
-  .titlebox h1{font-size:18px}
-  .titlebox p{font-size:11px}
-  .actions{gap:6px;justify-content:flex-start}
-  .actions .btn{padding:8px 10px;font-size:12px;border-radius:9px}
-  .actions .btn.ghost{display:inline-flex}
-  /* Hide less critical buttons on small screens — keep Run, Save, Export, Logout */
-  .actions #undoBtn,.actions #redoBtn{display:none}
-  .statusline{gap:5px;margin-top:8px}
-  .pill{padding:4px 8px;font-size:10px}
+  /* ===== TOPBAR — compact + hamburger ===== */
+  .topbar{
+    padding:10px 12px;
+    border-radius:0;
+    margin-bottom:8px;
+    position:sticky;top:0;z-index:50;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .topbar-row{flex-direction:row;align-items:center;gap:8px;flex-wrap:wrap}
+  .titlebox{flex:1;min-width:0}
+  .titlebox h1{font-size:15px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .titlebox p{font-size:10px;margin:0;display:none}
 
-  /* User chip — compact */
-  .user-chip{padding:4px 8px;font-size:11px}
-  .user-chip .role-tag{padding:1px 6px;font-size:9px}
+  /* Hide most action buttons — show hamburger instead */
+  .actions{gap:4px;align-items:center;flex-wrap:nowrap}
+  .actions .btn{padding:7px 10px;font-size:11px;border-radius:8px;min-height:36px;white-space:nowrap}
+  .actions #undoBtn,.actions #redoBtn,.actions label.btn,.actions .btn.danger{display:none}
 
-  /* Tables — give comfortable touch targets */
-  th,td{padding:8px 6px;font-size:12px}
-  .taskInput,.taskSelect,.taskArea{padding:8px;font-size:13px;min-height:36px}
-  .taskCellName{min-width:160px}
-  .taskCellAction{min-width:140px}
-  .taskCellComment{min-width:140px}
-  .taskCellLabel{min-width:120px}
-  .taskCellStatus{min-width:110px}
-  .task-due{min-width:120px}
+  /* Mobile hamburger button (added via JS) */
+  .mobile-menu-btn{display:flex!important;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:var(--line);border:none;font-size:18px;cursor:pointer}
+  .mobile-menu-btn:hover{background:var(--blueBg)}
 
-  /* Forms */
-  input,select,textarea{padding:10px 12px;font-size:14px;border-radius:10px}
-  label{font-size:11px;margin-bottom:4px}
+  /* Mobile menu drawer */
+  .mobile-menu-drawer{
+    display:none;
+    position:fixed;
+    top:0;right:0;bottom:0;
+    width:260px;
+    background:#fff;
+    z-index:9500;
+    box-shadow:-4px 0 16px rgba(0,0,0,.15);
+    padding:16px;
+    flex-direction:column;
+    gap:8px;
+    overflow-y:auto;
+    transform:translateX(100%);
+    transition:transform .2s ease;
+  }
+  .mobile-menu-drawer.show{display:flex;transform:translateX(0)}
+  .mobile-menu-drawer .btn{width:100%;justify-content:flex-start;padding:12px;font-size:14px;min-height:44px}
+  .mobile-menu-drawer .menu-section{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;padding:8px 0 4px;border-top:1px solid var(--line);margin-top:8px}
+  .mobile-menu-drawer .menu-section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+  .mobile-menu-backdrop{display:none;position:fixed;inset:0;background:rgba(11,47,102,.4);z-index:9400}
+  .mobile-menu-backdrop.show{display:block}
+
+  /* Status line — compact */
+  .statusline{gap:4px;margin-top:6px;font-size:10px;flex-wrap:wrap}
+  .pill{padding:3px 7px;font-size:10px;border-radius:999px}
+
+  /* User chip */
+  .user-chip{padding:3px 7px;font-size:10px;gap:4px}
+  .user-chip .role-tag{padding:1px 5px;font-size:9px}
+
+  /* ===== FORMS — single column, big touch targets ===== */
+  input,select,textarea{
+    padding:11px 12px;
+    font-size:15px;
+    border-radius:10px;
+    min-height:44px;
+    -webkit-appearance:none;
+  }
+  textarea{min-height:80px}
+  label{font-size:11px;margin-bottom:4px;font-weight:700}
   .grid{gap:10px}
+  .col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12}
 
   /* Headings */
-  h2{font-size:16px;margin:0 0 8px}
+  h2{font-size:15px;margin:0 0 8px;font-weight:800}
   h3{font-size:13px}
-  .hint{font-size:11px}
+  .hint{font-size:11px;line-height:1.5}
 
-  /* Metric tiles — bigger numbers on small */
-  .metric{padding:12px;min-height:74px}
+  /* ===== METRICS — 2x2 grid ===== */
+  .grid .col-3{grid-column:span 6!important}
+  .metric{padding:12px 10px;min-height:70px}
   .metric b{font-size:22px}
-  .metric span{font-size:11px}
+  .metric span{font-size:10px}
 
-  /* Filter bar — stack vertically */
-  .filter-bar{flex-direction:column;align-items:stretch;gap:6px;padding:8px 0}
-  .filter-bar input,.filter-bar select{max-width:100%;width:100%}
+  /* ===== FILTER BAR — full width stack ===== */
+  .filter-bar{flex-direction:column;align-items:stretch;gap:6px;padding:6px 0}
+  .filter-bar input,.filter-bar select,.filter-bar button{width:100%;max-width:100%}
 
-  /* Project bar (Setup) */
+  /* ===== PROJECT LIST — single column tiles ===== */
   .project-bar{flex-direction:column;align-items:stretch;gap:6px;padding:8px}
-  .project-bar input[type="search"],.project-bar select{max-width:100%}
-
-  /* Project list grid — single col */
+  .project-bar input[type="search"],.project-bar select{max-width:100%;width:100%}
   .project-list-grid{grid-template-columns:1fr;gap:8px}
-  .project-tile{padding:12px}
-  .project-tile h3{font-size:14px;padding-right:70px}
-  .project-tile .ptile-meta{font-size:10px}
+  .project-tile{padding:14px;position:relative}
+  .project-tile h3{font-size:15px;padding-right:8px;margin-bottom:6px}
+  .project-tile .ptile-tag{font-size:10px;padding:2px 6px}
+  .project-tile .ptile-meta{font-size:11px}
+  .project-tile .btn,.project-tile button{min-height:36px}
 
-  /* Buttons in tiles */
-  .btn.mini{padding:6px 8px;font-size:11px;min-height:34px}
+  /* ===== TABLES → CARD VIEW on mobile ===== */
+  /* Generic responsive table wrapper */
+  .table-wrap{border-radius:10px;-webkit-overflow-scrolling:touch}
+  .table-wrap table{font-size:12px}
+  th,td{padding:8px 6px;font-size:12px}
 
-  /* Kanban — single column on phone */
-  .kanban-board{grid-template-columns:1fr;gap:8px}
-  .kanban-col{padding:8px;min-height:auto}
-  .kanban-card{padding:8px;font-size:11px}
-  .kanban-card .kc-title{font-size:12px}
+  /* Make tables horizontally scrollable but readable */
+  .taskInput,.taskSelect,.taskArea{padding:8px;font-size:13px;min-height:38px;min-width:100px}
+  .taskCellName{min-width:160px}
+  .taskCellAction{min-width:130px}
+  .taskCellComment{min-width:130px}
+  .taskCellLabel{min-width:120px}
+  .taskCellStatus{min-width:110px}
+  .task-due{min-width:130px}
 
-  /* Timeline */
-  .timeline-row-label{padding:6px 8px}
+  /* ===== USERS TABLE → CARD VIEW ===== */
+  .user-row{
+    grid-template-columns:1fr!important;
+    gap:8px;padding:14px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    margin-bottom:8px;
+    background:#fff;
+  }
+  .user-row.header{display:none}
+  .user-row>div{display:flex;flex-direction:column;gap:3px}
+  .user-row>div::before{
+    content:attr(data-label);
+    font-size:10px;
+    color:var(--muted);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  .user-row input,.user-row select{padding:10px 12px;font-size:14px}
+  .user-row .btn,.user-row button{width:100%;padding:10px;min-height:40px}
+
+  /* ===== KANBAN — single column, full-width cards ===== */
+  .kanban-board{grid-template-columns:1fr;gap:10px}
+  .kanban-col{padding:10px;min-height:auto}
+  .kanban-col-header{font-size:12px;padding:6px 10px}
+  .kanban-card{padding:10px;font-size:12px;margin-bottom:6px;min-height:50px}
+  .kanban-card .kc-title{font-size:13px}
+  .kanban-card .kc-meta{font-size:10px}
+
+  /* ===== TIMELINE — compact ===== */
+  .timeline-container{max-height:60vh}
+  .timeline-header-label,.timeline-row-label{padding:6px 8px}
   .timeline-row-label .tl-task-name{font-size:11px}
   .timeline-row-label .tl-task-meta{font-size:9px}
-  .timeline-legend{font-size:10px;padding:8px;gap:6px}
+  .timeline-legend{font-size:10px;padding:8px;gap:6px;flex-wrap:wrap}
+  .timeline-header-cell{font-size:10px;padding:6px 2px}
+  .timeline-bar{font-size:10px;padding:0 6px;height:24px;top:9px}
+  .timeline-today-marker{font-size:9px;padding:2px 6px}
 
-  /* Summary tiles (Overview) */
+  /* ===== SUMMARY TILES ===== */
   .summary-grid{grid-template-columns:1fr;gap:8px}
-  .summary-tile{padding:10px}
+  .summary-tile{padding:12px}
   .summary-tile h4{font-size:13px}
 
-  /* Settings User row — vertical stacked card style */
-  .user-row{grid-template-columns:1fr!important;gap:6px;padding:10px;border-radius:10px;border:1px solid var(--line);margin-bottom:6px;background:#fff}
-  .user-row.header{display:none}
-  .user-row>div{display:flex;flex-direction:column;gap:2px}
-  .user-row>div::before{content:attr(data-label);font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase}
+  /* ===== ARCHIVE TILES ===== */
+  .archive-list-grid{grid-template-columns:1fr;gap:8px}
 
-  /* Modal — fullscreen on mobile */
-  .modal-overlay{padding:8px;align-items:flex-start}
-  .modal-card{padding:16px;border-radius:14px;max-width:100%;width:100%}
-  .modal-title{font-size:18px;padding-right:42px}
-  .modal-close{width:32px;height:32px;font-size:18px;top:10px;right:10px}
+  /* ===== MODAL — fullscreen on mobile ===== */
+  .modal-overlay{padding:0;align-items:stretch}
+  .modal-card{
+    padding:16px;
+    border-radius:0;
+    max-width:100%;
+    width:100%;
+    min-height:100vh;
+    box-shadow:none;
+  }
+  .modal-title{font-size:17px;padding-right:42px;margin-bottom:8px}
+  .modal-close{width:36px;height:36px;font-size:18px;top:10px;right:10px}
+  .modal-subtitle{font-size:11px}
   .modal-grid{grid-template-columns:1fr;gap:8px}
   .modal-section{margin-top:10px;padding-top:10px}
   .modal-section h4{font-size:11px}
   .modal-tasks-mini th,.modal-tasks-mini td{padding:5px 6px;font-size:10px}
+  .modal-meta-item span{font-size:13px}
+  .modal-archive-comment{font-size:13px;padding:12px}
 
-  /* Login overlay — full mobile */
-  .login-card{padding:20px;width:100%;max-width:100%;margin:8px;border-radius:14px}
-  .login-card h1{font-size:20px}
-  .login-card p{font-size:12px}
+  /* ===== LOGIN ===== */
+  .login-overlay{padding:0}
+  .login-card{padding:24px 20px;width:100%;max-width:100%;margin:0;border-radius:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .login-card h1{font-size:22px}
+  .login-card p{font-size:13px}
+  .login-card input{padding:14px;font-size:16px;min-height:48px}
+  .login-card .btn{padding:14px;font-size:15px;min-height:48px}
 
-  /* Add Task banner */
-  #taskProjectBanner{padding:8px 10px;margin-bottom:8px}
-  #taskProjectBanner h3{font-size:14px}
+  /* ===== ADD TASK BANNER ===== */
+  #taskProjectBanner{padding:10px 12px;margin-bottom:10px;border-radius:12px}
+  #taskProjectBanner h3{font-size:14px;margin:0}
+  #taskProjectBanner .ptile-meta{font-size:11px}
 
-  /* Dropdown menu */
-  .dropdown-menu{right:auto;left:0;min-width:160px}
+  /* Project name banner on top of task page */
+  #trackerProjectName{font-size:14px;font-weight:700}
 
-  /* Hide overly-wide table columns? Keep horizontal scroll instead */
-  .table-wrap{border-radius:10px}
+  /* ===== TABS PAGE TRANSITIONS ===== */
+  .tabpage{padding-bottom:20px}
+
+  /* ===== ACTIONS in dashboards ===== */
+  .actions.dash-actions{flex-direction:column;align-items:stretch}
+  .actions.dash-actions .btn{width:100%;justify-content:center}
+
+  /* Dropdown menu (export) */
+  .dropdown-menu{position:fixed!important;right:8px!important;left:8px!important;top:auto;bottom:80px;min-width:auto}
 }
+
+/* Hide hamburger on desktop */
+.mobile-menu-btn{display:none}
 
 /* ===== TINY PHONES (≤480px) — extra compact ===== */
 @media(max-width:480px){
-  .main{padding:6px 6px 10px}
-  .card{padding:10px}
-  .titlebox h1{font-size:16px}
-  .actions .btn{padding:7px 9px;font-size:11px}
-  .actions .btn.danger,.actions label.btn{display:none}  /* hide Clear + Import on tiny */
-  .pill{font-size:9px;padding:3px 6px}
-  .spine-tab{min-width:56px;min-height:48px;font-size:9px}
-  .spine-tab span:first-child{font-size:14px}
-  h2{font-size:15px}
+  .main{padding:4px 6px 12px}
+  .card{padding:10px;border-radius:12px}
+  .titlebox h1{font-size:14px}
+  .actions .btn{padding:6px 8px;font-size:11px;min-height:34px}
+  .pill{font-size:9px;padding:2px 6px}
+  .spine-tab{min-width:50px;min-height:54px;font-size:9px;padding:3px}
+  .spine-tab span:first-child{font-size:16px}
+  h2{font-size:14px}
   .metric b{font-size:18px}
+  .metric{padding:10px 8px;min-height:60px}
+  th,td{padding:6px 4px;font-size:11px}
+  .login-card h1{font-size:18px}
 }
 @media print{body{background:#fff}.sidebar,.topbar,#setup,#tasks,#kanban,#archive,#settings,.noPrint{display:none!important}.app{display:block}.main{padding:0}.card,.metric{box-shadow:none}.tabpage{display:block!important}.dashboard-layout{grid-template-columns:1fr}.task-summary-card{min-height:auto}}
 </style>
@@ -344,6 +472,7 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
           <label class="btn ghost" style="margin:0;cursor:pointer">Import JSON<input type="file" accept="application/json" onchange="importJSON(event)" style="display:none"></label>
           <button class="btn danger" onclick="clearDraft()">Clear</button>
           <button class="btn ghost" onclick="doLogout()">🚪 Logout</button>
+          <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
         </div>
       </div>
       <div class="statusline">
@@ -354,6 +483,27 @@ h2{font-size:18px;margin:0 0 10px;color:var(--navy)}h3{font-size:14px;margin:0 0
         <span class="pill">Ctrl+Z / Ctrl+Y</span>
       </div>
     </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileMenuBackdrop" class="mobile-menu-backdrop" onclick="closeMobileMenu()"></div>
+    <div id="mobileMenuDrawer" class="mobile-menu-drawer">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <b style="font-size:14px;color:var(--navy)">Menu</b>
+        <button onclick="closeMobileMenu()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">×</button>
+      </div>
+      <div class="menu-section">Actions</div>
+      <button class="btn ghost" onclick="undo();closeMobileMenu()">↩ Undo</button>
+      <button class="btn ghost" onclick="redo();closeMobileMenu()">↪ Redo</button>
+      <div class="menu-section">Export / Import</div>
+      <button class="btn" onclick="exportExcel();closeMobileMenu()">📊 Export Excel</button>
+      <button class="btn" onclick="exportCSV();closeMobileMenu()">📄 Export CSV</button>
+      <button class="btn" onclick="exportPDF();closeMobileMenu()">📑 Export PDF</button>
+      <button class="btn" onclick="exportJSON();closeMobileMenu()">💾 Export JSON</button>
+      <label class="btn ghost" style="margin:0;cursor:pointer;text-align:left">📁 Import JSON<input type="file" accept="application/json" onchange="importJSON(event);closeMobileMenu()" style="display:none"></label>
+      <div class="menu-section">Other</div>
+      <button class="btn danger" onclick="clearDraft();closeMobileMenu()">🗑 Clear Draft</button>
+      <button class="btn ghost" onclick="closeMobileMenu();doLogout()">🚪 Logout</button>
+    </div>
 
     <!-- ============== SETUP TAB ============== -->
     <section id="setup" class="tabpage">
@@ -825,6 +975,18 @@ async function doLogin(){
   $('loginOverlay').style.display='none';
   postLoginInit();
 }
+function toggleMobileMenu(){
+  const drawer=$('mobileMenuDrawer'), backdrop=$('mobileMenuBackdrop');
+  if(!drawer||!backdrop)return;
+  drawer.classList.toggle('show');
+  backdrop.classList.toggle('show');
+}
+function closeMobileMenu(){
+  const drawer=$('mobileMenuDrawer'), backdrop=$('mobileMenuBackdrop');
+  if(drawer) drawer.classList.remove('show');
+  if(backdrop) backdrop.classList.remove('show');
+}
+
 function doLogout(){
   if(!confirm('ออกจากระบบ?'))return;
   localStorage.removeItem(SESSION_KEY);
@@ -2287,11 +2449,15 @@ function fillForm(){
   updateTaskProjectBanner();
 }
 function showTab(id){
+  // Close mobile menu drawer when switching tabs
+  closeMobileMenu();
   document.querySelectorAll('.tabpage').forEach(x=>x.classList.add('hidden'));
   const sec=$(id); if(sec) sec.classList.remove('hidden');
   document.querySelectorAll('.spine-tab').forEach(x=>x.classList.remove('active'));
   const tabBtn=document.querySelector(`.spine-tab[data-tab="${id}"]`);
   if(tabBtn) tabBtn.classList.add('active');
+  // Scroll to top on mobile (for better UX after tab switch)
+  if(window.innerWidth<=768) window.scrollTo({top:0,behavior:'smooth'});
   // Per-tab refresh
   if(id==='overview') renderOverview();
   if(id==='dashboard'){
